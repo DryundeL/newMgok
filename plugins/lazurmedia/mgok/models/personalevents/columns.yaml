@@ -1,0 +1,41 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    login:
+        label: Ученик
+        type: text
+        searchable: true
+        sortable: true
+    event_name:
+        label: 'Название события'
+        type: text
+        searchable: true
+        sortable: true
+    time_from:
+        label: 'Время начала'
+        type: time
+        searchable: true
+        sortable: true
+    time_to:
+        label: 'Время завершения'
+        type: time
+        searchable: true
+        sortable: true
+    event_place:
+        label: 'Место события'
+        type: text
+        searchable: true
+        sortable: true
+    day_of_week:
+        label: 'День недели'
+        type: text
+        searchable: true
+        sortable: true
+    date:
+        label: Дата
+        type: date
+        searchable: true
+        sortable: true

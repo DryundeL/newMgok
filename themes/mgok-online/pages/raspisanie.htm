@@ -1,0 +1,43 @@
+title = "Расписание"
+url = "/"
+layout = "main"
+description = "Страница \"Главная\""
+meta_title = "Расписание"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[Schedule]
+==
+<link rel="stylesheet" href="{{ 'assets/css/schedule.css'|theme }}">
+
+<section class="schedule-search">
+	<div class="wrapper schedule-search__wrapper">
+		<div class="schedule-search__bordered-block">
+			<select name="type" id="type">
+				<option value="Преподаватель">Преподаватель</option>
+				<option value="Группа/класс">Группа/класс</option>
+				<option value="Учащийся">Учащийся</option>
+			</select>
+			<input type="text">
+		</div>
+		<button class="schedule-search__btn">Поиск</button>
+	</div>
+</section>
+<section class="schedule-weeks">
+	<div class="wrapper">
+		<div class="schedule-weeks__block">
+			<img src="{{ 'assets/icons/arrow-left.svg'|theme }}" alt="">
+			<span>{{ Schedule.dates['monday'] }} - {{ Schedule.dates['sunday'] }}</span>
+			<img src="{{ 'assets/icons/arrow-right.svg'|theme }}" alt="">
+		</div>
+	</div>
+</section>
+
+<section class="schedule">
+	{% partial "schedule/schedule" 
+		dates=Schedule.dates
+		lessonsArr=Schedule.lessons
+		eventsArr=Schedule.events
+	%}
+</section>

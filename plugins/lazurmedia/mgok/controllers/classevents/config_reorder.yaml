@@ -1,0 +1,4 @@
+title: ClassEvents
+modelClass: Lazurmedia\Mgok\Models\ClassEvents
+toolbar:
+    buttons: reorder_toolbar

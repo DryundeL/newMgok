@@ -1,0 +1,4 @@
+title: Cabinets
+modelClass: Lazurmedia\Mgok\Models\Cabinets
+toolbar:
+    buttons: reorder_toolbar

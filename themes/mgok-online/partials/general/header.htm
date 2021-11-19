@@ -1,0 +1,33 @@
+==
+<div class="header__wrapper wrapper">
+	<div class="header__logo">
+		<a class="header__link" href="https://mgok.mskobr.ru/" target="_blank">
+			<img src="{{ 'assets/icons/MGOK.svg'|theme }}" alt="Logo">
+		</a>
+	</div>
+	
+	<nav class="header__nav">
+		<ul class="header__nav-list">
+			<li class="header__nav-item {{ this.page.id == 'raspisanie' ? 'header__nav-item_active' }}"><a href="{{ '/' }}">Расписание</a></li>
+			<li class="header__nav-item {{ this.page.id == 'zagruzhennost-kabinetov' ? 'header__nav-item_active' }}"><a href="{{ '/zagruzhennost-kabinetov' }}">Загруженность кабинетов</a></li>
+			<li class="header__nav-item {{ this.page.id == 'tehpodderzhka' ? 'header__nav-item_active' }}"><a href="{{ '/tehpodderzhka' }}">Техподдержка</a></li>
+			<li class="header__nav-item {{ this.page.id == 'onlajn-priemnaya' ? 'header__nav-item_active' }}"><a href="{{ '/onlajn-priemnaya' }}">Онлайн-приемная</a></li>
+			<li class="header__nav-item {{ this.page.id == 'brs' ? 'header__nav-item_active' }}"><a href="{{ '/brs' }}">БРС</a></li>
+		</ul>
+	</nav>
+	
+	<div class="header__user">
+		<div class="header__dropdown user-dropdown">
+			<button class="user-dropdown__btn">Александрова Е.А.</button>
+			<ul class="user-dropdown__list">
+				{% if Authorization.role == 'Преподаватель' %}
+					<li class="user-dropdown__item"><a href="{{ '/raspisanie-klassa' }}">Класс</a></li>
+					<li class="user-dropdown__item"><a href="{{ '/individualnoe-raspisanie' }}">Индивидуальное расписание</a></li>
+				{% elseif Authorization.role == 'Студент'%}
+					<li class="user-dropdown__item"><a href="{{ '<!-- ВСТАВИТЬ НЕ ЗАБУДЬ -->' }}">Редактировать</a></li>
+				{% endif %}
+			</ul>
+		</div>
+		<a class="header__sign-out" data-request="onLogout">Выход</a>
+	</div>
+</div>

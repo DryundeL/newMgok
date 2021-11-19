@@ -1,0 +1,10 @@
+name: Schedule
+form: $/lazurmedia/mgok/models/schedule/fields.yaml
+modelClass: Lazurmedia\Mgok\Models\Schedule
+defaultRedirect: lazurmedia/mgok/schedule
+create:
+    redirect: 'lazurmedia/mgok/schedule/update/:id'
+    redirectClose: lazurmedia/mgok/schedule
+update:
+    redirect: lazurmedia/mgok/schedule
+    redirectClose: lazurmedia/mgok/schedule

@@ -1,0 +1,4 @@
+title: Users
+modelClass: Lazurmedia\Mgok\Models\Users
+toolbar:
+    buttons: reorder_toolbar

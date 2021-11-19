@@ -1,0 +1,37 @@
+title = "Авторизация"
+url = "/avtorizaciya"
+layout = "main"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+==
+<link href="{{ 'assets/css/auth.css'|theme }}" rel="stylesheet">
+
+<section class="auth">
+	<form data-request="onAuth" data-request-validate class="auth__form">
+		<h1 class="auth__title">Вход:</h1>
+		
+		<div class="auth__item">
+			<label for="login">Логин:</label>
+			<input type="text" id="login" name="login" placeholder="Введите логин">
+			<span data-validate-for="login"></span> <br>
+		</div>
+		
+		<div class="auth__item">
+			<label for="password">Пароль:</label>
+			<input type="password" name="password" id="password" placeholder="Введите пароль">
+			<span data-validate-for="password"></span>
+		</div>
+		
+		<div class="enter-form__valid">
+		  {% flash %}
+		    <div class="flash-message">{{ message }}</divf>
+		  {% endflash %}
+		</div>
+		
+		<div class="auth__btn">
+			<button type="submit">Войти</button>
+			<span></span>
+		</div>
+	</form>
+</section>

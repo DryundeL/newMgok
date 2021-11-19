@@ -1,0 +1,4 @@
+title: Schedule
+modelClass: Lazurmedia\Mgok\Models\Schedule
+toolbar:
+    buttons: reorder_toolbar

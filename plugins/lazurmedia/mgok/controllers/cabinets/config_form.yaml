@@ -1,0 +1,10 @@
+name: Cabinets
+form: $/lazurmedia/mgok/models/cabinets/fields.yaml
+modelClass: Lazurmedia\Mgok\Models\Cabinets
+defaultRedirect: lazurmedia/mgok/cabinets
+create:
+    redirect: 'lazurmedia/mgok/cabinets/update/:id'
+    redirectClose: lazurmedia/mgok/cabinets
+update:
+    redirect: lazurmedia/mgok/cabinets
+    redirectClose: lazurmedia/mgok/cabinets

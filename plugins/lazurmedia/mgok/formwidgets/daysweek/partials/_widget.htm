@@ -1,0 +1,10 @@
+<select name="<?= $this->vars['name']; ?>" class="form-control">
+  <?php foreach($this->vars['days_of_week'] as $day): ?>
+    <option 
+      value="<?= $day ?>" 
+      <?= $this->vars['value'] === $day ? 'selected' : '' ?> 
+    >
+      <?= $day ?>
+    </option>
+  <?php endforeach; ?>
+</select>

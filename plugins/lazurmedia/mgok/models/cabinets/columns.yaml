@@ -1,0 +1,19 @@
+columns:
+    cabinet_number:
+        label: 'Номер кабинета'
+        type: number
+        searchable: true
+        sortable: true
+    owner:
+        label: 'Ответсвенный за кабинет'
+        type: text
+        searchable: true
+    cabinet_name:
+        label: 'Название кабинета'
+        type: text
+        searchable: false
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true

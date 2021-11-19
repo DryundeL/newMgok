@@ -1,0 +1,53 @@
+.schedule-search {
+	width: 100%;
+	background-color: #fff;
+}
+.schedule-search__wrapper {
+	display: flex;
+	align-items: center;
+	gap: 30px;
+	
+	padding: 60px 20px 0 20px;
+}
+.schedule-search__bordered-block {
+	display: flex;
+	align-items: center;
+	
+	border: 3px solid var(--muted-cyan);
+	border-radius: 5px;
+}
+.schedule-search__bordered-block select {
+	max-width: 200px;
+	width: 100%;
+	
+	padding: 15px;
+	
+	background-color: inherit;
+	border-right: 2px solid var(--muted-cyan);
+	
+	letter-spacing: 0.1em;
+}
+.schedule-search__bordered-block input {
+	width: 250px;
+	
+	padding: 15px;
+
+	border-left: 2px solid var(--muted-cyan);
+	background-color: inherit;
+}
+.schedule-search__btn {
+	width: 135px;
+	height: 45px;
+	
+	padding: 10px 40px;
+	margin-bottom: 3px;
+	
+	box-shadow: 1px 1px 5px rgba(129, 129, 129, 0.3);
+	border-radius: 4px;
+	background: linear-gradient(270deg, #409BC2 0%, #2661A6 100%);
+	color: #FFFFFF;
+	cursor: pointer;
+	
+	font-family: "Intro";
+	letter-spacing: 0.06em;
+}

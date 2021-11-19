@@ -1,0 +1,31 @@
+columns:
+    login:
+        label: Логин
+        type: text
+        searchable: true
+        sortable: true
+    password:
+        label: Пароль
+        type: text
+    role:
+        label: Роль
+        type: text
+        sortable: true
+    full_name:
+        label: 'Полное имя'
+        type: text
+        searchable: true
+        sortable: true
+    class:
+        label: Класс
+        type: text
+        searchable: true
+        sortable: true
+    date_of_birth:
+        label: 'Дата рождения'
+        type: date
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true

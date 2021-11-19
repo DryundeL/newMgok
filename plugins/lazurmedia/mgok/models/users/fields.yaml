@@ -1,0 +1,26 @@
+fields:
+    login:
+        label: Логин
+        span: auto
+        type: text
+    password:
+        label: Пароль
+        span: auto
+        type: text
+    role:
+        label: Роль
+        span: auto
+        type: roles
+    full_name:
+        label: 'Полное имя'
+        span: auto
+        type: text
+    class:
+        label: Класс
+        span: auto
+        type: text
+    date_of_birth:
+        label: 'Дата рождения'
+        mode: date
+        span: auto
+        type: datepicker

@@ -1,0 +1,47 @@
+fields:
+    number_lesson:
+        label: 'Номер урока'
+        options:
+            1: '1'
+            2: '2'
+            3: '3'
+            4: '4'
+            5: '5'
+            6: '6'
+        showSearch: true
+        span: auto
+        type: dropdown
+    lesson_name:
+        label: 'Название урока'
+        span: auto
+        type: text
+    time_from:
+        label: 'Время начала'
+        mode: time
+        span: auto
+        type: datepicker
+    time_to:
+        label: 'Время окончания'
+        mode: time
+        span: auto
+        type: datepicker
+    cabinet:
+        label: Кабинет
+        span: auto
+        type: cabinets
+    teacher:
+        label: Преподаватель
+        span: auto
+        type: teachers
+    day_of_week:
+        label: 'День недели'
+        span: auto
+        type: days_of_week
+    class:
+        label: Класс
+        span: auto
+        type: text
+    parity:
+        label: Четность
+        span: auto
+        type: parity

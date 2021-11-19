@@ -1,0 +1,4 @@
+title: PersonalEvents
+modelClass: Lazurmedia\Mgok\Models\PersonalEvents
+toolbar:
+    buttons: reorder_toolbar

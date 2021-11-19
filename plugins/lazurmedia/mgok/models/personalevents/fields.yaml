@@ -1,0 +1,32 @@
+fields:
+    login:
+        label: Ученик
+        span: auto
+        type: students
+    event_name:
+        label: 'Название события'
+        span: auto
+        type: text
+    time_from:
+        label: 'Время начала'
+        mode: time
+        span: auto
+        type: datepicker
+    time_to:
+        label: 'Время завершения'
+        mode: time
+        span: auto
+        type: datepicker
+    event_place:
+        label: 'Место события'
+        span: auto
+        type: text
+    day_of_week:
+        label: 'День недели'
+        span: auto
+        type: days_of_week
+    date:
+        label: Дата
+        mode: date
+        span: auto
+        type: datepicker

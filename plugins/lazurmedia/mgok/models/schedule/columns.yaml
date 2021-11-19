@@ -1,0 +1,45 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    number_lesson:
+        label: 'номер урока'
+        type: number
+    lesson_name:
+        label: 'название предмета'
+        type: text
+        searchable: true
+    time_from:
+        label: 'время начала'
+        type: time
+        sortable: true
+    time_to:
+        label: 'время окончания'
+        type: time
+        sortable: true
+    cabinet:
+        label: кабинет
+        type: number
+        searchable: true
+        sortable: true
+    teacher:
+        label: учитель
+        type: text
+        searchable: true
+        sortable: true
+    day_of_week:
+        label: 'день недели '
+        type: text
+        searchable: true
+        sortable: true
+    class:
+        label: класс
+        type: text
+        searchable: true
+        sortable: true
+    parity:
+        label: четность
+        type: number
+        sortable: true

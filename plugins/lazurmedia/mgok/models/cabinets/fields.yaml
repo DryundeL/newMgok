@@ -1,0 +1,13 @@
+fields:
+    cabinet_number:
+        label: 'Номер кабинета'
+        span: auto
+        type: number
+    owner:
+        label: 'Ответственный за кабинет'
+        span: auto
+        type: teachers
+    cabinet_name:
+        label: 'Название кабинета'
+        span: auto
+        type: text

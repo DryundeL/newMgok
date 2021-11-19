@@ -1,0 +1,10 @@
+<select name="<?= $this->vars['name']; ?>" class="form-control">
+  <?php foreach($this->vars['parity_items'] as $parity): ?>
+    <option 
+      value="<?= $parity ?>" 
+      <?= $this->vars['value'] === $parity ? 'selected' : '' ?> 
+    >
+      <?= $parity ?>
+    </option>
+  <?php endforeach; ?>
+</select>

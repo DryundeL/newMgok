@@ -1,0 +1,30 @@
+<?php namespace Lazurmedia\Mgok;
+
+use System\Classes\PluginBase;
+
+class Plugin extends PluginBase
+{
+    public function registerComponents()
+    {
+        return [
+            'LazurMedia\Mgok\Components\Authorization' => 'Authorization',
+            'LazurMedia\Mgok\Components\Schedule' => 'Schedule',
+        ];
+    }
+
+    public function registerFormWidgets() 
+    {
+        return [
+            'LazurMedia\Mgok\FormWidgets\Roles' => 'roles',
+            'LazurMedia\Mgok\FormWidgets\Cabinets' => 'cabinets',
+            'LazurMedia\Mgok\FormWidgets\Teachers' => 'teachers',
+            'LazurMedia\Mgok\FormWidgets\Students' => 'students',
+            'LazurMedia\Mgok\FormWidgets\DaysWeek' => 'days_of_week',
+            'LazurMedia\Mgok\FormWidgets\Parity' => 'parity',
+        ];
+    }
+
+    public function registerSettings()
+    {
+    }
+}

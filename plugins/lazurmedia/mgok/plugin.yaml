@@ -1,0 +1,32 @@
+plugin:
+    name: 'lazurmedia.mgok::lang.plugin.name'
+    description: 'lazurmedia.mgok::lang.plugin.description'
+    author: LazurMedia
+    icon: oc-icon-align-justify
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: 'Управление контентом'
+        url: lazurmedia/mgok/users
+        icon: icon-life-ring
+        sideMenu:
+            side-menu-item:
+                label: Пользователи
+                url: lazurmedia/mgok/users
+                icon: icon-users
+            side-menu-item2:
+                label: 'Личные события'
+                url: lazurmedia/mgok/personalevents
+                icon: icon-user
+            side-menu-item4:
+                label: 'События класса'
+                url: lazurmedia/mgok/classevents
+                icon: icon-graduation-cap
+            side-menu-item3:
+                label: Расписание
+                url: lazurmedia/mgok/schedule
+                icon: icon-table
+            side-menu-item5:
+                label: Кабинеты
+                url: lazurmedia/mgok/cabinets
+                icon: icon-windows

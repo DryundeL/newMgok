@@ -1,0 +1,10 @@
+name: Users
+form: $/lazurmedia/mgok/models/users/fields.yaml
+modelClass: Lazurmedia\Mgok\Models\Users
+defaultRedirect: lazurmedia/mgok/users
+create:
+    redirect: 'lazurmedia/mgok/users/update/:id'
+    redirectClose: lazurmedia/mgok/users
+update:
+    redirect: lazurmedia/mgok/users
+    redirectClose: lazurmedia/mgok/users

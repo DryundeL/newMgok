@@ -1,0 +1,71 @@
+title = "Индивидуальное расписание"
+url = "/individualnoe-raspisanie"
+layout = "main"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[Schedule]
+
+[Authorization]
+==
+<?php
+function onChangeStudent() {
+	$student = post('student');
+	$schedule = $this->page->components['Schedule']->getScheduleForStudent($student);
+	return ['#schedule' => $this->renderPartial('schedule/schedule', [
+		'lessonsArr' => $schedule['lessons'],
+		'eventsArr' => $schedule['events'],
+		'dates' => $schedule['dates'],
+	])];
+	    
+  /*for ($i = 0; $i < 7; $i++) {
+    $day_of_week_eng = $this->days_of_week_eng[$i]; // день недели на англ.
+
+    $lessons[$day_of_week_eng] = $this->getLessonsByDay($i); // Установить для этого дня недели уроки
+    $events[$day_of_week_eng]  = $this->setEvents($i);
+  }
+  
+  $this->lessons = $lessons;
+  $this->events = $events;*/
+}
+?>
+==
+<link rel="stylesheet" href="{{ 'assets/css/schedule.css'|theme }}">
+
+<section class="schedule-search">
+	<div class="wrapper schedule-search__wrapper">
+		<div class="schedule-search__bordered-block">
+			<select name="type" id="type">
+				<option value="Преподаватель">Преподаватель</option>
+				<option value="Учащийся">Учащийся</option>
+			</select>
+			<input type="text">
+		</div>
+		<button class="schedule-search__btn">Поиск</button>
+	</div>
+	<div class="students-dropdown-list">
+		<span class="choose-student">Выберите ученика:</span>
+		<select name='student' id='student-select' data-request='onChangeStudent' class="student__select">
+			{% for student in Schedule.students %}
+				<option value="{{student.login}}">{{ student.full_name }}</option>
+			{% endfor %}
+		</select>
+	</div>
+</section>
+<section class="schedule-weeks">
+	<div class="wrapper">
+		<div class="schedule-weeks__block">
+			<img src="{{ 'assets/icons/arrow-left.svg'|theme }}" alt="">
+			<span>{{ Schedule.dates['monday'] }} - {{ Schedule.dates['sunday'] }}</span>
+			<img src="{{ 'assets/icons/arrow-right.svg'|theme }}" alt="">
+		</div>
+	</div>
+</section>
+<section class="schedule" id="schedule">
+	{% partial "schedule/schedule" 
+		dates=Schedule.dates
+		lessonsArr=Schedule.lessons
+		eventsArr=Schedule.events
+	%}
+</section>

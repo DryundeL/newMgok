@@ -1,0 +1,10 @@
+name: PersonalEvents
+form: $/lazurmedia/mgok/models/personalevents/fields.yaml
+modelClass: Lazurmedia\Mgok\Models\PersonalEvents
+defaultRedirect: lazurmedia/mgok/personalevents
+create:
+    redirect: 'lazurmedia/mgok/personalevents/update/:id'
+    redirectClose: lazurmedia/mgok/personalevents
+update:
+    redirect: lazurmedia/mgok/personalevents
+    redirectClose: lazurmedia/mgok/personalevents

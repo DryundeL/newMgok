@@ -1,0 +1,59 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table lazurmedia_mgok_users'
+    - builder_table_create_lazurmedia_mgok_users.php
+1.0.3:
+    - 'Updated table lazurmedia_mgok_users'
+    - builder_table_update_lazurmedia_mgok_users.php
+1.0.4:
+    - 'Created table lazurmedia_mgok_schedule'
+    - builder_table_create_lazurmedia_mgok_schedule.php
+1.0.5:
+    - 'Updated table lazurmedia_mgok_users'
+    - builder_table_update_lazurmedia_mgok_users_2.php
+1.0.6:
+    - 'Updated table lazurmedia_mgok_users'
+    - builder_table_update_lazurmedia_mgok_users_3.php
+1.0.7:
+    - 'Created table lazurmedia_mgok_personal_events'
+    - builder_table_create_lazurmedia_mgok_personal_events.php
+1.0.8:
+    - 'Updated table lazurmedia_mgok_schedule'
+    - builder_table_update_lazurmedia_mgok_schedule.php
+1.0.9:
+    - 'Created table lazurmedia_mgok_class_events'
+    - builder_table_create_lazurmedia_mgok_class_events.php
+1.0.10:
+    - 'Updated table lazurmedia_mgok_personal_events'
+    - builder_table_update_lazurmedia_mgok_personal_events.php
+1.0.11:
+    - 'Updated table lazurmedia_mgok_class_events'
+    - builder_table_update_lazurmedia_mgok_class_events.php
+1.0.12:
+    - 'Created table lazurmedia_mgok_cabinets'
+    - builder_table_create_lazurmedia_mgok_cabinets.php
+1.0.13:
+    - 'Updated table lazurmedia_mgok_cabinets'
+    - builder_table_update_lazurmedia_mgok_cabinets.php
+1.0.14:
+    - 'Updated table lazurmedia_mgok_class_events'
+    - builder_table_update_lazurmedia_mgok_class_events_2.php
+1.0.15:
+    - 'Updated table lazurmedia_mgok_users'
+    - builder_table_update_lazurmedia_mgok_users_4.php
+1.0.16:
+    - 'Updated table lazurmedia_mgok_users'
+    - builder_table_update_lazurmedia_mgok_users_5.php
+1.0.17:
+    - 'Updated table lazurmedia_mgok_users'
+    - builder_table_update_lazurmedia_mgok_users_6.php
+1.0.18:
+    - 'Updated table lazurmedia_mgok_cabinets'
+    - builder_table_update_lazurmedia_mgok_cabinets_2.php
+1.0.19:
+    - 'Updated table lazurmedia_mgok_cabinets'
+    - builder_table_update_lazurmedia_mgok_cabinets_3.php
+1.0.20:
+    - 'Updated table lazurmedia_mgok_schedule'
+    - builder_table_update_lazurmedia_mgok_schedule_2.php
