@@ -21,4 +21,10 @@ class Users extends Model
      */
     public $rules = [
     ];
+
+    public function getStudentsByClass($class) {
+        return Users::where('class', $class)
+            ->where('role', 'Ученик')
+            ->get();
+    }
 }

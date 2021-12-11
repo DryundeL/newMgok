@@ -5,44 +5,25 @@ meta_title = "Загруженность кабинетов"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
+
+[Cabinetes]
 ==
+{% component 'Cabinetes' %}
+
 <div class="under-h">
-	<form class="form-cab">
-		<input class="cab__input" type="text" placeholder="Введите номер кабинета">
-		<select class="adr__input">
-			<option>Стратонавтов, 15</option>
-			<option>Волгоградский проспект, 42</option>
-			<option>Лодочная, 7</option>
-			<option>Старопетровский, 1А</option>
-			<option>Вишневая, 5</option>
+	<form class="form-cab" data-request="onSearchCabinetSchedule">
+		<input class="cab__input" type="text" placeholder="Введите номер кабинета" name="cabinet">
+		<select class="adr__input" name="address">
+			<option>Стратонавтов 15</option>
+			<option>Волгоградский проспект 42</option>
+			<option>Лодочная 7</option>
+			<option>Старопетровский 1А</option>
+			<option>Вишневая 5</option>
 		</select>
-		<input name="search-cab" class="search-cab" type="submit" value="Поиск">
+			<button name="search-cab" class="search-cab" type="submit" >Поиск</button>
 	</form>
 </div>
-<div class="table-container">
-	<div class="column">
-		<div class="col-day">Понедельник</div>
-		<div class="col-lesson">
-			<div class="time">
-				<p class="start-time">11:25</p>
-				<p>12:05</p>
-			</div>
-			<div class="cab-info">
-				<p>Технология</p>
-				<p class="teach-name">Чеснокова Т.Н.</p>
-			</div>
-		</div>
-	</div>
-	<div class="column">
-		<div class="col-day">Вторник</div>
-	</div>
-	<div class="column">
-		<div class="col-day">Среда</div>
-	</div>
-	<div class="column">
-		<div class="col-day">Четверг</div>
-	</div>
-	<div class="column">
-		<div class="col-day">Пятница</div>
-	</div>
-</div>
+
+<section id="loadCabinets">
+	{% partial 'cabinets/days' lessons=Cabinetes.lessons%}
+</section>

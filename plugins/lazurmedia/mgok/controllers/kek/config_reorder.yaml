@@ -1,0 +1,4 @@
+title: KEK
+modelClass: Lazurmedia\Mgok\Models\Criterias
+toolbar:
+    buttons: reorder_toolbar

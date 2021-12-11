@@ -57,3 +57,57 @@
 1.0.20:
     - 'Updated table lazurmedia_mgok_schedule'
     - builder_table_update_lazurmedia_mgok_schedule_2.php
+1.0.21:
+    - 'Updated table lazurmedia_mgok_class_events'
+    - builder_table_update_lazurmedia_mgok_class_events_3.php
+1.0.22:
+    - 'Updated table lazurmedia_mgok_class_events'
+    - builder_table_update_lazurmedia_mgok_class_events_4.php
+1.0.23:
+    - 'Updated table lazurmedia_mgok_class_events'
+    - builder_table_update_lazurmedia_mgok_class_events_5.php
+1.0.24:
+    - 'Updated table lazurmedia_mgok_class_events'
+    - builder_table_update_lazurmedia_mgok_class_events_6.php
+1.0.25:
+    - 'Updated table lazurmedia_mgok_personal_events'
+    - builder_table_update_lazurmedia_mgok_personal_events_2.php
+1.0.26:
+    - 'Updated table lazurmedia_mgok_personal_events'
+    - builder_table_update_lazurmedia_mgok_personal_events_3.php
+1.0.27:
+    - 'Updated table lazurmedia_mgok_cabinets'
+    - builder_table_update_lazurmedia_mgok_cabinets_4.php
+1.0.28:
+    - 'Created table lazurmedia_mgok_activities'
+    - builder_table_create_lazurmedia_mgok_activities.php
+1.0.29:
+    - 'Updated table lazurmedia_mgok_cabinets'
+    - builder_table_update_lazurmedia_mgok_cabinets_5.php
+1.0.30:
+    - 'Updated table lazurmedia_mgok_personal_events'
+    - builder_table_update_lazurmedia_mgok_personal_events_4.php
+1.0.31:
+    - 'Updated table lazurmedia_mgok_schedule'
+    - builder_table_update_lazurmedia_mgok_schedule_3.php
+1.0.32:
+    - 'Created table lazurmedia_mgok_cec'
+    - builder_table_create_lazurmedia_mgok_cec.php
+1.0.33:
+    - 'Updated table lazurmedia_mgok_cec'
+    - builder_table_update_lazurmedia_mgok_cec.php
+1.0.34:
+    - 'Created table lazurmedia_mgok_brs'
+    - builder_table_create_lazurmedia_mgok_brs.php
+1.0.35:
+    - 'Updated table lazurmedia_mgok_cec'
+    - builder_table_update_lazurmedia_mgok_cec_2.php
+1.0.36:
+    - 'Updated table lazurmedia_mgok_cec'
+    - builder_table_update_lazurmedia_mgok_cec_3.php
+1.0.37:
+    - 'Updated table lazurmedia_mgok_cec'
+    - builder_table_update_lazurmedia_mgok_cec_4.php
+1.0.38:
+    - 'Updated table lazurmedia_mgok_cec'
+    - builder_table_update_lazurmedia_mgok_cec_5.php

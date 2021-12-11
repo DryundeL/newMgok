@@ -1,0 +1,12 @@
+list: $/lazurmedia/mgok/models/activities/columns.yaml
+modelClass: Lazurmedia\Mgok\Models\Activities
+title: Activities
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'lazurmedia/mgok/activities/update/:id'

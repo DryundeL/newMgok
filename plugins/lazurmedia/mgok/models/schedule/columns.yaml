@@ -43,3 +43,8 @@ columns:
         label: четность
         type: number
         sortable: true
+    address:
+        label: Адрес
+        type: text
+        searchable: true
+        sortable: true

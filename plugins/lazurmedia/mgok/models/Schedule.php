@@ -20,4 +20,31 @@ class Schedule extends Model
      */
     public $rules = [
     ];
+
+    protected $guarded = false;
+
+    public function getClassLessons($class, $day_of_week, $parity) {
+        return Schedule::where('class', $class)
+            ->where('day_of_week', $day_of_week)
+            ->whereIn('parity', [$parity, 'Каждую неделю'])
+            ->orderBy('number_lesson', 'asc')
+            ->get();
+    }
+
+    public function getTeacherLessons($teacher_full_name, $day_of_week, $parity) {
+        return Schedule::where('teacher', $teacher_full_name)
+            ->where('day_of_week', $day_of_week)
+            ->whereIn('parity', [$parity, 'Каждую неделю'])
+            ->orderBy('number_lesson', 'asc')
+            ->get();
+    }
+
+    public function getCabinetLessons($cabinet, $address, $day_of_week, $parity) {
+        return Schedule::where('cabinet', $cabinet)
+            ->where('address', $address)
+            ->where('day_of_week', $day_of_week)
+            ->whereIn('parity', [$parity, 'Каждую неделю'])
+            ->orderBy('number_lesson', 'asc')
+            ->get();
+    }
 }

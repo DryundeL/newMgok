@@ -1,0 +1,26 @@
+title = "Редактирование расписания"
+url = "/redaktirovanie-raspisaniya"
+layout = "main"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[Schedule]
+==
+<link rel="stylesheet" href="{{ 'assets/css/schedule.css'|theme }}">
+
+<section class="schedule-weeks">
+	{% partial "schedule/weeks" 
+		monday=Schedule.dates[0]
+		sunday=Schedule.dates[6]
+		number=Schedule.number_of_week
+	%}
+</section>
+
+<section class="schedule" id="schedule">
+	{% partial "schedule/schedule-edit" 
+		dates=Schedule.dates
+		lessonsArr=Schedule.lessons
+		eventsArr=Schedule.events
+	%}
+</section>

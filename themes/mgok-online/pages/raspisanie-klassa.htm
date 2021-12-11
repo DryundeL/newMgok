@@ -9,91 +9,18 @@ robot_follow = "follow"
 ==
 <link rel="stylesheet" href="{{ 'assets/css/schedule.css'|theme }}">
 
-<section class="schedule-search">
-	<div class="wrapper schedule-search__wrapper">
-		<div class="schedule-search__bordered-block">
-			<select name="type" id="type">
-				<option value="Преподаватель">Преподаватель</option>
-				<option value="Группа/класс">Группа/класс</option>
-				<option value="Учащийся">Учащийся</option>
-			</select>
-			<input type="text">
-		</div>
-		<button class="schedule-search__btn">Поиск</button>
-	</div>
-</section>
 <section class="schedule-weeks">
-	<div class="wrapper">
-		<div class="schedule-weeks__block">
-			<img src="{{ 'assets/icons/arrow-left.svg'|theme }}" alt="">
-			<span>{{ Schedule.dates['monday'] }} - {{ Schedule.dates['sunday'] }}</span>
-			<img src="{{ 'assets/icons/arrow-right.svg'|theme }}" alt="">
-		</div>
-	</div>
+	{% partial "schedule/weeks" 
+		monday=Schedule.dates[0]
+		sunday=Schedule.dates[6]
+		number=Schedule.number_of_week
+	%}
 </section>
 
-<section class="schedule">
-	{% set week = Schedule.days_of_week_eng %}
-	
-	{% for index, day_of_week in week %}
-			
-			<div class="wrapper">
-			<div class="schedule__date">
-				<p>{{ Schedule.dates[day_of_week] }}</p>
-				<span>{{ Schedule.days_of_week_rus[index] }}</span>
-			</div>
-		</div>
-		<div class="schedule__bg">
-			<div class="wrapper schedule__wrapper">
-				<ul class="schedule__lessons-list">
-					<!-- Уроки -->
-					{% set lessons = Schedule.lessons[day_of_week] %}
-					{% for lesson in lessons %}
-						{% partial "schedule/lesson" lesson=lesson %}
-					{% endfor %}
-					
-					<li class="schedule-add">
-						<form class="schedule-add__form">
-							<div class="schedule-add__item">
-								<span></span>
-								<input type="text">
-							</div>
-							<div class="schedule-add__item">
-								<span></span>
-								<input type="text">
-							</div>
-							<div class="schedule-add__item">
-								<span></span>
-								<input type="text">
-							</div>
-							<div class="schedule-add__item">
-								<span></span>
-								<input type="text">
-							</div>
-							<div class="schedule-add__item">
-								<span></span>
-								<input type="text">
-							</div>
-							<div class="schedule-add__btns">
-								<button>Отмена</button>
-								<button>Добавить</button>
-							</div>
-						</form>
-					</li>
-					
-				</ul>
-				
-				{% set events = Schedule.events[day_of_week] %}
-				{% if events|length %}
-					<span class="schedule__extracurricular">Внеурочная деятельность</span>
-				{% endif %}
-				<ul class="schedule__lessons-list">
-				<!-- События -->
-					{% for event in events %}
-						{% partial "schedule/lesson" lesson=event %}
-					{% endfor %}
-				</ul>
-			</div>
-		</div>
-	{% endfor %}
+<section class="schedule" id="schedule">
+	{% partial "schedule/schedule-edit" 
+		dates=Schedule.dates
+		lessonsArr=Schedule.lessons
+		eventsArr=Schedule.events
+	%}
 </section>

@@ -83,76 +83,120 @@ if(btn1 && btn2 && btn3){
 	});
 }
 
-let mod1 = document.querySelector("#mod1");
-let mod2 = document.querySelector("#mod2");
-let mod3 = document.querySelector("#mod3");
-let mod4 = document.querySelector("#mod4");
-let mod5 = document.querySelector("#mod5");
-let mod6 = document.querySelector("#mod6");
-let mod7 = document.querySelector("#mod7");
-let mod8 = document.querySelector("#mod8");
-let divM1 = document.querySelector("#divM1");
-let divM2 = document.querySelector("#divM2");
-let divM3 = document.querySelector("#divM3");
-let divM4 = document.querySelector("#divM4");
-let divM5 = document.querySelector("#divM5");
-let divM6 = document.querySelector("#divM6");
-let divM7 = document.querySelector("#divM7");
-let divM8 = document.querySelector("#divM8");
-let saveBtn = document.querySelector("#save-btn")
+function updateTextInput(val, val2) {
+          document.getElementById('timeFrom').value=val + ":" + val2; 
+}
 
-const massDiv = document.querySelectorAll('.module-div');
-const mass = document.querySelectorAll('.modbtn');
-mass.forEach(element => element.addEventListener('click', event => {
-	mass.forEach(el => el.classList.remove('selected'));
-	switch(element.id){
-		case 'mod1': {
-			mod1.classList.add('selected');
-			massDiv.forEach(div => div.classList.remove("shown"));
-			divM1.classList.add("shown");
-			break;
-		}
-		case 'mod2': {
-			mod2.classList.add('selected');
-			massDiv.forEach(div => div.classList.remove("shown"));
-			divM2.classList.add("shown");
-			break;
-		}
-		case 'mod3': {
-			mod3.classList.add('selected');
-			massDiv.forEach(div => div.classList.remove("shown"));
-			divM3.classList.add("shown");
-			break;
-		}
-		case 'mod4': {
-			mod4.classList.add('selected');
-			massDiv.forEach(div => div.classList.remove("shown"));
-			divM4.classList.add("shown");
-			break;
-		}
-		case 'mod5': {
-			mod5.classList.add('selected');
-			massDiv.forEach(div => div.classList.remove("shown"));
-			divM5.classList.add("shown");
-			break;
-		}
-		case 'mod6': {
-			mod6.classList.add('selected');
-			massDiv.forEach(div => div.classList.remove("shown"));
-			divM6.classList.add("shown");
-			break;
-		}
-		case 'mod7': {
-			mod7.classList.add('selected');
-			massDiv.forEach(div => div.classList.remove("shown"));
-			divM7.classList.add("shown");
-			break;
-		}
-		case 'mod8': {
-			mod8.classList.add('selected');
-			massDiv.forEach(div => div.classList.remove("shown"));
-			divM8.classList.add("shown");
-			break;
-		}
-	}
-}));
+let addEventButton = document.querySelector("#add-event-button");
+let inputPlace = document.querySelector("#event-input-place");
+let timeFrom = document.querySelector("#timeFrom");
+let timeTo = document.querySelector("#timeTo");
+let alertMess = document.querySelector("#alert");
+
+let pluses = document.querySelectorAll(".event-plus__div")
+let schedule = document.querySelector(".schedule")
+let addEventDiv = document.querySelectorAll("#add-event-div")
+
+let add1 = document.querySelector("#add1")
+let add2 = document.querySelector("#add2")
+let add3 = document.querySelector("#add3")
+let add4 = document.querySelector("#add4")
+let add5 = document.querySelector("#add5")
+let add6 = document.querySelector("#add6")
+let add7 = document.querySelector("#add7")
+
+// schedule.addEventListener('click', event => {
+// 	const target = event.target
+	
+// 	if (target.closest('.schedule__element-li')) {
+// 		const form = target.closest('.schedule__lessons-list').lastElementChild
+// 		const addBtn = form.querySelector('#add-event-button')
+		
+// 		pluses.forEach(plus => {
+// 			plus.parentNode.style.display = 'none'
+// 		})
+// 		form.style.display = "flex"
+		
+// 		cancelBtnOnClick()
+// 		validationFields(form, addBtn)
+// 	}
+// })
+
+
+
+// pluses.forEach(item => {
+// 	item.addEventListener('click', event => {
+// 		item.parentNode.lastElementChild.style.display = "flex"
+// 		pluses.forEach(part => {
+// 			part.style.display = "none"
+// 		})
+// 	})
+// })
+
+function cancelBtnOnClick() {
+	const cancelAddEvent = document.querySelectorAll("#cancel-add-event")
+	
+	cancelAddEvent.forEach(item => {
+		item.addEventListener('click', event => {
+			pluses.forEach(plus => {
+				plus.parentNode.style.display = "flex"
+			})
+			addEventDiv.forEach(part =>{
+				part.style.display = "none"
+			})
+		})
+	})
+}
+
+
+
+
+
+
+
+// -----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

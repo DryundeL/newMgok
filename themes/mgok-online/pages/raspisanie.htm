@@ -6,38 +6,57 @@ meta_title = "Расписание"
 is_hidden = 0
 robot_index = "index"
 robot_follow = "follow"
-
-[Schedule]
+==
+<?php
+function onStart() {
+	
+	$this['functions'] = new class {
+		
+		public function getDate($date) {
+			
+      $date = explode(" ", $date);
+      $date = explode("-", $date[0]);
+      
+      if (isset($date[1])) {
+      	
+        switch ($date[1]){
+          case 1: $m='января'; break;
+          case 2: $m='февраля'; break;
+          case 3: $m='марта'; break;
+          case 4: $m='апреля'; break;
+          case 5: $m='мая'; break;
+          case 6: $m='июня'; break;
+          case 7: $m='июля'; break;
+          case 8: $m='августа'; break;
+          case 9: $m='сентября'; break;
+          case 10: $m='октября'; break;
+          case 11: $m='ноября'; break;
+          case 12: $m='декабря'; break;
+        }
+        return $date[0].' '.$m; 
+			}
+		}
+	};
+}
+?>
 ==
 <link rel="stylesheet" href="{{ 'assets/css/schedule.css'|theme }}">
 
-<section class="schedule-search">
-	<div class="wrapper schedule-search__wrapper">
-		<div class="schedule-search__bordered-block">
-			<select name="type" id="type">
-				<option value="Преподаватель">Преподаватель</option>
-				<option value="Группа/класс">Группа/класс</option>
-				<option value="Учащийся">Учащийся</option>
-			</select>
-			<input type="text">
-		</div>
-		<button class="schedule-search__btn">Поиск</button>
-	</div>
-</section>
+{% partial 'schedule/schedule-search' %}
+
 <section class="schedule-weeks">
-	<div class="wrapper">
-		<div class="schedule-weeks__block">
-			<img src="{{ 'assets/icons/arrow-left.svg'|theme }}" alt="">
-			<span>{{ Schedule.dates['monday'] }} - {{ Schedule.dates['sunday'] }}</span>
-			<img src="{{ 'assets/icons/arrow-right.svg'|theme }}" alt="">
-		</div>
-	</div>
+	{% partial "schedule/weeks" 
+		monday=Schedule.dates[0]
+		sunday=Schedule.dates[6]
+		number=Schedule.number_of_week
+	%}
 </section>
 
-<section class="schedule">
-	{% partial "schedule/schedule" 
+<section class="schedule" id="schedule">
+	{% partial "schedule/schedule-edit" 
 		dates=Schedule.dates
 		lessonsArr=Schedule.lessons
 		eventsArr=Schedule.events
+		role = Schedule.role
 	%}
 </section>

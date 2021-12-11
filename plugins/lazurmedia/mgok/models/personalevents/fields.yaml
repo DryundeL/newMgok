@@ -6,7 +6,7 @@ fields:
     event_name:
         label: 'Название события'
         span: auto
-        type: text
+        type: activities
     time_from:
         label: 'Время начала'
         mode: time
@@ -21,10 +21,6 @@ fields:
         label: 'Место события'
         span: auto
         type: text
-    day_of_week:
-        label: 'День недели'
-        span: auto
-        type: days_of_week
     date:
         label: Дата
         mode: date

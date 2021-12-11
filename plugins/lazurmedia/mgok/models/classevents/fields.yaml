@@ -10,7 +10,7 @@ fields:
     event_name:
         label: 'Название события'
         span: auto
-        type: text
+        type: activities
     event_place:
         label: 'Место события'
         span: auto
@@ -25,10 +25,6 @@ fields:
         mode: time
         span: auto
         type: datepicker
-    day_of_week:
-        label: 'День недели'
-        span: auto
-        type: days_of_week
     date:
         label: Дата
         mode: date

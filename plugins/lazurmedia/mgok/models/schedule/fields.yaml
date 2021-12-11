@@ -45,3 +45,7 @@ fields:
         label: Четность
         span: auto
         type: parity
+    address:
+        label: Адрес
+        span: auto
+        type: text

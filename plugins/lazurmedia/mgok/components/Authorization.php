@@ -11,100 +11,126 @@ use Lazurmedia\Mgok\Classes\Session;
 
 class Authorization extends \Cms\Classes\ComponentBase
 {
-    public function componentDetails()
-    {
-        return [
-            'name' => 'Авторизация',
-            'description' => 'Авторизация'
-        ];
-    }
 
-    public function onRun() 
-    {
-      return $this->route($this->page->url);
-    }
-
-    private function route($route) {
-      switch ($route) {
-        case '/avtorizaciya':
-          if ($this->checkAuth())
-            return Redirect::to('/');
-          break;
-        default:
-          if (!$this->checkAuth())
-            return Redirect::to('/avtorizaciya');
-          break;
-      }
-    }
-
-    public function onAuth() {
-      $data = post();
-
-      $rules = [
-        'login' => 'required',
-        'password' => 'required',
+  public function componentDetails()
+  {
+      return [
+          'name' => 'Авторизация',
+          'description' => 'Авторизация'
       ];
+  }
 
-      $validator = Validator::make($data, $rules);
+  public function onRun() 
+  {
+    return $this->route($this->page->url);
+  }
 
-      if($validator->fails()) {
-        throw new ValidationException($validator);
-      } else {
-        $user = Users::where('login', $data['login'])->where('password', $data['password'])->first(); 
-        
-        if ($user) {
-          Cookie::queue('mgok_auth', $data['login'], 43800);
+  private function route($route) {
+    switch ($route) {
+      case '/avtorizaciya':
+        if ($this->checkAuth())
           return Redirect::to('/');
-        } else {
-          Flash::error('Неверный логин или пароль');
-          return Redirect::back()->withInput(post());
-        }
-      }
+        break;
+      default:
+        if (!$this->checkAuth())
+          return Redirect::to('/avtorizaciya');
+        break;
     }
+  }
 
-    public function onLogout() {
-      Cookie::queue('mgok_auth', '', -1);
-      return Redirect::to('/avtorizaciya');
-    }
+  public function onAuth() {
+    $data = post();
 
-    private function checkAuth() {
-      $auth = Cookie::get('mgok_auth');
+    $rules = [
+      'login' => 'required',
+      'password' => 'required',
+    ];
+
+    $validator = Validator::make($data, $rules);
+
+    if($validator->fails()) {
+      throw new ValidationException($validator);
+    } else {
+      $user = Users::where('login', $data['login'])->where('password', $data['password'])->first(); 
       
-      if (is_null($auth)) {
-        return false;
+      if ($user) {
+        Cookie::queue('mgok_auth', $data['login'], 43800);
+        if ($user->role === 'Директорат')
+          return Redirect::to('/koefficient-effektivnosti-kafedr');
+        else
+          return Redirect::to('/');
+      } else {
+        Flash::error('Неверный логин или пароль');
+        return Redirect::back()->withInput(post());
       }
-      return true;
+    }
+  }
+
+  public function onLogout() {
+    Cookie::queue('mgok_auth', '', -1);
+    return Redirect::to('/avtorizaciya');
+  }
+
+  private function checkAuth() {
+    $auth = Cookie::get('mgok_auth');
+    
+    if (is_null($auth)) {
+      return false;
+    }
+    return true;
+  }
+
+  public static function getLogin() {
+    $login = Cookie::get('mgok_auth');
+
+    if (is_null($login)) {
+      return false;
+    }
+    return $login;
+  }
+
+  public static function getRole() {
+    $login = Cookie::get('mgok_auth');
+
+    if (is_null($login)) {
+      return false;
     }
 
-    public static function getLogin() {
-      $login = Cookie::get('mgok_auth');
+    $user = Users::where('login', $login)->first();
+    return $user->role;
+  }
 
-      if (is_null($login)) {
-        return false;
-      }
-      return $login;
+  public static function getClass() {
+    $login = Cookie::get('mgok_auth');
+
+    if (is_null($login)) {
+      return false;
     }
 
-    public static function getRole() {
-      $login = Cookie::get('mgok_auth');
+    $class = Users::where('login', Authorization::getLogin())->first()->class;
+    return $class;
+  }
 
-      if (is_null($login)) {
-        return false;
-      }
+  public static function getUser() {
+    $login = Cookie::get('mgok_auth');
 
-      $user = Users::where('login', $login)->first();
-      return $user->role;
+    if (is_null($login)) {
+      return false;
     }
 
-    public static function getClass() {
-      $login = Cookie::get('mgok_auth');
+    $user = Users::where('login', $login)->first();
+    return $user;
+  }
 
-      if (is_null($login)) {
-        return false;
-      }
+  public static function getFullName() {
+    $user = Users::where('login', Authorization::getLogin())->first();
 
-      $class = Users::where('login', Authorization::getLogin())->first()->class;
-      return $class;
-    }
+    $full_name = $user->full_name;
+    $fio = explode(' ', $full_name);
+    $name = mb_substr($fio[1] ?? '',0,1,'UTF-8').'.'; 
+    $sec_name = mb_substr($fio[2] ?? '',0,1,'UTF-8').'.';
+    $full_name = implode(' ', array($fio[0], $name, $sec_name));
+    return $full_name;
+  }
 }
 ?>

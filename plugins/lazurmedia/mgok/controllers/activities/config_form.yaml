@@ -1,0 +1,10 @@
+name: Activities
+form: $/lazurmedia/mgok/models/activities/fields.yaml
+modelClass: Lazurmedia\Mgok\Models\Activities
+defaultRedirect: lazurmedia/mgok/activities
+create:
+    redirect: 'lazurmedia/mgok/activities/update/:id'
+    redirectClose: lazurmedia/mgok/activities
+update:
+    redirect: lazurmedia/mgok/activities
+    redirectClose: lazurmedia/mgok/activities

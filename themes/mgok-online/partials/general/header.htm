@@ -12,22 +12,34 @@
 			<li class="header__nav-item {{ this.page.id == 'zagruzhennost-kabinetov' ? 'header__nav-item_active' }}"><a href="{{ '/zagruzhennost-kabinetov' }}">Загруженность кабинетов</a></li>
 			<li class="header__nav-item {{ this.page.id == 'tehpodderzhka' ? 'header__nav-item_active' }}"><a href="{{ '/tehpodderzhka' }}">Техподдержка</a></li>
 			<li class="header__nav-item {{ this.page.id == 'onlajn-priemnaya' ? 'header__nav-item_active' }}"><a href="{{ '/onlajn-priemnaya' }}">Онлайн-приемная</a></li>
-			<li class="header__nav-item {{ this.page.id == 'brs' ? 'header__nav-item_active' }}"><a href="{{ '/brs' }}">БРС</a></li>
+			<!-- <li class="header__nav-item {{ this.page.id == 'brs' ? 'header__nav-item_active' }}"><a href="{{ '/brs' }}">БРС</a></li> -->
 		</ul>
 	</nav>
-	
+
 	<div class="header__user">
 		<div class="header__dropdown user-dropdown">
-			<button class="user-dropdown__btn">Александрова Е.А.</button>
+			<button class="user-dropdown__btn">{{ Authorization.getFullName() }}</button>
 			<ul class="user-dropdown__list">
 				{% if Authorization.role == 'Преподаватель' %}
-					<li class="user-dropdown__item"><a href="{{ '/raspisanie-klassa' }}">Класс</a></li>
-					<li class="user-dropdown__item"><a href="{{ '/individualnoe-raspisanie' }}">Индивидуальное расписание</a></li>
-				{% elseif Authorization.role == 'Студент'%}
-					<li class="user-dropdown__item"><a href="{{ '<!-- ВСТАВИТЬ НЕ ЗАБУДЬ -->' }}">Редактировать</a></li>
+					{% if Authorization.class %}
+						<li><a  class="user-dropdown__item" href="{{ '/raspisanie-klassa' }}">Класс</a></li>
+						<li><a  class="user-dropdown__item" href="{{ '/individualnoe-raspisanie' }}">Индивидуальное расписание</a></li>
+					
+					{% else %}
+						<li class="user-dropdown__item">У вас нет классов</li>
+					{% endif %}
+					
+				{% elseif Authorization.role == 'Ученик' %}
+					<li class="user-dropdown__item"><a href="{{ '/redaktirovanie-raspisaniya' }}">Редактировать</a></li>
 				{% endif %}
 			</ul>
 		</div>
-		<a class="header__sign-out" data-request="onLogout">Выход</a>
+		
+		{% if this.page.url == '/individualnoe-raspisanie' or this.page.url == '/raspisanie-klassa' or this.page.url == '/redaktirovanie-raspisaniya' %}
+			<a class="header__sign-out" href="/">Назад</a>
+		{% else %}
+			<a class="header__sign-out" data-request="onLogout">Выход</a>
+		{% endif %}
+		
 	</div>
 </div>

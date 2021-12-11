@@ -1,0 +1,21 @@
+.table-column__container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.table-column__name {
+	height: 165px;
+}
+.table-column__max-score {
+	height: 76px;
+}
+.table-column__item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	height: 45px;
+}
+.table-column__item input {
+	background-color: black;
+}

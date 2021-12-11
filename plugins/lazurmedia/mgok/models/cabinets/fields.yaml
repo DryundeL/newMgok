@@ -11,3 +11,7 @@ fields:
         label: 'Название кабинета'
         span: auto
         type: text
+    address:
+        label: Адрес
+        span: auto
+        type: text

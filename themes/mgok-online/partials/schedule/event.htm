@@ -1,0 +1,49 @@
+==
+<?php
+function onStart() {
+	$this['functions'] = new class {
+		
+		public function getFullName($full_name) {
+	    $fio = explode(' ', $full_name);
+	    $name = mb_substr($fio[1] ?? '',0,1,'UTF-8').'.'; 
+	    $sec_name = mb_substr($fio[2] ?? '',0,1,'UTF-8').'.';
+	    $full_name = implode(' ', array($fio[0], $name, $sec_name));
+	    return $full_name;
+	  }
+	  
+	};
+}
+?>
+==
+<li>
+	<form data-request = "onDeleteEvent" class="schedule__event-item">
+		
+		{% if this.page.url != "/" and not ( Authorization.role == 'Ученик' and event.creater != Authorization.getFullName()) %}
+			<button 
+				class="remove-event" 
+				id="remove-event"
+				data-request="onDeleteEvent"
+				data-request-data="event: {{event}}"
+			>
+				
+				<img class="remove-event__img" src="{{'assets/icons/remove.png'|theme}}" >
+			</button>
+		{% endif %}
+		<div class="schedule__event-item_top">
+			<span>{{event.number_event}}</span>
+			<p class="schedule__event-item_top__p">{{event.time_from | date('H:i')}} - {{event.time_to | date('H:i')}}</p>
+		</div>
+
+		<div class="remove__div"></div>
+		<span class="schedule__subject">{{event.event_name}}</span>
+		<div class="schedule__info">
+			<div class="schedule__info-creator">
+				<span class="creator__span">{{event.creater}}</span>
+			</div>
+			<div class="schedule__info-place">
+				<span class="place__span">{{event.event_place}}</span>
+			</div>
+		</div>
+		
+	</form>
+</li>

@@ -1,0 +1,10 @@
+name: KEK
+form: $/lazurmedia/mgok/models/criterias/fields.yaml
+modelClass: Lazurmedia\Mgok\Models\Criterias
+defaultRedirect: lazurmedia/mgok/kek
+create:
+    redirect: 'lazurmedia/mgok/kek/update/:id'
+    redirectClose: lazurmedia/mgok/kek
+update:
+    redirect: lazurmedia/mgok/kek
+    redirectClose: lazurmedia/mgok/kek

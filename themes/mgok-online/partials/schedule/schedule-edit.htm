@@ -1,0 +1,109 @@
+==
+<?php
+function onStart() {
+	
+	$this['functions'] = new class {
+		
+		public function getDate($date) {
+			
+      $date = explode(" ", $date);
+      $date = explode("-", $date[0]);
+      
+      if (isset($date[1])) {
+      	
+        switch ($date[1]){
+          case 1: $m='января'; break;
+          case 2: $m='февраля'; break;
+          case 3: $m='марта'; break;
+          case 4: $m='апреля'; break;
+          case 5: $m='мая'; break;
+          case 6: $m='июня'; break;
+          case 7: $m='июля'; break;
+          case 8: $m='августа'; break;
+          case 9: $m='сентября'; break;
+          case 10: $m='октября'; break;
+          case 11: $m='ноября'; break;
+          case 12: $m='декабря'; break;
+        }
+        return $date[2].' '.$m; 
+			}
+		}
+	};
+}
+?>
+==
+{% set week = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+{% set days_of_week_rus = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Субота', 'Воскресенье'] %}
+
+{% for index, day_of_week in week %}
+
+		<div class="wrapper">
+		<div class="schedule__date">
+			<p>{{ functions.getDate(dates[index]) }},</p>
+			<span>{{ days_of_week_rus[index] }}</span>
+		</div>
+	</div>
+	<div class="schedule__bg">
+		<div class="wrapper schedule__wrapper">
+			<ul class="schedule__lessons-list">
+				{% set lessons = lessonsArr[day_of_week] %}
+				{% set numLesson = lessons[0].number_lesson %}
+				
+				{% if lessons.lists(0) %}
+					{% for lesson in lessons %}
+						{% if numLesson != lesson.number_lesson and lesson.number_lesson == lessons[lesson.number_lesson].number_lesson %}
+						
+							{% partial "schedule/lesson" lesson=lesson %}
+							
+						{% elseif numLesson != lesson.number_lesson  %}
+						
+							{% partial "schedule/lesson" type="plug" numLesson=numLesson %}
+							{% set numLesson = numLesson + 1 %}
+							{% if numLesson + 1 == lesson.number_lesson %}
+								{% partial "schedule/lesson" type="plug" numLesson=numLesson %}
+								{% set numLesson = numLesson + 1 %}
+							{% endif %}
+							
+							
+							{% partial "schedule/lesson" lesson=lesson %}
+							{% set numLesson = numLesson + 1 %}
+							
+						{% else %}
+						
+							{% partial "schedule/lesson" lesson=lesson %}
+							{% set numLesson = numLesson + 1 %}
+							
+						{% endif %}
+					{% endfor %}
+				
+				{% else %}
+					<li class="schedule__plug">Расписание отсутствует...</li>
+				{% endif %}
+			</ul>
+			
+			{% set events = eventsArr[day_of_week] %}
+				<span class="schedule__extracurricular">Внеурочная деятельность</span>
+			
+			
+			<ul class="schedule__lessons-list">
+			<!--<span class="dop">События</span> -->
+				{% for event in events %}
+					{% partial "schedule/event" event=event %}
+				{% endfor %}
+				
+				{% if this.page.url != '/' %}
+					<li class="schedule__element-li" id="plus-div">
+						<div class="event-plus__div">
+							<img class="event-plus__img" src="{{'assets/icons/plus.svg'|theme}}">
+							<span class="event-plus__span">Добавить<br>активность</span>
+						</div>
+					</li>
+					
+					{% partial "schedule/add-event" day=dates[index] %}
+				{% endif %}
+
+			</ul>
+			
+		</div>
+	</div>
+{% endfor %}

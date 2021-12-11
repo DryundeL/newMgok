@@ -17,3 +17,7 @@ columns:
         type: number
         searchable: true
         sortable: true
+    address:
+        label: Адрес
+        type: text
+        searchable: true

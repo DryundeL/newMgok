@@ -1,0 +1,683 @@
+title = "Коэффициент эффективности кафедр"
+url = "/koefficient-effektivnosti-kafedr"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[KEK]
+
+[Authorization]
+==
+<head>
+	<link href="{{ 'assets/css/normalize.css'|theme }}" rel="stylesheet">
+	<link href="{{ 'assets/css/cec.css'|theme }}" rel="stylesheet">
+</head>
+
+{% set criterias = KEK.criterias %}
+<body>
+	<header class="header">
+		<div class="cec-header__div">
+			<a href="#"><img src="{{'assets/icons/MGOK.svg'|theme}}" class="cec-logo__img"></a>
+			<span class="cec-rate__span">Рейтинг кафедр</span>
+			<span class="cec-user__span">{{Authorization.getFullName()}}</span>
+			<button class="cec-exit__btn" data-request="onLogout" >Выход</button>
+		</div>
+	</header>
+	<div class="cec-blocks__div">
+		<div class="cec-blocks">
+			<div class="block" id="block1">Блок 1</div>
+			<div class="block" id="block2">Блок 2</div>
+			<div class="block" id="block3">Блок 3</div>
+			<div class="block" id="block4">Блок 4</div>
+			<div class="block" id="block5">Блок 5</div>
+			<div class="block" id="block6">Блок 6</div>
+			<div class="block" id="res-block">Итоги</div>
+		</div>
+	</div>
+	<div class="res-table-head hide">
+		<table cellpadding="0" cellspacing="0">
+			<thead class="thead-table">
+				<th class="num-row">№</td>
+				<th class="criteria-row">Критерии эффективности</th>
+				<th class="weight-row">Удельный вес критерия за 1 ед.</th>
+				<th class="vert" colspan="2">Технология машиностроения</th>
+				<th class="vert" colspan="2">Экономики, права и социально-гуманитарных дисциплин</th>
+				<th class="vert" colspan="2">Промышленной фармацевтики</th>
+				<th class="vert" colspan="2">Информационных технологий</th>
+				<th class="vert" colspan="2">Математических и естественнонаучных дисциплин</th>
+				<th class="vert" colspan="2">Лингвистики и начальной школы</th>
+				<th class="vert" colspan="2">Земельно-имущественных дисциплин</th>
+				<th class="vert" colspan="2">Иностранных языков</td>
+				<th class="vert" colspan="2">Здоровьесберегающих дисциплин</th>
+				<th class="vert" colspan="2">Дизайн и реклама</th>
+				<th class="vert" colspan="2">Кафедра классных руководителей и тьюторов</th>
+			</thead>
+			<tbody class="block1 blocks_tbody hide">
+				<tr>
+					<td class="section-1__td" colspan="25">Раздел 1 Основные образовательные программы</td>
+				</tr>
+				{% for criteriy in criterias%}
+					{% if criteriy.chapter == "Раздел 1"%}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" type="text" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+				<tr>
+					<td class="section-1__td" colspan="25">Раздел 2 Программы дополнительного образования</td>
+				</tr>
+				{% for criteriy in criterias%}
+					{% if criteriy.chapter == "Раздел 2" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+				<tr>
+					<td class="section-1__td" colspan="25">Раздел 3 Программы дополнительного профессионального образования</td>
+				</tr>
+				{% for criteriy in criterias%}
+					{% if criteriy.chapter == "Раздел 3" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+				<tr>
+					<td class="section-1__td" colspan="25">Раздел 4 Публичные мероприятия по набору</td>
+				</tr>
+				{% for criteriy in criterias%}
+					{% if criteriy.chapter == "Раздел 4" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+				<tr>
+					<td class="section-1__td" colspan="25">Штрафные баллы</td>
+				</tr>
+				{% for criteriy in criterias%}
+					{% if criteriy.block == 1 and criteriy.chapter == "Штрафные баллы" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+			<tbody class="block2 blocks_tbody hide">
+				{% for criteriy in criterias%}
+					{% if criteriy.block == "2" and criteriy.chapter == "" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+				<tr>
+					<td class="section-1__td" colspan="25">Штрафные баллы</td>
+				</tr>
+				{% for criteriy in criterias%}
+					{% if criteriy.block == 2 and criteriy.chapter == "Штрафные баллы" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+			<tbody class="block3 blocks_tbody hide">
+				{% for criteriy in criterias%}
+					{% if criteriy.block == "3" and criteriy.chapter == "" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+				<tr>
+					<td class="section-1__td" colspan="25">Штрафные баллы</td>
+				</tr>
+				{% for criteriy in criterias%}
+					{% if criteriy.block == 3 and criteriy.chapter == "Штрафные баллы" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+			<tbody class="block4 blocks_tbody hide">
+				{% for criteriy in criterias%}
+					{% if criteriy.block == "4" and criteriy.chapter == "" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+				<tr>
+					<td class="section-1__td" colspan="25">Штрафные баллы</td>
+				</tr>
+				{% for criteriy in criterias%}
+					{% if criteriy.block == 4 and criteriy.chapter == "Штрафные баллы" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+			<tbody class="block5 blocks_tbody hide">
+				{% for criteriy in criterias%}
+					{% if criteriy.block == "5" and criteriy.chapter == "" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+				<tr>
+					<td class="section-1__td" colspan="25">Штрафные баллы</td>
+				</tr>
+				{% for criteriy in criterias%}
+					{% if criteriy.block == 5 and criteriy.chapter == "Штрафные баллы" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+			<tbody class="block6 blocks_tbody hide">
+				{% for criteriy in criterias%}
+					{% if criteriy.block == "6" and criteriy.chapter == "" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+				<tr>
+					<td class="section-1__td" colspan="25">Штрафные баллы</td>
+				</tr>
+				{% for criteriy in criterias%}
+					{% if criteriy.block == 6 and criteriy.chapter == "Штрафные баллы" %}
+						<tr>
+							<td class="num-cell">{{criteriy.id}}</td>
+							<td class="criteria-cell">{{criteriy.criteria}}</td>
+							<td class="weight-cell">{{criteriy.criteria_weight}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.mechanical_engineering_input}}"></td>
+							<td class="res-cell">{{criteriy.mechanical_engineering_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.economy_input}}"></td>
+							<td class="res-cell">{{criteriy.economy_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.pharmaceuticals_input}}"></td>
+							<td class="res-cell">{{criteriy.pharmaceuticals_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.it_input}}"></td>
+							<td class="res-cell">{{criteriy.it_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.math_input}}"></td>
+							<td class="res-cell">{{criteriy.math_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.linguistics_input}}"></td>
+							<td class="res-cell">{{criteriy.linguistics_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.earth_input}}"></td>
+							<td class="res-cell">{{criteriy.earth_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.foreign_input}}"></td>
+							<td class="res-cell">{{criteriy.foreign_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.health_input}}"></td>
+							<td class="res-cell">{{criteriy.health_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.design_input}}"></td>
+							<td class="res-cell">{{criteriy.design_ball}}</td>
+							<td class="input-cell"><input class="input-field__cell" value="{{criteriy.tutor_input}}"></td>
+							<td class="res-cell">{{criteriy.tutor_ball}}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="res-block blocks_tbody hide">
+		<table class="res__table" cellspacing="0">
+			<thead>
+				<th class="empty-th"></th>
+				<th class="res-table__th db">Технология машиностроения</th>
+				<th class="res-table__th lb">Экономики, права и социально-гуманитарных дисциплин</th>
+				<th class="res-table__th db">Промышленной фармацевтики</th>
+				<th class="res-table__th lb">Информационных технологий</th>
+				<th class="res-table__th db">Математических и естественнонаучных дисциплин</th>
+				<th class="res-table__th lb">Лингвистики и начальной школы</th>
+				<th class="res-table__th db">Земельно-имущественных дисциплин</th>
+				<th class="res-table__th lb">Иностранных языков</th>
+				<th class="res-table__th db">Здоровьесберегающих дисциплин</th>
+				<th class="res-table__th lb">Дизайн и реклама</th>
+				<th class="res-table__th db">Кафедра классных руководителей и тьюторов</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="res__td">Блок 1 "Эффективность работы по формированию контингента"</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+				</tr>
+				<tr>
+					<td class="res__td">Блок 2 "Обеспечение высокого качества образования"</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+				</tr>
+				<tr>
+					<td class="res__td">Блок 3 "Обеспечение высокого уровня профессиональной компетентности педагогических работников"</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+				</tr>
+				<tr>
+					<td class="res__td">Блок 4 "Сопутствующие улуги (внебюджет)"</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+				</tr>
+				<tr>
+					<td class="res__td">Блок 5 "Реализация проектов развития"</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+				</tr>
+				<tr>
+					<td class="res__td">Блок 6 "Документальное оформление деятельности"</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+					<td class="table__td">0</td>
+				</tr>
+				<tr class="itog__tr">
+					<td class="itog__td">Итоги</td>
+					<td class="table__res-td">0</td>
+					<td class="table__res-td">0</td>
+					<td class="table__res-td">0</td>
+					<td class="table__res-td">0</td>
+					<td class="table__res-td">0</td>
+					<td class="table__res-td">0</td>
+					<td class="table__res-td">0</td>
+					<td class="table__res-td">0</td>
+					<td class="table__res-td">0</td>
+					<td class="table__res-td">0</td>
+					<td class="table__res-td">0</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+<script src="{{ 'assets/js/cec.js'|theme }}"></script>
+</body>

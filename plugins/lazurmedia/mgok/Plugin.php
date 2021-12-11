@@ -9,6 +9,9 @@ class Plugin extends PluginBase
         return [
             'LazurMedia\Mgok\Components\Authorization' => 'Authorization',
             'LazurMedia\Mgok\Components\Schedule' => 'Schedule',
+            'LazurMedia\Mgok\Components\KEK'=> 'KEK',
+            'LazurMedia\Mgok\Components\Cabinetes'=> 'Cabinetes',
+            'LazurMedia\Mgok\Components\Activities'=> 'Activities',
         ];
     }
 
@@ -21,6 +24,7 @@ class Plugin extends PluginBase
             'LazurMedia\Mgok\FormWidgets\Students' => 'students',
             'LazurMedia\Mgok\FormWidgets\DaysWeek' => 'days_of_week',
             'LazurMedia\Mgok\FormWidgets\Parity' => 'parity',
+            'LazurMedia\Mgok\FormWidgets\Activities' => 'activities',
         ];
     }
 

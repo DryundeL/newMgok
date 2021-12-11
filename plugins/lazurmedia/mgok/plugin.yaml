@@ -23,10 +23,18 @@ navigation:
                 url: lazurmedia/mgok/classevents
                 icon: icon-graduation-cap
             side-menu-item3:
-                label: Расписание
+                label: Занятия
                 url: lazurmedia/mgok/schedule
                 icon: icon-table
             side-menu-item5:
                 label: Кабинеты
                 url: lazurmedia/mgok/cabinets
                 icon: icon-windows
+            side-menu-item6:
+                label: Активности
+                url: lazurmedia/mgok/activities
+                icon: icon-connectdevelop
+            side-menu-item7:
+                label: КЭК
+                url: lazurmedia/mgok/kek
+                icon: icon-slideshare

@@ -1,0 +1,5 @@
+fields:
+    activity_name:
+        label: Text
+        span: auto
+        type: text

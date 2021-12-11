@@ -1,0 +1,85 @@
+columns:
+    id:
+        label: 'Номер критерия'
+        type: number
+    chapter:
+        label: Раздел
+        type: text
+        searchable: true
+        sortable: true
+    criteria:
+        label: Критерий
+        type: text
+        searchable: true
+    criteria_weight:
+        label: Вес
+        type: number
+    mechanical_engineering_input:
+        label: 'Ввод машиностроения'
+        type: number
+    mechanical_engineering_ball:
+        label: 'Баллы машиностроения'
+        type: number
+    economy_input:
+        label: 'Ввод экономики'
+        type: number
+    economy_ball:
+        label: 'Баллы экономики'
+        type: number
+    pharmaceuticals_input:
+        label: 'Ввод фармацевтики'
+        type: number
+    pharmaceuticals_ball:
+        label: 'Баллы фармацевтики'
+        type: number
+    it_input:
+        label: 'Ввод IT'
+        type: number
+    it_ball:
+        label: 'Баллы IT'
+        type: number
+    math_input:
+        label: 'Ввод математики'
+        type: number
+    math_ball:
+        label: 'Баллы математики'
+        type: number
+    linguistics_input:
+        label: 'Ввод лингвистики'
+        type: number
+    linguistics_ball:
+        label: 'Баллы лингвистики'
+        type: number
+    earth_input:
+        label: 'Ввод земли'
+        type: number
+    earth_ball:
+        label: 'Баллы земли'
+        type: number
+    foreign_input:
+        label: 'Ввод иностранных'
+        type: number
+    foreign_ball:
+        label: 'Баллы иностранных'
+        type: number
+    health_input:
+        label: 'Ввод здоровья'
+        type: number
+    health_ball:
+        label: 'Баллы здоровья'
+        type: number
+    design_input:
+        label: 'Ввод дизайна'
+        type: number
+    design_ball:
+        label: 'Баллы дизайна'
+        type: number
+    tutor_input:
+        label: 'Ввод тьюторов'
+        type: number
+    tutor_ball:
+        label: 'Баллы тьюторов'
+        type: number
+    block:
+        label: Блок
+        type: number

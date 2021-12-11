@@ -39,3 +39,8 @@ columns:
         type: date
         searchable: true
         sortable: true
+    creater:
+        label: Создатель
+        type: text
+        searchable: true
+        sortable: true

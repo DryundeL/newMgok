@@ -4,7 +4,7 @@
 {% for index, day_of_week in week %}
 		<div class="wrapper">
 		<div class="schedule__date">
-			<p>{{ dates[index] }}</p>
+			<p>{{ getDate(index) }}</p>
 			<span>{{ Schedule.days_of_week_rus[index] }}</span>
 		</div>
 	</div>
@@ -27,40 +27,11 @@
 			{% endif %}
 			
 			<ul class="schedule__lessons-list">
-				<span class="dop">События</span>
+			<!-- 	<span class="dop">События</span> -->
 				{% for event in events %}
 					{% partial "schedule/lesson" lesson=event %}
 				{% endfor %}
 				
-				<li class="add-event__div">
-					<form class="add-event__form">
-						<div class="stroke">
-						<span class="stroke-name">Время</span>
-						<div class="eventTime">
-							<div class="timeFrom">
-								<span>с</span>
-								<input class="time-field">
-							</div>
-							<div class="timeTo">
-								<span>по</span>
-								<input class="time-field">
-							</div>
-						</div>
-						</div>
-						<div class="stroke">
-							<span class="stroke-name">Название</span>
-							<textarea placeholder="Введите название" class="name-field"></textarea>
-						</div>
-						<div class="stroke">
-							<span class="stroke-name">Кабинет</span>
-							<input type="text" class="field">
-						</div>
-						<div class="schedule-add__btns">
-							<button class="add__button">Добавить</button>
-							<button class="cancel__button">Отмена</button>
-						</div>
-					</form>
-				</li>
 			</ul>
 		</div>
 	</div>

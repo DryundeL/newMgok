@@ -1,0 +1,16 @@
+==
+{% set week = Cabinetes.days_of_week_eng %}
+
+<div class="table-container">
+	{% for index, day_of_week in week %}
+			<div class="column">
+				<div class="col-day">{{Cabinetes.days_of_week_rus[index]}}</div>
+					{% for lesson in lessons[day_of_week] %}
+						{% if lesson.day_of_week == Cabinetes.days_of_week_rus[index] %}
+							{% partial 'cabinets/load' lesson=lesson %}
+						{% endif %}
+					{% endfor %}
+			</div>
+			
+	{% endfor %}
+</div>

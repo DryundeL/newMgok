@@ -1,0 +1,50 @@
+==
+<?php
+function onStart() {
+	$this['searchText'] = Request::get('text');
+	$this['searchRole'] = Request::get('role');
+}
+?>
+==
+<section class="schedule-search">
+	<form class="wrapper schedule-search__wrapper">
+		<div class="schedule-search__container">
+			<div class="schedule-search__bordered-block">
+				<select name="type" id="type" class="event-target__select">
+					<option 
+						value="Преподаватель"
+						{% if searchRole == 'Преподаватель' %}
+							selected
+						{% endif %}
+					>
+						Преподаватель
+					</option>
+					<option 
+						value="Группа/класс"
+						{% if searchRole == 'Группа/класс' %}
+							selected
+						{% endif %}
+					>
+						Группа/класс
+					</option>
+					<option 
+						value="Учащийся"
+						{% if searchRole == 'Учащийся' %}
+							selected
+						{% endif %}
+					>
+						Учащийся
+					</option>
+				</select>
+				<input 
+					type="text" 
+					class="event-target__input" 
+					value='{{searchText}}'
+				>
+			</div>
+			<ul class="schedule-search__hints">
+			</ul>
+		</div>
+		<button class="schedule-search__btn">Поиск</button>
+	</form>
+</section>

@@ -1,5 +1,7 @@
 <?php namespace LazurMedia\Mgok\Classes;
 
+use Request;
+
 class Dates {
   private static $months_list = array(
     'января', 
@@ -26,31 +28,47 @@ class Dates {
     'Sunday',
   );
 
-  public static function getNumberDayInWeek() {
-    $month = self::$months_list[date('m')];
+
+  // ----------------------
+  public $days_of_week_rus = array(
+    'Понедельник', 
+    'Вторник', 
+    'Среда', 
+    'Четверг', 
+    'Пятница', 
+    'Суббота', 
+    'Воскресенье'
+  
+  );
+
+  public $days_of_week_eng = array(
+    'monday', 
+    'tuesday', 
+    'wednesday', 
+    'thursday', 
+    'friday', 
+    'saturday', 
+    'sunday'
+  );
+
+  public function getRusDayOfWeek($index) {
+    return $this->days_of_week_rus[$index];
+  }
+
+  public function getEngDayOfWeek($index) {
+    return $this->days_of_week_eng[$index];
+  }
+
+  public function getDates()
+  {
+    $date = strtotime('monday this week');
+    $dates = [];
+    $week = (int) Request::get('number_of_week');
     
-    $current_day_of_week = date('l');
-    
-    return array_search($current_day_of_week, self::$days_of_week_list);
-  }
-
-  public static function getCurrentMonth() {
-    $month = date('m') - 1;
-    return self::$months_list[$month];
-  }
-
-  public static function getPreviousMonth() {
-    $month = date('m') - 1;
-    return self::$months_list[$month - 1];
-  }
-
-  public static function getNextMonth() {
-    $month = date('m') - 1;
-    return self::$months_list[$month + 1];
-  }
-
-  public static function getMonthIndex($month) {
-    return array_search($month, self::$months_list);
+    for ($i = 0 + $week * 7; $i < 7 + $week * 7; $i++) {
+      $dates[] =  date("Y-m-d", strtotime('+' . $i . ' day', $date));
+    }
+    return $dates;
   }
 }
 

@@ -2,13 +2,14 @@
 
 use Lazurmedia\Mgok\Models\Users;
 use Lazurmedia\Mgok\Models\Cabinets;
+use Lazurmedia\Mgok\Models\Activities;
 
 class Fields
 {
   public static function getRoles() {
     return [
       'Преподаватель',
-      'Студент'
+      'Ученик'
     ];
   }
 
@@ -41,11 +42,27 @@ class Fields
   }
 
   public static function getStudents() {
-    return Users::where('role', 'Студент')->get();
+    return Users::where('role', 'Ученик')
+      ->orderBy('full_name', 'asc')
+      ->get();
   }
   
   public static function getCabinets() {
     return Cabinets::all();
+  }
+
+  public static function getAddresses() {
+    return [
+      'Стратонавтов, 15', 
+      'Волгоградский проспект, 42',
+      'Лодочная, 7',
+      'Старопетровкий, 1А',
+      'Вишневая, 5',
+    ];
+  }
+  
+  public static function getActivities() {
+    return Activities::all();
   }
 }
 ?>

@@ -1,0 +1,49 @@
+fields:
+    block:
+        label: Блок
+        span: auto
+        type: text
+    chapter:
+        label: 'Название раздела'
+        span: auto
+        type: text
+    criteria:
+        label: Критерий
+        span: auto
+        type: text
+    criteria_weight:
+        label: 'Удельный вес критерия'
+        span: auto
+        type: text
+    tutor_input:
+        label: Text
+        span: auto
+        type: text
+    design_input:
+        label: Text
+        span: auto
+        type: text
+    health_input:
+        label: Text
+        span: auto
+        type: text
+    foreign_input:
+        label: Text
+        span: auto
+        type: text
+    earth_input:
+        label: Text
+        span: auto
+        type: text
+    linguistics_input:
+        label: Text
+        span: auto
+        type: text
+    math_input:
+        label: Text
+        span: auto
+        type: text
+    it_input:
+        label: Text
+        span: auto
+        type: text

@@ -1,0 +1,12 @@
+list: $/lazurmedia/mgok/models/criterias/columns.yaml
+modelClass: Lazurmedia\Mgok\Models\Criterias
+title: KEK
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'lazurmedia/mgok/kek/update/:id'
