@@ -9,7 +9,8 @@ class Fields
   public static function getRoles() {
     return [
       'Преподаватель',
-      'Ученик'
+      'Ученик',
+      'Директорат'
     ];
   }
 

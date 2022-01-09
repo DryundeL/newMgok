@@ -29,3 +29,6 @@ columns:
         type: number
         searchable: true
         sortable: true
+    access:
+        label: 'Доступ к КЭК'
+        type: text

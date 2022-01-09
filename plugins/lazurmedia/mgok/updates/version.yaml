@@ -111,3 +111,12 @@
 1.0.38:
     - 'Updated table lazurmedia_mgok_cec'
     - builder_table_update_lazurmedia_mgok_cec_5.php
+1.0.39:
+    - 'Updated table lazurmedia_mgok_cec'
+    - builder_table_update_lazurmedia_mgok_cec_6.php
+1.0.40:
+    - 'Updated table lazurmedia_mgok_schedule'
+    - builder_table_update_lazurmedia_mgok_schedule_4.php
+1.0.41:
+    - 'Updated table lazurmedia_mgok_users'
+    - builder_table_update_lazurmedia_mgok_users_7.php

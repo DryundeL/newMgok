@@ -1,0 +1,35 @@
+==
+<tr {% if blockNum == 7 %} class="res__tr" {% endif %}>
+	{% if blockNum == 1 %}
+		<td class="res-td">Блок 1 "Эффективность работы по формированию контингента"</td>
+	{% endif %}
+	{% if blockNum == 2 %}
+		<td class="res-td">Блок 2 "Обеспечение высокого качества образования"</td>
+	{% endif %}
+	{% if blockNum == 3 %}
+		<td class="res-td">Блок 3 "Обеспечение высокого уровня профессиональной компетентности педагогических работников"</td>
+	{% endif %}
+	{% if blockNum == 4 %}
+		<td class="res-td">Блок 4 "Сопутствующие улуги (внебюджет)"</td>
+	{% endif %}
+	{% if blockNum == 5 %}
+		<td class="res-td">Блок 5 "Реализация проектов развития"</td>
+	{% endif %}
+	{% if blockNum == 6 %}
+		<td class="res-td">Блок 6 "Документальное оформление деятельности"</td>
+	{% endif %}
+	{% if blockNum == 7 %}
+		<td class="res-td-res">Итоги</td>
+	{% endif %}
+	<td class="{% if blockNum == 7 %} res-table__td {% else %} table__td {% endif %}">{{block.mechanical_engineering}}</td>
+	<td class="{% if blockNum == 7 %} res-table__td {% else %} table__td {% endif %}">{{block.economy}}</td>
+	<td class="{% if blockNum == 7 %} res-table__td {% else %} table__td {% endif %}">{{block.pharmaceuticals}}</td>
+	<td class="{% if blockNum == 7 %} res-table__td {% else %} table__td {% endif %}">{{block.it}}</td>
+	<td class="{% if blockNum == 7 %} res-table__td {% else %} table__td {% endif %}">{{block.math}}</td>
+	<td class="{% if blockNum == 7 %} res-table__td {% else %} table__td {% endif %}">{{block.linguistics}}</td>
+	<td class="{% if blockNum == 7 %} res-table__td {% else %} table__td {% endif %}">{{block.earth}}</td>
+	<td class="{% if blockNum == 7 %} res-table__td {% else %} table__td {% endif %}">{{block.foreign}}</td>
+	<td class="{% if blockNum == 7 %} res-table__td {% else %} table__td {% endif %}">{{block.health}}</td>
+	<td class="{% if blockNum == 7 %} res-table__td {% else %} table__td {% endif %}">{{block.design}}</td>
+	<td class="{% if blockNum == 7 %} res-table__td {% else %} table__td {% endif %}">{{block.tutor}}</td>
+</tr>

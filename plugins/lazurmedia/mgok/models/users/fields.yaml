@@ -24,3 +24,8 @@ fields:
         mode: date
         span: auto
         type: datepicker
+    access:
+        label: 'Доступ к КЭК'
+        size: small
+        span: full
+        type: textarea

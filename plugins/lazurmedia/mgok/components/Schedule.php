@@ -43,6 +43,16 @@ class Schedule extends \Cms\Classes\ComponentBase
 
   private function routes($route)
   {
+    //redirect to KEK
+    $user = Authorization::getUser();
+    if($user){
+      $role = $user->role;
+
+      if ($role === 'Директорат') {
+        return Redirect::to('/koefficient-effektivnosti-kafedr');
+      }
+    }
+
     switch($route) {
       case '/':
         $this->mainPage();

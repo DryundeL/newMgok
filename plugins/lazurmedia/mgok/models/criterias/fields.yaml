@@ -16,34 +16,46 @@ fields:
         span: auto
         type: text
     tutor_input:
-        label: Text
+        label: 'ТЬЮТОРЫ И КЛАССНЫЕ РУКОВОДИТЕЛИ'
         span: auto
         type: text
     design_input:
-        label: Text
+        label: ДИЗАЙНА
         span: auto
         type: text
     health_input:
-        label: Text
+        label: 'ЗДОРОВЬЕСБЕРЕГАЮЩИЕ ДИСЦИПЛИНЫ'
         span: auto
         type: text
     foreign_input:
-        label: Text
+        label: 'ИНОСТРАННЫХ ЯЗЫКОВ'
         span: auto
         type: text
     earth_input:
-        label: Text
+        label: ЗЕМЕЛЬНОИМУЩЕСТВЕННЫЕ
         span: auto
         type: text
     linguistics_input:
-        label: Text
+        label: 'ЛИНГВИСТИКИ И НАЧАЛЬНОЙ ШКОЛЫ'
         span: auto
         type: text
     math_input:
-        label: Text
+        label: МАТЕМАТИЧЕСКИХ
         span: auto
         type: text
     it_input:
-        label: Text
+        label: ИТ
+        span: auto
+        type: text
+    mechanical_engineering_input:
+        label: механика
+        span: auto
+        type: text
+    economy_input:
+        label: Экономика
+        span: auto
+        type: text
+    pharmaceuticals_input:
+        label: Фармацевтика
         span: auto
         type: text

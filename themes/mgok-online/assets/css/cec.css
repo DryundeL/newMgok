@@ -1,7 +1,11 @@
+body {
+	overflow-x: visible;
+}
 .header{
+	position: relative;
 	background-color: #fff;
 	box-shadow: 0px 0px 15px rgb(112 112 112 / 10%);
-	z-index:3;
+	z-index:2;
 }
 .cec-header__div{
 	width: 1464px;
@@ -43,7 +47,7 @@
 .cec-blocks__div{
 	background-color: #fff;
 	box-shadow: 0px 0px 15px rgb(112 112 112 / 10%);
-	z-index:2;
+	z-index:1;
 }
 .cec-blocks{
 	width: 1464px;
@@ -69,7 +73,10 @@
 }
 table{
 	position: relative;
-	overflow:auto;
+}
+.thead-table{
+	position: sticky;
+	top: 0;
 }
 .res-table-head{
 		width: 1464px;
@@ -86,9 +93,10 @@ th{
 	height: 160px;
 	font-weight: 400;
 	border: 1px solid #F3F9FB;
+	background: #fff;
 }
 table{
-	position:sticky;
+/* 	position:sticky; */
 }
 .vert{
 	max-width:92px;
@@ -104,7 +112,7 @@ table{
 	border-top: 1px solid rgb(79, 128, 161);
 }
 td{
-	border: 1px solid #F3F9FB;
+
 }
 .cell{  
 	background-color: #fff;
@@ -141,6 +149,7 @@ td{
 	height: 48px;
 }
 .input-cell, .res-cell{
+	border:1px solid #F3F9FB;
 	width: 44px;
 	height: 70px;
 	text-align:center;
@@ -168,11 +177,13 @@ td{
 	font-weight: 400;
 }
 .weight-cell{
+	border:1px solid #F3F9FB;
 	text-align:center;
 	vertical-align: middle;
 	font-size: 14px;
 }
 .criteria-cell{
+	border:1px solid #F3F9FB;
 	width: 326px;
 	font-family: "Intro", serif;
 	font-weight: 200;
@@ -240,6 +251,7 @@ td{
 	font-size: 12px;
 	padding: 16px;
 	height: 70px;
+
 }
 .itog__tr{
 	height: 70px;
@@ -250,8 +262,7 @@ td{
 	text-align: center;
 }
 .table__td{
-	border-right: 2px solid #fff;
-	border-bottom: 2px solid #F3F9FB;
+	border-top: 2px solid #F3F9FB;
 	text-align:center;
 	vertical-align: middle;
 }
@@ -260,5 +271,47 @@ td{
 	border-right: 2px solid #fff;
 	border-bottom: 2px solid #F3F9FB;
 	text-align:center;
+	vertical-align: middle;
+}
+.save-btn{
+	position: fixed;
+	z-index: 10;
+	max-width: 140px;
+	width: 100%;
+	height: 40px;
+	cursor: pointer;
+	color: #fff;
+	background: linear-gradient(to left, #2661A6, #409BC2, #2661A6);
+	-webkit-background-size: 200%;
+	background-size: 200%;
+	letter-spacing: 1px;
+	transition: .5s;
+	top:21vh;
+	right:5vh;
+}
+.res-td{
+	width: 188px;
+  padding: 16px;
+	text-align:left;
+	font-size: 12px;
+	border-right: 2px solid #F3F9FB;
+	border-top: 2px solid #F3F9FB;
+}
+.res__tr{
+	text-align: center;
+  font-size: 16px;
+	height: 70px;
+	vertical-align: middle;
+	border-top: 2px solid #4F80A1;
+	
+}
+.res-td-res{
+	vertical-align: middle;
+	border-right: 2px solid #F3F9FB;
+}
+.res-table__td{
+	border:none;
+	border-top: 2px solid #4F80A1;
+	text-align: center;
 	vertical-align: middle;
 }

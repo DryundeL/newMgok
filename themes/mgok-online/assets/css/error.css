@@ -1,0 +1,16 @@
+.error__div{
+	border-left: 2px solid rgb(224,52,52);
+	padding-left: 10px;
+	display:flex;
+	flex-direction: column;
+	width: 400px;
+	margin: 40vh auto 0 auto;
+}
+.error{
+	font-size: 20px;
+	margin-bottom: 20px;
+	color: rgb(91,91,91);
+}
+.notfound{
+	font-size: 24px;
+}
