@@ -177,7 +177,7 @@ robot_follow = "follow"
 				</tr>
 				{% for criteriy in criterias%}
 					{% for crit in criteriy %}
-						{% if crit.block == 3 and criteriy.chapter == "Штрафные баллы" %}
+						{% if crit.block == 3 and crit.chapter == "Штрафные баллы" %}
 							{% partial "kek/block"
 									chapter = "block3-penalty-points"
 									criteriy = crit

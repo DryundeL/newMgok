@@ -1,0 +1,22 @@
+fields:
+    class:
+        label: Класс
+        span: auto
+        type: classes
+    subject:
+        label: Предмет
+        span: auto
+        type: subjects
+    student:
+        label: Ученик
+        span: auto
+        type: text
+    date:
+        label: Дата
+        mode: date
+        span: auto
+        type: datepicker
+    mark:
+        label: Оценка
+        span: auto
+        type: text

@@ -1,0 +1,21 @@
+fields:
+    class:
+        label: Класс
+        span: auto
+        type: text
+    month:
+        label: Месяц
+        span: auto
+        type: text
+    student:
+        label: Ученик
+        span: auto
+        type: text
+    mark:
+        label: Оценка
+        span: auto
+        type: text
+    subject:
+        label: Предмет
+        span: auto
+        type: text

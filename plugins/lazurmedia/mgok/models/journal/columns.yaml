@@ -1,0 +1,29 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: false
+        sortable: true
+    class:
+        label: Класс
+        type: text
+        searchable: true
+        sortable: true
+    subject:
+        label: Предмет
+        type: text
+        searchable: true
+        sortable: true
+    student:
+        label: Ученик
+        type: text
+        searchable: true
+        sortable: false
+    mark:
+        label: Оценка
+        type: text
+        sortable: true
+    date:
+        label: Дата
+        type: date
+        sortable: true

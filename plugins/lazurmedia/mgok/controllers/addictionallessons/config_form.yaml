@@ -1,0 +1,10 @@
+name: AddictionalLessons
+form: $/lazurmedia/mgok/models/addictionallessons/fields.yaml
+modelClass: Lazurmedia\Mgok\Models\AddictionalLessons
+defaultRedirect: lazurmedia/mgok/addictionallessons
+create:
+    redirect: 'lazurmedia/mgok/addictionallessons/update/:id'
+    redirectClose: lazurmedia/mgok/addictionallessons
+update:
+    redirect: lazurmedia/mgok/addictionallessons
+    redirectClose: lazurmedia/mgok/addictionallessons

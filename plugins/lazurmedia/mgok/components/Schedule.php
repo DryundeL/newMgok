@@ -37,9 +37,10 @@ class Schedule extends \Cms\Classes\ComponentBase
   public function onRun()
   {
     $this->dates = (new DatesClass)->getDates();
-
     return $this->routes($this->page->url);
   }
+
+  
 
   private function routes($route)
   {

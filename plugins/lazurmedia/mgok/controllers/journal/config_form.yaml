@@ -1,0 +1,10 @@
+name: Journal
+form: $/lazurmedia/mgok/models/journal/fields.yaml
+modelClass: Lazurmedia\Mgok\Models\Journal
+defaultRedirect: lazurmedia/mgok/journal
+create:
+    redirect: 'lazurmedia/mgok/journal/update/:id'
+    redirectClose: lazurmedia/mgok/journal
+update:
+    redirect: lazurmedia/mgok/journal
+    redirectClose: lazurmedia/mgok/journal

@@ -4,6 +4,7 @@ use Input;
 use BackendMenu;
 use Backend\Classes\Controller;
 use Lazurmedia\Mgok\Classes\Import;
+use Lazurmedia\Mgok\Classes\Export;
 
 class Users extends Controller
 {
@@ -24,5 +25,9 @@ class Users extends Controller
         Input::file('import')->move($path, '_import.xlsx');
         
         return Import::import('users');
+    }
+
+    public function onExport() { 
+        return Export::export('users');
     }
 }

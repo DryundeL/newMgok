@@ -1,0 +1,112 @@
+title = "Электронный журнал"
+url = "/elektronnyj-zhurnal"
+layout = "main"
+description = "Электронный журнал"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[ELjournal]
+==
+<?php
+function onStart() {
+	$this['selected_group'] = Request::get('group');
+	$this['selected_semester'] = Request::get('semester');
+	$this['selected_month'] = Request::get('month');
+}
+?>
+==
+<link rel="stylesheet" href="{{ 'assets/css/EJ.css'|theme }}">
+<link rel="stylesheet" href="{{ 'assets/css/swiper-bundle.min.css'|theme }}">
+
+{% set role = ELjournal.role%}
+{% set lessons = ELjournal.subjects %}
+{% set classes = ELjournal.classes %}
+{% set classmates = ELjournal.classmates %}
+{% set students = ELjournal.students %}
+{% set numStud = 1 %}
+
+
+
+<div class="EJ-container">
+	<div class="description__div">
+		{% if role == 'Преподаватель' %}
+			<span class="group__span">Группа</span>
+		{% endif %}
+		<span class="sem__span">Семестр</span>
+		<span class="month__span">Месяц</span>
+	</div>
+	<div class="select__div">
+		{% if role == 'Преподаватель' %}
+			<select class="select-group" name='group' id='group-select'>
+				{% for class in classes %}
+					<option value="{{class.class}}" 
+						{% if selected_group == class.class %}
+							selected
+						{% endif %}
+					>
+						{{class.class}}
+					</option>
+				{% endfor %}
+			</select>
+		{% endif %}
+		{% set semesters = ELjournal.semesters %}
+		<select class="select-sem" name='semester' id='semester-select'>
+			{% for semester in semesters %}
+				<option value="{{semester}}"
+					{% if selected_semester == semester %}
+						selected
+					{% endif %}
+				>
+					{{semester}}
+				</option>
+			{% endfor %}
+		</select>
+		{% set months = ELjournal.months %}
+		<select class="select-mon" name='month' id='month-select'>
+			{% for month in months %}
+			<option value="{{month}}"
+				{% if selected_month == month %}
+					selected
+				{% endif %}
+			>
+				{{month}}
+			</option>
+			{% endfor %}
+		</select>
+	</div>
+	{% if role == 'Ученик' %}
+		{% partial "journal/carusel"
+			lessons = lessons
+		%}
+	{% else %}
+		{% partial "journal/carusel"
+			lessons = ELjournal.lessons
+		%}
+
+	{% endif %}
+
+	<div class="table" id='table'>	
+	{% if role == 'Ученик' %}
+		{% partial "journal/table"
+			month = ELjournal.month
+			students = classmates
+			days = ELjournal.days
+			role = role
+			marks = ELjournal.marks
+		%}
+	{% else %}
+		{% partial "journal/table"
+			month = ELjournal.month
+			students = students
+			days = ELjournal.days
+			role = role
+			marks = ELjournal.marks
+		%}
+	{% endif %}
+	</div>
+		<button class="save-btn hide" id="save-btn">Сохранить</button>
+</div>
+
+<script src="{{ 'assets/js/swiper-bundle.min.js'|theme }}"></script>
+<script src="{{ 'assets/js/journal.js'|theme }}"></script>

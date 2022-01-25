@@ -12,6 +12,7 @@ class Plugin extends PluginBase
             'LazurMedia\Mgok\Components\KEK'=> 'KEK',
             'LazurMedia\Mgok\Components\Cabinetes'=> 'Cabinetes',
             'LazurMedia\Mgok\Components\Activities'=> 'Activities',
+            'LazurMedia\Mgok\Components\ELjournal'=> 'ELjournal',
         ];
     }
 
@@ -25,6 +26,9 @@ class Plugin extends PluginBase
             'LazurMedia\Mgok\FormWidgets\DaysWeek' => 'days_of_week',
             'LazurMedia\Mgok\FormWidgets\Parity' => 'parity',
             'LazurMedia\Mgok\FormWidgets\Activities' => 'activities',
+            'LazurMedia\Mgok\FormWidgets\Classes' => 'classes',
+            'LazurMedia\Mgok\FormWidgets\Subjects' => 'subjects',
+            'LazurMedia\Mgok\FormWidgets\LessonsType' => 'lessonstype',
         ];
     }
 

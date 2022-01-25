@@ -11,7 +11,7 @@ use Lazurmedia\Mgok\Classes\Session;
 
 class Authorization extends \Cms\Classes\ComponentBase
 {
-
+  public $allow;
   public function componentDetails()
   {
       return [
@@ -22,7 +22,24 @@ class Authorization extends \Cms\Classes\ComponentBase
 
   public function onRun() 
   {
+    $this->getSchool();
     return $this->route($this->page->url);
+  }
+
+  private function getSchool()
+  {
+
+    $class = Authorization::getClass();
+    $view_journal = ['1','2','3', '4', '5', '6', '7', '8', '9', '10', '11'];
+    $classes = explode('-', $class);
+    $this->allow = true;
+    foreach ($view_journal as $view)
+    {
+      if ($classes[0] == $view) {
+        $this->allow = false;
+      }
+    }
+    
   }
 
   private function route($route) {
@@ -120,6 +137,12 @@ class Authorization extends \Cms\Classes\ComponentBase
 
     $user = Users::where('login', $login)->first();
     return $user;
+  }
+
+  public static function getName() {
+    $user = Users::where('login', Authorization::getLogin())->first();
+    $name = $user->full_name;
+    return $name;
   }
 
   public static function getFullName() {

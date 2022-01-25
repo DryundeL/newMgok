@@ -3,6 +3,7 @@
 use Lazurmedia\Mgok\Models\Users;
 use Lazurmedia\Mgok\Models\Cabinets;
 use Lazurmedia\Mgok\Models\Activities;
+use Lazurmedia\Mgok\Models\Schedule;
 
 class Fields
 {
@@ -47,6 +48,7 @@ class Fields
       ->orderBy('full_name', 'asc')
       ->get();
   }
+
   
   public static function getCabinets() {
     return Cabinets::all();
@@ -64,6 +66,25 @@ class Fields
   
   public static function getActivities() {
     return Activities::all();
+  }
+
+  public static function getClasses() {
+    return Users::where('role', 'Ученик')->get()->unique('class');
+  }
+
+  public static function getSubjects() {
+    return Schedule::all()->unique('lesson_name');
+  }
+
+  public static function getLessonType() {
+    return [
+      'Занятие',
+      'Контрольная работа',
+      'Самостоятельная работа',
+      'Проверочная работа',
+      'Итоговая работа',
+      'Полугодовая работа',
+    ];
   }
 }
 ?>

@@ -106,7 +106,7 @@ let inputs = document.querySelectorAll(".input-field__cell")
 
 inputs.forEach(el => {
 	el.addEventListener("keyup", event => {
-		el.parentNode.nextElementSibling.innerHTML = el.value * el.parentNode.parentNode.childNodes[5].innerHTML
+		el.parentNode.nextElementSibling.innerHTML = (el.value * el.parentNode.parentNode.childNodes[5].innerHTML).toFixed(1)
 		if(saveBtn.classList.contains("hide")) saveBtn.classList.remove("hide")
 	})
 })

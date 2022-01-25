@@ -120,3 +120,48 @@
 1.0.41:
     - 'Updated table lazurmedia_mgok_users'
     - builder_table_update_lazurmedia_mgok_users_7.php
+1.0.42:
+    - 'Created table lazurmedia_mgok_journal'
+    - builder_table_create_lazurmedia_mgok_journal.php
+1.0.43:
+    - 'Updated table lazurmedia_mgok_journal'
+    - builder_table_update_lazurmedia_mgok_journal.php
+1.0.44:
+    - 'Updated table lazurmedia_mgok_journal'
+    - builder_table_update_lazurmedia_mgok_journal_2.php
+1.0.45:
+    - 'Updated table lazurmedia_mgok_journal'
+    - builder_table_update_lazurmedia_mgok_journal_3.php
+1.0.46:
+    - 'Updated table lazurmedia_mgok_journal'
+    - builder_table_update_lazurmedia_mgok_journal_4.php
+1.0.47:
+    - 'Updated table lazurmedia_mgok_journal'
+    - builder_table_update_lazurmedia_mgok_journal_5.php
+1.0.48:
+    - 'Updated table lazurmedia_mgok_journal'
+    - builder_table_update_lazurmedia_mgok_journal_6.php
+1.0.49:
+    - 'Updated table lazurmedia_mgok_journal'
+    - builder_table_update_lazurmedia_mgok_journal_7.php
+1.0.50:
+    - 'Updated table lazurmedia_mgok_journal'
+    - builder_table_update_lazurmedia_mgok_journal_8.php
+1.0.51:
+    - 'Created table lazurmedia_mgok_addictional_lessons'
+    - builder_table_create_lazurmedia_mgok_addictional_lessons.php
+1.0.52:
+    - 'Created table lazurmedia_mgok_final_grades'
+    - builder_table_create_lazurmedia_mgok_final_grades.php
+1.0.53:
+    - 'Updated table lazurmedia_mgok_addictional_lessons'
+    - builder_table_update_lazurmedia_mgok_addictional_lessons.php
+1.0.54:
+    - 'Updated table lazurmedia_mgok_addictional_lessons'
+    - builder_table_update_lazurmedia_mgok_addictional_lessons_2.php
+1.0.55:
+    - 'Updated table lazurmedia_mgok_addictional_lessons'
+    - builder_table_update_lazurmedia_mgok_addictional_lessons_3.php
+1.0.56:
+    - 'Updated table lazurmedia_mgok_final_grades'
+    - builder_table_update_lazurmedia_mgok_final_grades.php

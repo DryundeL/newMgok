@@ -10,6 +10,7 @@ columns:
     role:
         label: Роль
         type: text
+        searchable: true
         sortable: true
     full_name:
         label: 'Полное имя'

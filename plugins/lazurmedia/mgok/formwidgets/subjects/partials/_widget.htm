@@ -1,0 +1,10 @@
+<select name="<?= $this->vars['name']; ?>" class="form-control">
+  <?php foreach($this->vars['subjects'] as $subject): ?>
+    <option 
+      value="<?= $subject->lesson_name ?>" 
+      <?= $this->vars['value'] === $subject->lesson_name ? 'selected' : '' ?> 
+    >
+      <?= $subject->lesson_name ?>
+    </option>
+  <?php endforeach; ?>
+</select>

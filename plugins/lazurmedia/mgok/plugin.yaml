@@ -38,3 +38,15 @@ navigation:
                 label: КЭК
                 url: lazurmedia/mgok/kek
                 icon: icon-slideshare
+            side-menu-item8:
+                label: Журнал
+                url: lazurmedia/mgok/journal
+                icon: icon-calendar
+            side-menu-item9:
+                label: 'Дополнительные поля'
+                url: lazurmedia/mgok/addictionallessons
+                icon: icon-tasks
+            side-menu-item10:
+                label: 'Оценки за месяц'
+                url: lazurmedia/mgok/finalgrades
+                icon: icon-yen

@@ -1,0 +1,4 @@
+title: Journal
+modelClass: Lazurmedia\Mgok\Models\Journal
+toolbar:
+    buttons: reorder_toolbar

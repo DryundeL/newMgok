@@ -1,0 +1,10 @@
+name: FinalGrades
+form: $/lazurmedia/mgok/models/finalgrades/fields.yaml
+modelClass: Lazurmedia\Mgok\Models\FinalGrades
+defaultRedirect: lazurmedia/mgok/finalgrades
+create:
+    redirect: 'lazurmedia/mgok/finalgrades/update/:id'
+    redirectClose: lazurmedia/mgok/finalgrades
+update:
+    redirect: lazurmedia/mgok/finalgrades
+    redirectClose: lazurmedia/mgok/finalgrades

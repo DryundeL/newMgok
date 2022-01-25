@@ -1,0 +1,26 @@
+fields:
+    subject:
+        label: Предмет
+        span: auto
+        type: text
+    name_lesson:
+        label: 'Название занятия'
+        span: auto
+        type: text
+    date_lesson:
+        label: 'Дата занятия'
+        mode: date
+        span: auto
+        type: datepicker
+    student:
+        label: Ученик
+        span: auto
+        type: text
+    mark:
+        label: Оценка
+        span: auto
+        type: text
+    class:
+        label: Класс
+        span: auto
+        type: text

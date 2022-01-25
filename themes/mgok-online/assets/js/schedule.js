@@ -5,7 +5,7 @@ $(document).ready(function() {
 	    $('.cab__input').mask('000')
 	   
 	
-	    $('pre').each(function(i, e) {hljs.highlightBlock(e)});
+	    // $('pre').each(function(i, e) {hljs.highlightBlock(e)});
 	  });
 	})(jQuery);
 })
