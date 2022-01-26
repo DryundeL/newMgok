@@ -26,6 +26,12 @@ class Authorization extends \Cms\Classes\ComponentBase
     return $this->route($this->page->url);
   }
 
+  public function getGroupsForTeacher() 
+  {
+    $classes = Schedule::where('teacher', Authorization::getName())->get()->unique('class');
+    return $classes;
+  }
+
   private function getSchool()
   {
 

@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	(function( $ ) {
 	  $(function() {
-	    $('.time-field').mask('00:00');
 	    $('.cab__input').mask('000')
 	   
 	
@@ -55,11 +54,11 @@ $('.schedule').on('click', '.schedule__element-li', function() {
 	
 	// hide all plus divs
 	$('.event-plus__div').each((i, plus) => $(plus).hide())
-	
 	// form addEvent
 	const formWrapper = $(this).next()
 	const form = $(formWrapper.children()[0])
 	formWrapper.show()
+	$('.time-field').mask('00:00');
 	
 	// form send
 	form.submit(function (e) {
@@ -80,6 +79,11 @@ $('.schedule').on('click', '.schedule__element-li', function() {
 			
 			if (!$(this).val()) {
 				alertEmpty.addClass('alert__span_active')
+				validation = false
+			}
+			
+			else if ($(this).val() == '00:00'){
+				alertWrong.addClass('alert__span_active')
 				validation = false
 			}
 			
@@ -126,7 +130,7 @@ function checkTimeFields(timeString, secondTimeString) {
 	if (!secondTimeString) {
 		if (timeString.length <= 4) return false
 		else {
-			if (hours > 23 || hours < 0) return false
+			if (hours > 23 || hours <= 0) return false
 			else if (minutes >= 60 || minutes < 0) return false
 			else return true
 		}
@@ -135,7 +139,7 @@ function checkTimeFields(timeString, secondTimeString) {
 		const secondHours = parseInt(secondTimeString.split('').slice(0, 2).join(''))
 		const secondMinutes = parseInt(secondTimeString.split('').slice(3, 5).join(''))
 		
-		if (hours > secondHours || hours >= secondHours && minutes > secondMinutes)
+		if (hours > secondHours || (hours >= secondHours && minutes >= secondMinutes))
 			return false
 		else return true
 	}

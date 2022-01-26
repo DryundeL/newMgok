@@ -85,12 +85,14 @@ class ELjournal extends \Cms\Classes\ComponentBase
 
   private function getSubjectsForTeacher() 
   {
-    if ($this->role =='Преподаватель') {
+    $role = Authorization::getRole();
+    if ($role =='Преподаватель') {
       $class = Request::get('group');
       $teacher = Authorization::getName();
       if (!$class){
         $groups = $this->getGroupsForTeacher();
         $class = $groups[0]->class;
+
       }
       $this->lessons = Schedule::where('class', $class)->where('teacher', $teacher)->get()->unique('lesson_name');
     }
@@ -479,7 +481,10 @@ class ELjournal extends \Cms\Classes\ComponentBase
     $data = post();
     $subject = $data['subject'];
     $monthSelect = $data['month'];
-
+    if (!$subject)
+    {
+      return false;
+    }
     $month = Request::get('month');
 
     if (!$month)

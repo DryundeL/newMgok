@@ -176,6 +176,18 @@ td{
 	vertical-align: middle;
 	font-weight: 400;
 }
+
+.input-cell input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.input-cell input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .weight-cell{
 	border:1px solid #F3F9FB;
 	text-align:center;

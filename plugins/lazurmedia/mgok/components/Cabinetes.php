@@ -24,8 +24,10 @@ class Cabinetes extends \Cms\Classes\ComponentBase
   }
 
   public function onSearchCabinetSchedule() {
-    $cabinet = post('cabinet');
-    $address = post('address');
+    $data = post();
+    
+    $cabinet = $data['cabinet'];
+    $address = $data['address'];
     
     $lessons = (new ScheduleClass)->getCabinetSchedule($cabinet, $address);
     return['#loadCabinets' => $this->renderPartial('cabinets/days', [

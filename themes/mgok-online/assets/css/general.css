@@ -150,9 +150,8 @@ header {
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
-	
 	width: 260px;
-	height: 160px;
+	height: 175px;
 	
 	padding: 15px;
 	
@@ -206,6 +205,8 @@ header {
 .schedule__subject {
 	margin: 10px 0 auto 0;
 	font-size: 18px;
+	height: 60px;
+	overflow: hidden;
 }
 .schedule__info-class,
 .schedule__info-place,
@@ -566,6 +567,20 @@ header {
 	margin-right: 30px;
 	cursor:pointer;
 	font-weight: 200;
+	transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+}
+.support-form:hover{
+	border-left: 1px solid #FFD031;	
+}
+.support-form span{
+	display: block;
+	transition: transform 0.3s ease-out;
+}
+.support-form:hover span{
+	transform: scale(1.05);
+	font-weight: 400;
 }
 .table-container{
 	display:flex;
@@ -657,7 +672,6 @@ header {
 	background:#fff;
 	box-shadow: 10px 10px 20px rgb(229 229 229 / 25%);
 	border-left: 3px solid #4F80A1;
-	padding: 35px 15px 0 42px;
 	font-size:22px;
 	margin-right:30px;
 	margin-bottom:35px;
@@ -671,6 +685,9 @@ header {
 /* font-size: 24px; */
 }
 .block a{
+	width:350px;
+	height:145px;
+		padding: 35px 15px 0 42px;
   transition: transform 0.3s ease-out;
 	display:block;
 }

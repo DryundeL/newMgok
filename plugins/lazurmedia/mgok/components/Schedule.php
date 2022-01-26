@@ -94,6 +94,10 @@ class Schedule extends \Cms\Classes\ComponentBase
         $schedule = (new ScheduleClass)->getClassSchedule($searchText);
       } else if ($searchRole === 'Учащийся') {
         $user = UsersModel::where('full_name', $searchText)->first();
+        if (!$user)
+        {
+          return false;
+        }
         $schedule = (new ScheduleClass)->getStudentSchedule($user);
       }
     }

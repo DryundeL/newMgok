@@ -5,9 +5,21 @@ function onStart() {
 	$this['functions'] = new class {
 		
 		public function getInitials($str) {
-      $arr = explode(" ", $str);
-      
- 			$res = $arr[0] . " " . substr($arr[1], 0, 2) . ". " . substr($arr[2], 0, 2) . ".";
+			if ($str == "")
+			{	
+				$res = "";
+			}
+			else if ($str == 'Вакансия')
+			{
+				$res = $str;
+			}
+			else 
+			{
+	      $arr = explode(" ", $str);
+	      
+	 			$res = $arr[0] . " " . substr($arr[1], 0, 2) . ". " . substr($arr[2], 0, 2) . ".";
+				
+			}
       return $res;
 		}
 	};
@@ -21,6 +33,6 @@ function onStart() {
 	</div>
 	<div class="cab-info">
 		<span class="lesson-name">{{lesson.lesson_name}}</span>
-		<span class="teach-name" title="{{ lesson.teacher }}">{{functions.getInitials(lesson.teacher)}}</span>
+		<span class="teach-name" >{{functions.getInitials(lesson.teacher)}}</span>
 	</div>
 </div>

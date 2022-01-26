@@ -25,6 +25,6 @@ class Users extends Model
     public function getStudentsByClass($class) {
         return Users::where('class', $class)
             ->where('role', 'Ученик')
-            ->get();
+            ->get()->sortBy('full_name');
     }
 }
