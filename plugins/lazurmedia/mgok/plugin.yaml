@@ -14,14 +14,10 @@ navigation:
                 label: Пользователи
                 url: lazurmedia/mgok/users
                 icon: icon-users
-            side-menu-item2:
-                label: 'Личные события'
-                url: lazurmedia/mgok/personalevents
-                icon: icon-user
-            side-menu-item4:
-                label: 'События класса'
-                url: lazurmedia/mgok/classevents
-                icon: icon-graduation-cap
+            side-menu-item11:
+                label: События
+                url: lazurmedia/mgok/events
+                icon: icon-sitemap
             side-menu-item3:
                 label: Занятия
                 url: lazurmedia/mgok/schedule

@@ -1,7 +1,7 @@
 columns:
     cabinet_number:
         label: 'Номер кабинета'
-        type: number
+        type: text
         searchable: true
         sortable: true
     owner:

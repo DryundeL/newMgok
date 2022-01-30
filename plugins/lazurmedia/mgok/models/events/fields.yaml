@@ -1,0 +1,36 @@
+fields:
+    login:
+        label: Login
+        span: auto
+        type: text
+    event_name:
+        label: 'Event name'
+        span: auto
+        type: text
+    time_from:
+        label: 'Time from'
+        mode: time
+        span: auto
+        type: datepicker
+    time_to:
+        label: 'Time to'
+        mode: time
+        span: auto
+        type: datepicker
+    event_place:
+        label: 'Event place'
+        span: auto
+        type: text
+    date:
+        label: Date
+        mode: date
+        span: auto
+        type: datepicker
+    creater:
+        label: Creator
+        span: auto
+        type: text
+    event_class:
+        label: 'Event class'
+        span: auto
+        type: checkbox

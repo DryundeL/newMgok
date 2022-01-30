@@ -18,7 +18,7 @@ function onStart() {
 <li>
 	<form data-request = "onDeleteEvent" class="schedule__event-item">
 		
-		{% if this.page.url != "/" and not ( Authorization.role == 'Ученик' and event.creater != Authorization.getFullName()) %}
+		{% if this.page.url != "/" and not ( Authorization.role == 'Ученик' and event.creater != Authorization.getLogin()) %}
 			<button 
 				class="remove-event" 
 				id="remove-event"
@@ -38,7 +38,7 @@ function onStart() {
 		<span class="schedule__subject">{{event.event_name}}</span>
 		<div class="schedule__info">
 			<div class="schedule__info-creator">
-				<span class="creator__span">{{event.creater}}</span>
+				<span class="creator__span">{{Schedule.getAbbreviatedNameByLogin(event.creater)}}</span>
 			</div>
 			<div class="schedule__info-place">
 				<span class="place__span">{{event.event_place}}</span>

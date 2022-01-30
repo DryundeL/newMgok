@@ -27,4 +27,10 @@ class Users extends Model
             ->where('role', 'Ученик')
             ->get()->sortBy('full_name');
     }
+
+    public function getTeacher($class) {
+        return Users::where('class', $class)
+            ->where('role', 'Преподаватель')
+            ->first();
+    }
 }

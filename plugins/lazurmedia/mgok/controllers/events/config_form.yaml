@@ -1,0 +1,10 @@
+name: Events
+form: $/lazurmedia/mgok/models/events/fields.yaml
+modelClass: Lazurmedia\Mgok\Models\Events
+defaultRedirect: lazurmedia/mgok/events
+create:
+    redirect: 'lazurmedia/mgok/events/update/:id'
+    redirectClose: lazurmedia/mgok/events
+update:
+    redirect: lazurmedia/mgok/events
+    redirectClose: lazurmedia/mgok/events

@@ -13,6 +13,7 @@ use Input;
 use Lazurmedia\Mgok\Models\Users as UsersModel;
 use Lazurmedia\Mgok\Models\Schedule as ScheduleModel;
 use Lazurmedia\Mgok\Models\ClassEvents as ClassEventsModel;
+use Lazurmedia\Mgok\Models\Events as EventsModel;
 use Lazurmedia\Mgok\Models\PersonalEvents as PersonalEventsModel;
 use Lazurmedia\Mgok\Components\Authorization;
 use Lazurmedia\Mgok\Classes\Dates as DatesClass;
@@ -24,8 +25,8 @@ class Schedule extends \Cms\Classes\ComponentBase
   public $lessons;
   public $events;
 
-  public $students;  
-  
+  public $students;
+
   public function componentDetails()
   {
     return [
@@ -33,14 +34,24 @@ class Schedule extends \Cms\Classes\ComponentBase
       'description' => 'Расписание'
     ];
   }
-  
+
   public function onRun()
   {
     $this->dates = (new DatesClass)->getDates();
     return $this->routes($this->page->url);
   }
 
-  
+  public function getAbbreviatedNameByLogin($login)
+  {
+    $user = UsersModel::where('login', $login)->first();
+    
+    $full_name = $user->full_name;
+    $fio = explode(' ', $full_name);
+    $name = mb_substr($fio[1] ?? '',0,1,'UTF-8').'.';
+    $sec_name = mb_substr($fio[2] ?? '',0,1,'UTF-8').'.';
+    $full_name = implode(' ', array($fio[0], $name, $sec_name));
+    return $full_name;
+  }
 
   private function routes($route)
   {
@@ -73,7 +84,7 @@ class Schedule extends \Cms\Classes\ComponentBase
   private function mainPage() {
     $user = Authorization::getUser();
     $role = $user->role;
-    
+
     // search params
     $searchRole = Request::get('role');
     $searchText = Request::get('text');
@@ -83,7 +94,7 @@ class Schedule extends \Cms\Classes\ComponentBase
       // default schedule
       if ($role === 'Преподаватель')
         $schedule = (new ScheduleClass)->getTeacherSchedule($user);
-      else 
+      else
         $schedule = (new ScheduleClass)->getStudentSchedule($user);
     } else {
       // search schedule
@@ -101,7 +112,7 @@ class Schedule extends \Cms\Classes\ComponentBase
         $schedule = (new ScheduleClass)->getStudentSchedule($user);
       }
     }
-    
+
 
     [
       'dates' => $this->dates,
@@ -126,11 +137,11 @@ class Schedule extends \Cms\Classes\ComponentBase
     $user = Authorization::getUser();
     $students = (new UsersModel)->getStudentsByClass($user->class);
     $this->students = $students;
-    
+
     $student = UsersModel::where('login', Request::get('student'))->first();
-    if ($student) 
+    if ($student)
       $schedule = (new ScheduleClass)->getStudentSchedule($student);
-    else 
+    else
       $schedule = (new ScheduleClass)->getStudentSchedule($students[0]);
 
     [
@@ -139,15 +150,15 @@ class Schedule extends \Cms\Classes\ComponentBase
       'events' => $this->events,
     ] = $schedule;
   }
-  
+
   public function onAddEvent() {
     $route = $this->page->url;
-    
+
     $data = post();
-    
+
     switch ($route) {
       case '/raspisanie-klassa':
-        ClassEventsModel::addClassEvent($data);
+        EventsModel::addClassEvent($data);
         $teacher = Authorization::getUser();
         $schedule = (new ScheduleClass)->getClassSchedule($teacher->class);
         break;
@@ -158,11 +169,11 @@ class Schedule extends \Cms\Classes\ComponentBase
         $schedule = (new ScheduleClass)->getStudentSchedule($student);
         break;
       case '/redaktirovanie-raspisaniya':
-        PersonalEventsModel::addPersonalEvent($data);
+        EventsModel::addPersonalEvent($data);
         $student = Authorization::getUser();
         $schedule = (new ScheduleClass)->getStudentSchedule($student);
     }
-    
+
     return ['#schedule' => $this->renderPartial('schedule/schedule-edit', [
       'lessonsArr' => $schedule['lessons'],
       'eventsArr' => $schedule['events'],
@@ -185,7 +196,7 @@ class Schedule extends \Cms\Classes\ComponentBase
 
     $type = $data['type'];
     $text = $data['text'];
-    
+
     if ($type === 'Преподаватель') {
       $records = Db::table('lazurmedia_mgok_users')
         ->select('full_name')
@@ -193,7 +204,7 @@ class Schedule extends \Cms\Classes\ComponentBase
         ->where('full_name', 'like', "%$text%")
         ->take(5)
         ->get();
-      
+
       return $records;
     } else if ($type === 'Группа/класс') {
       $records = Db::table('lazurmedia_mgok_users')
@@ -202,7 +213,7 @@ class Schedule extends \Cms\Classes\ComponentBase
         ->distinct()
         ->take(5)
         ->get();
-      
+
       return $records;
     } else if ($type === 'Учащийся') {
       $records = Db::table('lazurmedia_mgok_users')
@@ -211,25 +222,50 @@ class Schedule extends \Cms\Classes\ComponentBase
         ->where('full_name', 'like', "%$text%")
         ->take(5)
         ->get();
-      
+
       return $records;
     }
   }
 
   public function onDeleteEvent() {
     $event = post('event');
-    
-    if (isset($event['teacher'])) {
+
+    if ($event['event_class'] == true) {
       // if class event
-      $class_event = ClassEventsModel::find($event['id']);
-      $class_event->delete();
-      
-    } else if (isset($event['login'])) {
+      $route = $this->page->url;
+
+      if ($route === '/individualnoe-raspisanie') {
+        // Удалить у одного ученика
+        $class_event = EventsModel::find($event['id']);
+        $class_event->delete();
+      } else {
+        // Удалить у всех событе класса
+        $this->fullDeleteClassEvent($event);
+      }
+    } else  {
       // if personal event
-      $class_event = PersonalEventsModel::find($event['id']);
+      $class_event = EventsModel::find($event['id']);
       $class_event->delete();
-    } else {
-      return false;
+    }
+  }
+
+  private function fullDeleteClassEvent($event) {
+    $teacher = UsersModel::where('login', $event['creater'])->first();
+    $students = (new UsersModel)->getStudentsByClass($teacher->class);
+
+    foreach($students as $student) {
+      $classEvent = EventsModel::where('login', $student->login)
+        ->where('creater', $teacher->login)
+        ->where('date', $event['date'])
+        ->where('event_name', $event['event_name'])
+        ->where('time_from', $event['time_from'])
+        ->where('time_to', $event['time_to'])
+        ->where('created_at', $event['created_at'])
+        ->first();
+
+      if (isset($classEvent)) {
+        $classEvent->delete();
+      }
     }
   }
 }

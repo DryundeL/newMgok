@@ -2,7 +2,7 @@ fields:
     cabinet_number:
         label: 'Номер кабинета'
         span: auto
-        type: number
+        type: text
     owner:
         label: 'Ответственный за кабинет'
         span: auto

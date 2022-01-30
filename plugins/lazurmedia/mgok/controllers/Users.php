@@ -1,6 +1,7 @@
 <?php namespace Lazurmedia\Mgok\Controllers;
 
 use Input;
+use Redirect;
 use BackendMenu;
 use Backend\Classes\Controller;
 use Lazurmedia\Mgok\Classes\Import;
@@ -28,6 +29,7 @@ class Users extends Controller
     }
 
     public function onExport() { 
-        return Export::export('users');
+        Export::export('users');
+        return Redirect::to('downloadexports');
     }
 }

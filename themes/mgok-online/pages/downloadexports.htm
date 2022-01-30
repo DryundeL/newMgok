@@ -1,0 +1,19 @@
+title = "downloadExports"
+url = "/downloadexports"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+==
+<?php
+function onStart() {
+  $pathToFile = storage_path('../plugins/lazurmedia/mgok/controllers/export.xlsx');
+  $fileName = 'export.xlsx';
+  $headers = [
+      'Content-Type' => 'application/xlsx'
+  ];
+
+  
+  return Response::download($pathToFile, $fileName, $headers); 
+}
+?>
+==

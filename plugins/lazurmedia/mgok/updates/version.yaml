@@ -165,3 +165,21 @@
 1.0.56:
     - 'Updated table lazurmedia_mgok_final_grades'
     - builder_table_update_lazurmedia_mgok_final_grades.php
+1.0.57:
+    - 'Updated table lazurmedia_mgok_schedule'
+    - builder_table_update_lazurmedia_mgok_schedule_5.php
+1.0.58:
+    - 'Updated table lazurmedia_mgok_cabinets'
+    - builder_table_update_lazurmedia_mgok_cabinets_6.php
+1.0.59:
+    - 'Created table lazurmedia_mgok_events'
+    - builder_table_create_lazurmedia_mgok_events.php
+1.0.60:
+    - 'Updated table lazurmedia_mgok_events'
+    - builder_table_update_lazurmedia_mgok_events.php
+1.0.61:
+    - 'Updated table lazurmedia_mgok_events'
+    - builder_table_update_lazurmedia_mgok_events_2.php
+1.0.62:
+    - 'Updated table lazurmedia_mgok_events'
+    - builder_table_update_lazurmedia_mgok_events_3.php

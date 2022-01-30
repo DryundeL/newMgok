@@ -1,0 +1,28 @@
+columns:
+    id:
+        label: id
+        type: number
+    login:
+        label: login
+        type: text
+    event_name:
+        label: event_name
+        type: text
+    time_from:
+        label: time_from
+        type: time
+    time_to:
+        label: time_to
+        type: time
+    event_place:
+        label: event_place
+        type: text
+    date:
+        label: date
+        type: date
+    creator:
+        label: creator
+        type: text
+    event_class:
+        label: event_class
+        type: text
