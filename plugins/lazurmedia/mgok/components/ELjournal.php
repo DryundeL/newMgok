@@ -61,20 +61,22 @@ class ELjournal extends \Cms\Classes\ComponentBase
 
   private function routes($role) 
   { 
-    switch($role)
+    if ($role == 'Ученик')
     {
-      case 'Ученик':
-        $this->getSubjectsForStudent();
-        $this->getClassmates();
-        $this->getMonthsBySemester();
-        $this->setMonths();
-      case 'Преподаватель':
-        $this->getGroupsForTeacher();
-        $this->getStudentsByGroup();
-        $this->getSubjectsForTeacher();
-        $this->getMonthsBySemester();
-        $this->setMonths();
+      $this->getSubjectsForStudent();
+      $this->getClassmates();
+      $this->getMonthsBySemester();
+      $this->setMonths();
     }
+    else 
+    {
+      $this->getGroupsForTeacher();
+      $this->getStudentsByGroup();
+      $this->getSubjectsForTeacher();
+      $this->getMonthsBySemester();
+      $this->setMonths();
+    }
+    
   }
 
   private function getSubjectsForStudent() 
@@ -92,7 +94,6 @@ class ELjournal extends \Cms\Classes\ComponentBase
       if (!$class){
         $groups = $this->getGroupsForTeacher();
         $class = $groups[0]->class;
-
       }
       $this->lessons = Schedule::where('class', $class)->where('teacher', $teacher)->get()->unique('lesson_name');
     }

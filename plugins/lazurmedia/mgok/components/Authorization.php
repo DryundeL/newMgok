@@ -6,12 +6,15 @@ use Redirect;
 use Validator;
 use ValidationException;
 use Lazurmedia\Mgok\Models\Users;
+use Lazurmedia\Mgok\Models\Schedule;
 use Lazurmedia\Mgok\Classes\Session;
 
 
 class Authorization extends \Cms\Classes\ComponentBase
 {
   public $allow;
+  public $groups;
+
   public function componentDetails()
   {
       return [
@@ -23,13 +26,17 @@ class Authorization extends \Cms\Classes\ComponentBase
   public function onRun() 
   {
     $this->getSchool();
+    $this->getGroupsForTeacher();
     return $this->route($this->page->url);
   }
 
-  public function getGroupsForTeacher() 
+  private function getGroupsForTeacher() 
   {
-    $classes = Schedule::where('teacher', Authorization::getName())->get()->unique('class');
-    return $classes;
+    $teacher = Authorization::getName();
+    $classes = Schedule::where('teacher', $teacher)->get()->unique('class');
+    $this->groups = true;
+    if ($classes->isEmpty())
+      return $this->groups = false;
   }
 
   private function getSchool()

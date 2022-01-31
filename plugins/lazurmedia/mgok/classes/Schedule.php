@@ -100,9 +100,16 @@ class Schedule {
       
       // Получить классовые события этого дня
       $teacher = (new UsersModel)->getTeacher($class);
-      $class_events = (new EventsModel)->getClassEvents($teacher->login, $date);
-      // Устанавилваем события для этого дня недели
-      $events[$day_of_week_eng] = $class_events;
+      if ($teacher == null)
+      {
+        $events[$day_of_week_eng] = null;
+      }
+      else
+      {
+        $class_events = (new EventsModel)->getClassEvents($teacher->login, $date);
+        // Устанавилваем события для этого дня недели
+        $events[$day_of_week_eng] = $class_events;
+      }
     }
 
     return [
