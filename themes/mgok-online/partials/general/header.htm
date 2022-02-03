@@ -11,7 +11,7 @@
 			<li class="header__nav-item {{ this.page.id == 'raspisanie' ? 'header__nav-item_active' }}"><a href="{{ '/' }}">Расписание</a></li>
 			<li class="header__nav-item {{ this.page.id == 'zagruzhennost-kabinetov' ? 'header__nav-item_active' }}"><a href="{{ '/zagruzhennost-kabinetov' }}">Загруженность кабинетов</a></li>
 <!-- 			<li class="header__nav-item {{ this.page.id == 'tehpodderzhka' ? 'header__nav-item_active' }}"><a href="{{ '/tehpodderzhka' }}">Техподдержка</a></li> -->
-			<li class="header__nav-item {{ this.page.id == 'onlajn-priemnaya' ? 'header__nav-item_active' }}"><a href="{{ '/onlajn-priemnaya' }}">Онлайн-приемная</a></li>
+<!-- 			<li class="header__nav-item {{ this.page.id == 'onlajn-priemnaya' ? 'header__nav-item_active' }}"><a href="{{ '/onlajn-priemnaya' }}">Онлайн-приемная</a></li> -->
 			{% if Authorization.allow == true %}
 				{% if Authorization.role == 'Преподаватель' and Authorization.groups == true %}
 				<li class="header__nav-item {{ this.page.id == 'elektronnyj-zhurnal' ? 'header__nav-item_active' }}"><a href="{{ '/elektronnyj-zhurnal' }}">Электронный журнал</a></li>

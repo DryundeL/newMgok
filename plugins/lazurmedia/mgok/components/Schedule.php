@@ -137,13 +137,13 @@ class Schedule extends \Cms\Classes\ComponentBase
     $user = Authorization::getUser();
     $students = (new UsersModel)->getStudentsByClass($user->class);
     $this->students = $students;
-
     $student = UsersModel::where('login', Request::get('student'))->first();
+
     if ($student)
       $schedule = (new ScheduleClass)->getStudentSchedule($student);
     else
-      $schedule = (new ScheduleClass)->getStudentSchedule($students[0]);
-
+      $schedule = (new ScheduleClass)->getStudentSchedule($students->first());
+    
     [
       'dates' => $this->dates,
       'lessons' => $this->lessons,
@@ -163,8 +163,8 @@ class Schedule extends \Cms\Classes\ComponentBase
         $schedule = (new ScheduleClass)->getClassSchedule($teacher->class);
         break;
       case '/individualnoe-raspisanie':
-        $data['creater'] = Authorization::getFullName();
-        PersonalEventsModel::addPersonalEvent($data);
+        $data['creater'] = Authorization::getLogin();
+        EventsModel::addPersonalEvent($data);
         $student = UsersModel::where('login', $data['student'])->first();
         $schedule = (new ScheduleClass)->getStudentSchedule($student);
         break;

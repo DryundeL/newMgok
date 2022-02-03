@@ -183,3 +183,6 @@
 1.0.62:
     - 'Updated table lazurmedia_mgok_events'
     - builder_table_update_lazurmedia_mgok_events_3.php
+1.0.63:
+    - 'Updated table lazurmedia_mgok_schedule'
+    - builder_table_update_lazurmedia_mgok_schedule_6.php

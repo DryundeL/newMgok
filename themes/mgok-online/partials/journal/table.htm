@@ -18,114 +18,115 @@ function onStart()
 {% for model in addict %}
 	{% set columnCount = columnCount + 1 %}
 {% endfor %}
-{% set divison = 1 %}
+{% set divison = 0 %}
 {% for student in students %}
 	{% set divison = divison + 1 %}
 {% endfor %}
 {% set cols = columnCount / divison %}
 <div class="table-head">
-		<div class="head-cell num-head">№</div>
-		<div class="head-cell stud-head">Студенты</div>
-		<div class="head-cell sem-head">{{month}}</div>
-		<div class="head-cell add-head">Доп. поля</div>
-		<div class="head-cell res-head">Итоговая</div>
+	<div class="head-cell num-head">№</div>
+	<div class="head-cell stud-head">Студенты</div>
+	<div class="head-cell sem-head">{{month}}</div>
+	<div class="head-cell add-head">Доп. поля</div>
+	<div class="head-cell res-head">Итоговая</div>
+</div>
+<div class="table-body">
+	<div class="stud-numbers">
+		<span class="num-cell"></span>
+		{% set index = 1 %}
+		{% for student in students %}
+			<span class="num-cell">{{index}}</span>
+		{% set index = index + 1 %}
+		{% endfor %}
 	</div>
-	<div class="table-body">
-		<div class="stud-numbers">
-			<span class="num-cell"></span>
-			{% set index = 1 %}
-			{% for student in students %}
-				<span class="num-cell">{{index}}</span>
-			{% set index = index + 1 %}
-			{% endfor %}
+	<div class="stud-fio">
+		<span class="fio-cell"></span>
+		{% for student in students %}
+			<span class="fio-cell stud-count">{{student.full_name}}</span>
+		{% endfor %}
+	</div>
+	<div class="dates">
+		{% set marksCount = 0 %}
+		{% for day in days %}
+		<div class="date-col">
+			<span class="date-head">{{day}}</span>
+			{% if role == "Ученик" %}
+				{% for student in students %}
+					<span class="date-row">
+						{{ marks[marksCount]}}
+					</span>
+					{% set marksCount = marksCount + 1 %}
+				{% endfor %}
+				{% else %}
+				{% for student in students %}
+					<input class="date-row__input" value="{{marks[marksCount]}}">
+					{% set marksCount = marksCount + 1 %}
+				{% endfor %}
+			{% endif %}
 		</div>
-		<div class="stud-fio">
-			<span class="fio-cell"></span>
-			{% for student in students %}
-				<span class="fio-cell stud-count">{{student.full_name}}</span>
-			{% endfor %}
-		</div>
-		<div class="dates">
-			{% set marksCount = 0 %}
-			{% for day in days %}
-			<div class="date-col">
-				<span class="date-head">{{day}}</span>
-				{% if role == "Ученик" %}
-					{% for student in students %}
-						<span class="date-row">
-							{{ marks[marksCount]}}
-						</span>
-						{% set marksCount = marksCount + 1 %}
-					{% endfor %}
-					{% else %}
-					{% for student in students %}
-						<input class="date-row__input" value="{{marks[marksCount]}}">
-						{% set marksCount = marksCount + 1 %}
-					{% endfor %}
-				{% endif %}
-			</div>
-			{% endfor %}
-		</div>
-		<div class="additional-field">
-			{% if columnCount != null %}
+		{% endfor %}
+	</div>
+	<div class="additional-field">
+		{% if columnCount != null %}
 			{% set addCount = 0 %}
 			{% for count in 1..cols %}
-			<div class="add-fields-col">
-				<div class="addTaskHead">
-					{% if role == "Преподаватель" %}
-					<div class="addTaskInput__div">
-						<input class="addTaskName" type="text" value="{{addict[count * divison - 1].name_lesson}}">
-						<input class="addTaskDate" type="text" value="{{functions.setDateAttribute(addict[count * divison - 1].date_lesson)}}">
+				<div class="add-fields-col">
+					<div class="addTaskHead">
+						{% if role == "Преподаватель" %}
+							<div class="addTaskInput__div">
+								<input class="addTaskName" type="text" value="{{addict[count * divison - 1].name_lesson}}">
+								<input class="addTaskDate" type="text" value="{{functions.setDateAttribute(addict[count * divison - 1].date_lesson)}}">
+							</div>
+							<div class="plus-img__div">
+								<svg class="addTaskDelete" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M15 6L6 15" stroke="#CACACA" stroke-width="2" stroke-linecap="round"/>
+									<path d="M15 15L6 6" stroke="#CACACA" stroke-width="2" stroke-linecap="round"/>
+								</svg>
+							</div>
+						{% else %}
+							<div class="addTaskInput__div">
+								<span class="addTaskName">{{addict[count * divison - 1].name_lesson}}</span>
+								<span class="addTaskDate">{{addict[count * divison - 1].date_lesson}}</span>
+							</div>
+							<div class="plus-img__div"></div>
+						{% endif %}
 					</div>
-					<div class="plus-img__div">
-						<svg class="addTaskDelete" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M15 6L6 15" stroke="#CACACA" stroke-width="2" stroke-linecap="round"/>
-							<path d="M15 15L6 6" stroke="#CACACA" stroke-width="2" stroke-linecap="round"/>
-						</svg>
-					</div>
-					{% else %}
-					<div class="addTaskInput__div">
-						<span class="addTaskName">{{addict[count * divison - 1].name_lesson}}</span>
-						<span class="addTaskDate">{{addict[count * divison - 1].date_lesson}}</span>
-					</div>
-					<div class="plus-img__div"></div>
-					{% endif %}
+					
+					{% for student in students %}
+						{% if role == "Ученик" %}
+							<span class="addTaskMark" type="text">{{addict[addCount].mark}}</span>
+							{% set addCount = addCount + 1 %}
+						{% else %}
+							<input class="addTaskMark" type="text" value="{{addict[addCount].mark}}">
+							{% set addCount = addCount + 1 %}
+						{% endif %}
+					{% endfor %}
 				</div>
-				{% for student in students %}
-				{% if role == "Ученик" %}
-					<span class="addTaskMark" type="text">{{addict[addCount].mark}}</span>
-					{% set addCount = addCount + 1 %}
-				{% else %}
-					<input class="addTaskMark" type="text" value="{{addict[addCount].mark}}">
-					{% set addCount = addCount + 1 %}
-				{% endif %}
-				{% endfor %}
-			</div>
 			{% endfor %}
-			{% endif %}
-			<div class="add-fields-col">
-				<div class="add-field-plus">
-					<img class="add-field__img" src="{{ 'assets/icons/add.png'|theme }}">
-				</div>
-				{% for student in students %}
+		{% endif %}
+		<div class="add-fields-col">
+			<div class="add-field-plus">
+				<img class="add-field__img" src="{{ 'assets/icons/add.png'|theme }}">
+			</div>
+			{% for student in students %}
 				{% if role == "Ученик" %}
 					<span class="add-field no-plus"></span>
 				{% else %}
 					<input class="add-field no-plus">
 				{% endif %}
-				{% endfor %}
-			</div>
-		</div>
-		<div class="res-col">
-			<div class="res-cell"></div>
-			{% set resCount = 0 %}
-			{% for student in students %}
-				{% if role == "Ученик" %}
-					<span class="res-cell">{{result_marks[resCount]}}</span>
-				{% else %}
-					<input class="res-cell__input final" value="{{result_marks[resCount]}}">
-				{% endif %}
-				{% set resCount = resCount + 1 %}
 			{% endfor %}
 		</div>
 	</div>
+	<div class="res-col">
+		<div class="res-cell"></div>
+		{% set resCount = 0 %}
+		{% for student in students %}
+			{% if role == "Ученик" %}
+				<span class="res-cell">{{result_marks[resCount]}}</span>
+			{% else %}
+				<input class="res-cell__input final" value="{{result_marks[resCount]}}">
+			{% endif %}
+			{% set resCount = resCount + 1 %}
+		{% endfor %}
+	</div>
+</div>

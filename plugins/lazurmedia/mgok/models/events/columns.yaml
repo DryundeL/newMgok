@@ -20,8 +20,8 @@ columns:
     date:
         label: date
         type: date
-    creator:
-        label: creator
+    creater:
+        label: creater
         type: text
     event_class:
         label: event_class

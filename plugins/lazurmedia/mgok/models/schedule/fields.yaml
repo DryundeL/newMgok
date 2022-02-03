@@ -28,7 +28,7 @@ fields:
     cabinet:
         label: Кабинет
         span: auto
-        type: cabinets
+        type: text
     teacher:
         label: Преподаватель
         span: auto

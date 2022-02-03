@@ -33,6 +33,7 @@ class Events extends Model
     public function getClassEvents($teacher_login, $date) {
         return Events::where('creater', $teacher_login)
             ->where('date', $date)
+            ->where('event_class', 1)
             ->get()
             ->unique('created_at');
     }
@@ -81,7 +82,6 @@ class Events extends Model
             throw new ValidationException($validator);
         } else {
             $class = Authorization::getClass();
-
             $students = UsersModel::where('class', $class)->where('role', 'Ученик')->get();
 
             foreach($students as $student) {
