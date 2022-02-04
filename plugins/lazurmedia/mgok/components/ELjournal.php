@@ -7,6 +7,7 @@ use Lazurmedia\Mgok\Models\Journal;
 use Lazurmedia\Mgok\Models\FinalGrades;
 use Lazurmedia\Mgok\Models\AddictionalLessons;
 use Lazurmedia\Mgok\Models\Schedule;
+use Lazurmedia\Mgok\Classes\Schedule as ScheduleClass;
 use Lazurmedia\Mgok\Models\Users;
 use Request;
 
@@ -174,7 +175,20 @@ class ELjournal extends \Cms\Classes\ComponentBase
     }
     $this->month = $month;
     return $month;
-  }   
+  } 
+  
+  private function getLessonDays($class, $subject, $parity)
+  {
+    $role = Authorization::getRole();
+    if ($role == 'Преподаватель')
+    {
+
+    }
+    else
+    {
+
+    }
+  }
 
   public function onChangeSubject() 
   {
@@ -238,7 +252,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
         $groups = $this->getGroupsForTeacher();
         $class = $groups[0]->class;
       }
-      $subject_by_days = Schedule::where('teacher', Authorization::getName())->where('class', $class)->where('lesson_name', $subject)->get()->unique('day_of_week');
+      $subject_by_days = Schedule::where('teacher', Authorization::getName())->where('class', $class)->where('lesson_name', $subject)->where('parity', 'Каждую неделю')->get();
 
       $result_marks = FinalGrades::where('class', $class)->where('subject', $subject)->where('month', $monthSelect)->get();
       $result_arr = [];
@@ -252,7 +266,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
     else 
     {
       $class = Authorization::getClass();
-      $subject_by_days = Schedule::where('class', $class)->where('lesson_name', $subject)->get()->unique('day_of_week');
+      $subject_by_days = Schedule::where('class', $class)->where('lesson_name', $subject)->where('parity', 'Каждую неделю')->get();
 
       $result_marks = FinalGrades::where('class', $class)->where('subject', $subject)->where('month', $monthSelect)->get();
       $result_arr = [];
@@ -287,6 +301,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
       {
         
         if (date("l", strtotime($x . "-" . $month . "-" . $year)) == $this->days_of_week_eng[$arr[$index]]){
+
           array_push($days_array, $x);
         }
       }

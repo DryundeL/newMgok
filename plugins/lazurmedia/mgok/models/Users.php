@@ -29,7 +29,7 @@ class Users extends Model
     }
 
     public function getTeacher($class) {
-        return Users::where('class', $class)
+        return Users::where('class', 'like', "%$class%")
             ->where('role', 'Преподаватель')
             ->first();
     }

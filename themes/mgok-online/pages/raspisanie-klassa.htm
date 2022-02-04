@@ -7,13 +7,39 @@ robot_follow = "follow"
 
 [Schedule]
 ==
+<?php
+function onStart() {
+	$this['selected_group'] = Request::get('group');
+}
+?>
+==
 <link rel="stylesheet" href="{{ 'assets/css/schedule.css'|theme }}">
+
+
+<!-- <div class="select">
+	<select class="select-group" name='group' id='group-select'>
+		{% for group in Schedule.classes %}
+			<option value="{{group}}" 
+						{% if selected_group == group %}
+							selected
+						{% endif %}
+					>
+						{{group}}
+					</option>
+		{% endfor %}
+	</select>
+</div> -->
 
 <section class="schedule-weeks">
 	{% partial "schedule/weeks" 
 		monday=Schedule.dates[0]
 		sunday=Schedule.dates[6]
 		number=Schedule.number_of_week
+	%}
+	
+	{% partial "schedule/groups" 
+		groups=Schedule.classes
+		selectedGroup = selected_group
 	%}
 </section>
 

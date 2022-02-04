@@ -21,6 +21,25 @@ if(urlParams=="https://new.mgok.moscow/raspisanie-klassa"){
 	remove.innerHTML = image;
 }
 
+const groupSelect = document.querySelector('#group-select')
+
+if (groupSelect){
+	groupSelect.addEventListener("change", function(){
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		urlParams.set('group', $(this).val());
+		urlParams.delete('student');
+		window.location.search = urlParams.toString()
+		
+		// $(groupSelect).request('onChangeGroup', {
+		// 	data: {
+		// 		group: groupSelect.value
+		// 	}
+		// })
+	})
+}
+
+
 // schedule.addEventListener('click', event => {
 // 	const target = event.target
 	

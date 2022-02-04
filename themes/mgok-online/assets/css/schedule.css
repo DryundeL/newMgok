@@ -97,3 +97,9 @@
 	font-size: 14px;
 	width: 257px;
 }
+
+.select {
+	position: absolute;
+	top: 100px;
+	left: 400px;
+}

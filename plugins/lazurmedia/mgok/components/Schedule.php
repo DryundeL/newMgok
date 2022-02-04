@@ -24,8 +24,9 @@ class Schedule extends \Cms\Classes\ComponentBase
   public $dates;
   public $lessons;
   public $events;
-
+  
   public $students;
+  public $classes;
 
   public function componentDetails()
   {
@@ -123,8 +124,15 @@ class Schedule extends \Cms\Classes\ComponentBase
 
   private function classSchedule() {
     $user = Authorization::getUser();
-
-    $schedule = (new ScheduleClass)->getClassSchedule($user->class);
+    $this->classes = explode(',', $user->class);
+    
+    // Выбираем класс преподавателя
+    $selectedClass = Request::get('group');
+    if ($selectedClass) {
+      $schedule = (new ScheduleClass)->getClassSchedule($selectedClass);
+    } else {
+      $schedule = (new ScheduleClass)->getClassSchedule($this->classes[0]);
+    }
 
     [
       'dates' => $this->dates,
@@ -135,14 +143,21 @@ class Schedule extends \Cms\Classes\ComponentBase
 
   private function personalSchedule() {
     $user = Authorization::getUser();
-    $students = (new UsersModel)->getStudentsByClass($user->class);
-    $this->students = $students;
-    $student = UsersModel::where('login', Request::get('student'))->first();
+    $this->classes = explode(',', $user->class);
 
+    // Выбираем класс преподавателя
+    $selectedClass = Request::get('group');
+    if ($selectedClass) {
+      $this->students = (new UsersModel)->getStudentsByClass($selectedClass);
+    } else {
+      $this->students = (new UsersModel)->getStudentsByClass($this->classes[0]);
+    }
+
+    $student = UsersModel::where('login', Request::get('student'))->first();
     if ($student)
       $schedule = (new ScheduleClass)->getStudentSchedule($student);
     else
-      $schedule = (new ScheduleClass)->getStudentSchedule($students->first());
+      $schedule = (new ScheduleClass)->getStudentSchedule($this->students->first());
     
     [
       'dates' => $this->dates,
@@ -159,8 +174,10 @@ class Schedule extends \Cms\Classes\ComponentBase
     switch ($route) {
       case '/raspisanie-klassa':
         EventsModel::addClassEvent($data);
-        $teacher = Authorization::getUser();
-        $schedule = (new ScheduleClass)->getClassSchedule($teacher->class);
+        $this->classes = Authorization::getAllClasses();
+        // Выбираем класс преподавателя
+        $class = Authorization::getClass();
+        $schedule = (new ScheduleClass)->getClassSchedule($class);
         break;
       case '/individualnoe-raspisanie':
         $data['creater'] = Authorization::getLogin();
@@ -210,6 +227,7 @@ class Schedule extends \Cms\Classes\ComponentBase
       $records = Db::table('lazurmedia_mgok_users')
         ->select('class')
         ->where('class', 'like', "%$text%")
+        ->where('role', 'Ученик')
         ->distinct()
         ->take(5)
         ->get();
@@ -251,7 +269,15 @@ class Schedule extends \Cms\Classes\ComponentBase
 
   private function fullDeleteClassEvent($event) {
     $teacher = UsersModel::where('login', $event['creater'])->first();
-    $students = (new UsersModel)->getStudentsByClass($teacher->class);
+    $classes = explode(',', $teacher->class);
+    // Выбираем класс преподавателя
+    $selectedClass = Request::get('group');
+    if ($selectedClass) {
+      $this->students = (new UsersModel)->getStudentsByClass($selectedClass);
+      $students = (new UsersModel)->getStudentsByClass($selectedClass);
+    } else {
+      $students = (new UsersModel)->getStudentsByClass($classes[0]);
+    }
 
     foreach($students as $student) {
       $classEvent = EventsModel::where('login', $student->login)

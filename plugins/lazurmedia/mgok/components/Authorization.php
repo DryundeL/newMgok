@@ -2,6 +2,7 @@
 
 use Flash;
 use Cookie;
+use Request;
 use Redirect;
 use Validator;
 use ValidationException;
@@ -137,8 +138,32 @@ class Authorization extends \Cms\Classes\ComponentBase
       return false;
     }
 
-    $class = Users::where('login', Authorization::getLogin())->first()->class;
-    return $class;
+    $role = self::getRole();
+    if ($role === 'Преподаватель') {
+      // Выбираем класс преподавателя
+      $classes = explode(',', Users::where('login', Authorization::getLogin())->first()->class);
+      $selectedClass = Request::get('group');
+      if (!$selectedClass)
+      {
+        $selectedClass =  $classes[0];
+      }
+      return $selectedClass;
+    } else {
+      $class = Users::where('login', Authorization::getLogin())->first()->class;
+      return $class;
+    }
+  }
+
+  public static function getAllClasses() {
+    $login = Cookie::get('mgok_auth');
+    $role = self::getRole();
+
+    if (is_null($login) || $role === 'Ученик') {
+      return false;
+    }
+
+    $classes = explode(',', Users::where('login', Authorization::getLogin())->first()->class);
+    return $classes;
   }
 
   public static function getUser() {

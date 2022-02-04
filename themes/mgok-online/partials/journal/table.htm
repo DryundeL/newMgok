@@ -22,6 +22,9 @@ function onStart()
 {% for student in students %}
 	{% set divison = divison + 1 %}
 {% endfor %}
+{% if divison == 0 %}
+	{% set divison = 1 %}
+{%endif%}
 {% set cols = columnCount / divison %}
 <div class="table-head">
 	<div class="head-cell num-head">№</div>

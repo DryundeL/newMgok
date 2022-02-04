@@ -1,0 +1,78 @@
+==
+<style>
+	.schedule-groups__selected {
+		overflow: hidden;
+		width: 50px;
+	}
+	
+	.schedule-groups__slider {
+		display: flex;
+		width: max-content;
+	}
+	
+	.schedule-groups__slider span {
+		width: 40px;
+		margin: 0 5px;
+	}
+</style>
+
+<div class="wrapper">
+	<div class="schedule-weeks__block" data-week-number="{{number}}">
+		<img src="{{ 'assets/icons/arrow-left.svg'|theme }}" class="change-group previous-group">
+		<div class='schedule-groups__selected'>
+			<div class="schedule-groups__slider">
+				{% for group in groups %}
+					<span>
+						{{group}}
+					</span>
+					
+				{% endfor %}
+			</div>
+		</div>
+		<img src="{{ 'assets/icons/arrow-right.svg'|theme }}" class="change-group next-group">
+	</div>
+</div>
+
+<script>
+	const htmlGroups = document.querySelector('.schedule-groups__slider').children;
+	const groups = Array.from(htmlGroups).map(group => group.textContent.trim());
+	
+	const btnsChangeGroup = Array.from(document.querySelectorAll('.change-group'));
+
+	function changeGroup() {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		const groupSelected = urlParams.get('group') ?? groups[0];
+		const numberOfGroup = groups.indexOf(groupSelected)
+		const nextNumberOfGroup = $(this).hasClass('next-group') ? parseInt(numberOfGroup) + 1 : parseInt(numberOfGroup) - 1
+
+		if (nextNumberOfGroup >= 0 && nextNumberOfGroup < groups.length) {
+			urlParams.set('group', groups[nextNumberOfGroup]);
+			window.location.search = urlParams.toString()
+		}
+	}	
+	
+	btnsChangeGroup?.forEach(btn => 
+		btn.addEventListener('click', changeGroup)
+	)
+	
+	
+	function getSelectedGroup() {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		return urlParams.get('group') ?? groups[0];
+	}
+	
+	Array.from(htmlGroups).forEach((group, index) => {
+		if (group.textContent.trim() !== getSelectedGroup()) {
+			htmlGroups[index].style.display = 'none';
+		}
+	})
+	//groups.indexOf(getSelectedGroup())
+	
+	if (groups.indexOf(getSelectedGroup()) == 0) {
+		document.querySelector('.previous-group').style.visibility = 'hidden'
+	} else if (groups.indexOf(getSelectedGroup()) == groups.length - 1) {
+		document.querySelector('.next-group').style.visibility = 'hidden'
+	}
+</script>

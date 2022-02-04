@@ -69,7 +69,14 @@ class Schedule {
       $lessons[$day_of_week_eng] = (new LessonsModel)->getTeacherLessons($teacher->full_name, $day_of_week_rus, $parity);
       
       // Установить для этого дня недели классовые события
-      $class_events[$day_of_week_eng] = (new EventsModel)->getClassEvents($teacher->login, $date);
+      $classes = explode(',', $teacher->class);
+      $classesEvents = collect();
+      foreach ($classes as $class) {
+        $classEvents = (new EventsModel)->getClassEvents($teacher->login, $date, $class);
+        $classesEvents = $classesEvents->merge($classEvents);
+      }
+      // var_dump($merged);
+      $class_events[$day_of_week_eng] = $classesEvents;
     }
 
     return [
@@ -106,7 +113,7 @@ class Schedule {
       }
       else
       {
-        $class_events = (new EventsModel)->getClassEvents($teacher->login, $date);
+        $class_events = (new EventsModel)->getClassEvents($teacher->login, $date, $class);
         // Устанавилваем события для этого дня недели
         $events[$day_of_week_eng] = $class_events;
       }

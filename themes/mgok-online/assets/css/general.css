@@ -239,8 +239,14 @@ header {
 	text-overflow: ellipsis;
 }
 .schedule-weeks {
+	display: flex;
 	padding-top: 50px;
 	background: #fff;
+	padding: 50px calc((100vw - 1180px) / 2) 0;
+}
+.schedule-weeks > div { 
+	width: max-content;
+	margin: 0; 
 }
 .schedule-weeks__block {
 	display: flex;

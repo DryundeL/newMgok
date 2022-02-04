@@ -12,6 +12,7 @@ robot_follow = "follow"
 <?php
 function onStart() {
 	$this['selected_student'] = Request::get('student');
+	$this['selected_group'] = Request::get('group');
 }
 
 function onChangeStudent() {
@@ -64,6 +65,11 @@ function onChangeStudent() {
 		monday=Schedule.dates[0]
 		sunday=Schedule.dates[6]
 		number=Schedule.number_of_week
+	%}
+	
+	{% partial "schedule/groups" 
+		groups=Schedule.classes
+		selectedGroup = selected_group
 	%}
 </section>
 

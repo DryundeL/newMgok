@@ -30,10 +30,11 @@ class Events extends Model
             ->get();
     }
 
-    public function getClassEvents($teacher_login, $date) {
+    public function getClassEvents($teacher_login, $date, $class) {
         return Events::where('creater', $teacher_login)
             ->where('date', $date)
             ->where('event_class', 1)
+            ->where('class', $class)
             ->get()
             ->unique('created_at');
     }
@@ -77,13 +78,13 @@ class Events extends Model
         ];
 
         $validator = Validator::make($data, $rules);
-
+        
         if($validator->fails()) {
             throw new ValidationException($validator);
         } else {
             $class = Authorization::getClass();
             $students = UsersModel::where('class', $class)->where('role', 'Ученик')->get();
-
+            
             foreach($students as $student) {
                 $event = new Events;
                 $event->login = $student->login;
@@ -93,6 +94,7 @@ class Events extends Model
                 $event->time_to = $data['time_to'];
                 $event->event_place = $data['event-input-place'];
                 $event->date = $data['date'];
+                $event->class = $class;
                 $event->event_class = true;
                 $event->save();
             }
