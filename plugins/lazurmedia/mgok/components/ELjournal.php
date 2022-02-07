@@ -80,6 +80,11 @@ class ELjournal extends \Cms\Classes\ComponentBase
     
   }
 
+  private function mainPage()
+  {
+    
+  }
+
   private function getSubjectsForStudent() 
   {
     $class = Authorization::getClass();
@@ -152,42 +157,41 @@ class ELjournal extends \Cms\Classes\ComponentBase
         $parity = 1;
       }
     }
-    if ($parity === 0) $this->months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь'];
-    else if ($parity === 1) $this->months = ['Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-    return $parity;
+    if ($parity === 0) 
+    {
+      $this->months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь'];
+      for ($i = 0; $i< $month_now-1; $i++)
+      {
+        $item = array_shift($this->months);
+        array_push ($this->months,$item);
+      }
+    }
+    else if ($parity === 1) 
+    {
+      $this->months = ['Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+    } 
+    return $this->months;
   }
   
   private function setMonths() 
   {
 
-    $parity = $this->getMonthsBySemester();
+    $months = $this->getMonthsBySemester();
 
     $month = Request::get('month');
-
     
-    if (!$month){
-      if ($parity == 1) {
-        $month = 'Сентябрь';
-      }
-      else {
-        $month = 'Январь';
-      }  
+    if (!$month)
+    {
+      $month = $months[0];
     }
+
     $this->month = $month;
     return $month;
   } 
   
-  private function getLessonDays($class, $subject, $parity)
+  public function getLessonsDays($class, $subject, $parity)
   {
-    $role = Authorization::getRole();
-    if ($role == 'Преподаватель')
-    {
-
-    }
-    else
-    {
-
-    }
+    return Schedule::where('teacher', Authorization::getName())->where('class', $class)->where('lesson_name', $subject)->where('parity', $parity)->get();
   }
 
   public function onChangeSubject() 
@@ -252,7 +256,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
         $groups = $this->getGroupsForTeacher();
         $class = $groups[0]->class;
       }
-      $subject_by_days = Schedule::where('teacher', Authorization::getName())->where('class', $class)->where('lesson_name', $subject)->where('parity', 'Каждую неделю')->get();
+      $subject_by_days = Schedule::where('teacher', Authorization::getName())->where('class', $class)->where('lesson_name', $subject)->get()->unique('day_of_week');
 
       $result_marks = FinalGrades::where('class', $class)->where('subject', $subject)->where('month', $monthSelect)->get();
       $result_arr = [];
@@ -266,7 +270,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
     else 
     {
       $class = Authorization::getClass();
-      $subject_by_days = Schedule::where('class', $class)->where('lesson_name', $subject)->where('parity', 'Каждую неделю')->get();
+      $subject_by_days = Schedule::where('class', $class)->where('lesson_name', $subject)->get()->unique('day_of_week');
 
       $result_marks = FinalGrades::where('class', $class)->where('subject', $subject)->where('month', $monthSelect)->get();
       $result_arr = [];
@@ -328,6 +332,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
         }
       }
 
+
       $addict_grades = AddictionalLessons::where('class', $class)->where('subject', $subject)->get();
       $addict_arr = [];
       foreach ($addict_grades as $addict)
@@ -338,7 +343,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
           array_push($addict_arr, $addict);
         }
       }
-
+      
       $this->getStudentsByGroup();
       $this->setMonths();
       return ['#table' => $this->renderPartial('journal/table', [
@@ -557,6 +562,10 @@ class ELjournal extends \Cms\Classes\ComponentBase
         $groups = $this->getGroupsForTeacher();
         $class = $groups[0]->class;
       }
+      $number_of_days = cal_days_in_month(CAL_GREGORIAN,$month, $year);
+      for ($x = 1; $x <= $number_of_days; $x++) {
+        $parity_by_day = (new ScheduleClass)->getParity($year . "-" . $month . "-" . $x);
+      }
       $subject_by_days = Schedule::where('teacher', Authorization::getName())->where('class', $class)->where('lesson_name', $subject)->get()->unique('day_of_week');
 
       $result_marks = FinalGrades::where('class', $class)->where('subject', $subject)->where('month', $monthSelect)->get();
@@ -614,6 +623,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
     $this->days = $days_array;
     if ($role == 'Преподаватель') {
       $marks = Journal::where('class', $class)->where('subject', $subject)->get();
+      // var_dump($marks);
       $marksArr = [];
       $datesArr = [];
       foreach ($days_array as $day)
@@ -631,6 +641,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
           }
         }
       }
+      
 
       $addict_grades = AddictionalLessons::where('class', $class)->where('subject', $subject)->get();
       $addict_arr = [];

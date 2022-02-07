@@ -108,6 +108,7 @@
 .table-head{
 	height: 60px;
 	display: flex;
+	margin-bottom: 15px;
 }
 .head-cell{
 	background-color: #fff;

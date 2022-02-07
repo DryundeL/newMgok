@@ -139,16 +139,21 @@ cont.addEventListener("click", (event) => {
 		surnamesSpanArr.forEach(surname => {
 			surnamesArr.push(surname.innerText)
 		})
-
-		$(target.closest(".addTaskDelete")).request('onDeleteAddict', {
-			data: {
-				date: year + '.' + month + '.' + dayMark,
-				name: name,
-				marks: marksArr,
-				surnames: surnamesArr
-			}
-		})
-		// target.closest(".add-fields-col").remove()
+		if (inputsArr == [] || dayMark == '')
+		{
+			target.closest(".add-fields-col").remove()
+		}
+		else {
+			$(target.closest(".addTaskDelete")).request('onDeleteAddict', {
+				data: {
+					date: year + '.' + month + '.' + dayMark,
+					name: name,
+					marks: marksArr,
+					surnames: surnamesArr
+				}
+			})
+		}
+		
 	}
 })
 
