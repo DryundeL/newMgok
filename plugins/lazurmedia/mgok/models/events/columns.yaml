@@ -26,3 +26,6 @@ columns:
     event_class:
         label: event_class
         type: text
+    class:
+        label: Класс
+        type: text

@@ -4,7 +4,7 @@ const activeClass = 'user-dropdown__list_active'
 const parentBlock = '.user-dropdown'
 
 function showWindow (btn, list, activeClass, parentBlock) {
-  btn.addEventListener('click', () => {
+  btn?.addEventListener('click', () => {
     list.classList.toggle(activeClass)
     
     window.addEventListener('click', event => {
@@ -53,18 +53,18 @@ const activityBtn = `
 	</div>
 `
  
-// function addActivity() {
-// 	const addActivityBlock = document.querySelectorAll('.schedule-add')
-// 	addActivityBlock.forEach(item => {
-// 		item.children[0].addEventListener('click', () => {
-// 			item.innterHTML = activityForm
+function addActivity() {
+	const addActivityBlock = document.querySelectorAll('.schedule-add')
+	addActivityBlock.forEach(item => {
+		item.children[0].addEventListener('click', () => {
+			item.innterHTML = activityForm
 			
-// 			const cancelBtn = document.querySelector('.schedule-add__cancel-btn')
-// 			cancelBtn.addEventListener('click', () => item.innerHTML = activityBtn)
-// 		})
-// 	})
-// }
-// addActivity()
+			const cancelBtn = document.querySelector('.schedule-add__cancel-btn')
+			cancelBtn.addEventListener('click', () => item.innerHTML = activityBtn)
+		})
+	})
+}
+addActivity()
 
 
 let btn1 = document.querySelector("#c_form")
@@ -105,33 +105,33 @@ let add5 = document.querySelector("#add5")
 let add6 = document.querySelector("#add6")
 let add7 = document.querySelector("#add7")
 
-// schedule.addEventListener('click', event => {
-// 	const target = event.target
+schedule?.addEventListener('click', event => {
+	const target = event.target
 	
-// 	if (target.closest('.schedule__element-li')) {
-// 		const form = target.closest('.schedule__lessons-list').lastElementChild
-// 		const addBtn = form.querySelector('#add-event-button')
+	if (target.closest('.schedule__element-li')) {
+		const form = target.closest('.schedule__lessons-list').lastElementChild
+		const addBtn = form.querySelector('#add-event-button')
 		
-// 		pluses.forEach(plus => {
-// 			plus.parentNode.style.display = 'none'
-// 		})
-// 		form.style.display = "flex"
+		pluses.forEach(plus => {
+			plus.parentNode.style.display = 'none'
+		})
+		form.style.display = "flex"
 		
-// 		cancelBtnOnClick()
-// 		validationFields(form, addBtn)
-// 	}
-// })
+		cancelBtnOnClick()
+		validationFields(form, addBtn)
+	}
+})
 
 
 
-// pluses.forEach(item => {
-// 	item.addEventListener('click', event => {
-// 		item.parentNode.lastElementChild.style.display = "flex"
-// 		pluses.forEach(part => {
-// 			part.style.display = "none"
-// 		})
-// 	})
-// })
+pluses.forEach(item => {
+	item.addEventListener('click', event => {
+		item.parentNode.lastElementChild.style.display = "flex"
+		pluses.forEach(part => {
+			part.style.display = "none"
+		})
+	})
+})
 
 function cancelBtnOnClick() {
 	const cancelAddEvent = document.querySelectorAll("#cancel-add-event")

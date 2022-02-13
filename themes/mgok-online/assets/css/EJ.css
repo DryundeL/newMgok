@@ -1,7 +1,15 @@
+.validation-field{
+	background-color: rgba(255,0,0, .15) !important;
+}
 .top-div{
 	display: flex;
 }
+.hide-additional-field{
+	transform: rotate(180deg) scaleX(-1);
+}
+
 .choosenSub{
+	padding-bottom: 5px;
 	border-bottom: 2px solid #647c97;
 }
 .top-div img{
@@ -23,9 +31,11 @@
 	width: 1040px;
 }
 .image-slider__image{
+	height: 100%;
 	text-align: center;
 }
 .slide-text{
+	height: 100%;
 	cursor: pointer;
 }
 .image-slider__image img{
@@ -52,12 +62,12 @@
 .select__div{
 	display: flex;
 }
-.select-group,.select-sem,.select-mon{
+.select-group,.select-sem,.select-mon, .select-subject{
 	height: 60px;
 	width: 200px;
 	padding-left: 20px;
 }
-.select-group,.select-sem{
+.select-group,.select-sem,.select-mon{
 	margin-right:20px;
 }
 .carousel{
@@ -114,8 +124,7 @@
 	background-color: #fff;
 	height: 60px;
 	border: 1px solid #F3F9FB;
-	padding-left: 20px;
-	padding-top: 20px;
+	padding: 20px;
 	font-weight: 700;
 }
 .num-head{
@@ -127,15 +136,17 @@
   width: 100%;
 }
 .sem-head{
-	max-width: 370px;
+	max-width: 620px;
   width: 100%;
 }
 .add-head{
-	max-width: 300px;
+	max-width: 90px;
   width: 100%;
+	padding: 10px 20px;
+  text-align: center;
 }
 .res-head{
-	max-width: 200px;
+	max-width: 120px;
   width: 100%;
 }
 .table-body{
@@ -174,15 +185,32 @@
 }
 .dates{
 	display: flex;
-	max-width: 370px;
-  width: 100%;
-	overflow-x:auto;
+	max-width: 620px;
+	width: 100%;
+	overflow-x: auto;
+	transform: scaleX(-1) rotate(180deg);
+	position: relative;
+	scrollbar-color: #e4e4e4 #F3F9FB;
+}
+.dates::-webkit-scrollbar {
+	background-color: #F3F9FB;
+}
+.dates::-webkit-scrollbar-thumb {
+  background-color: #e4e4e4;
 }
 .date-col{
 	display: flex;
 	flex-direction:column;
 	width: 60px;
+	transform: rotate(180deg) scaleX(-1);
 }
+.date-col-additional{
+	width: 90px;
+	display: flex;
+	flex-direction:column;
+	transform: rotate(180deg) scaleX(-1);
+}
+
 .date-head{
 	text-decoration: none;
 	display: block;
@@ -219,9 +247,9 @@
 }
 .additional-field{
 	display: flex;
-	overflow-x:auto;
-	max-width: 300px;
-  width: 100%;
+	overflow-x: auto;
+	max-width: 90px;
+	width: 100%;
 }
 .additional-field::-webkit-scrollbar {
   display: none; /*chrome*/
@@ -231,7 +259,7 @@
 	flex-direction:column;
 }
 .add-field-plus{
-	width: 60px;
+	width: 90px;
 	height: 60px;
 	text-align:center;
 	background-color: #fff;
@@ -244,7 +272,7 @@
 	cursor: pointer;
 }
 .add-field{
-	width: 60px;
+	width: 90px;
 	height: 60px;
 	background-color: #fff;
 	border: 1px solid #F3F9FB;
@@ -252,11 +280,24 @@
 }
 .addTaskHead{
 	display: flex;
+	height: 60px;
+}
+.selectTask{
+	height: 30px;
+	background-color: white;
+}
+.selectTask > option {
+	font: -moz-pull-down-menu;
+	font-size: 14px;
 }
 .addTaskInput__div{
 	display: flex;
 	flex-direction: column;
-	
+	max-width: 70px;
+	width: 100%;
+}
+.addictional-head{
+	display: flex;
 }
 .addTaskName,.addTaskDate{
 	background-color: #fff;
@@ -270,6 +311,7 @@
 }
 .addTaskDate{
 	color: #5b5b5b;
+	width: 100%;
 }
 .addTaskMark{
 	width: 90px;
@@ -296,9 +338,9 @@
 }
 .res-col{
 	display: flex;
-	flex-direction:column;
-	max-width: 200px;
-  width: 100%;
+	flex-direction: column;
+	max-width: 120px;
+	width: 100%;
 }
 .res-cell{
 	display: block;

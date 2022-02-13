@@ -33,3 +33,8 @@ columns:
         type: text
         searchable: true
         sortable: true
+    unique_id:
+        label: 'уникальный id'
+        type: number
+        searchable: true
+        sortable: true

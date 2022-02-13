@@ -10,11 +10,11 @@
 		<ul class="header__nav-list">
 			<li class="header__nav-item {{ this.page.id == 'raspisanie' ? 'header__nav-item_active' }}"><a href="{{ '/' }}">Расписание</a></li>
 			<li class="header__nav-item {{ this.page.id == 'zagruzhennost-kabinetov' ? 'header__nav-item_active' }}"><a href="{{ '/zagruzhennost-kabinetov' }}">Загруженность кабинетов</a></li>
-<!-- 			<li class="header__nav-item {{ this.page.id == 'tehpodderzhka' ? 'header__nav-item_active' }}"><a href="{{ '/tehpodderzhka' }}">Техподдержка</a></li> -->
-<!-- 			<li class="header__nav-item {{ this.page.id == 'onlajn-priemnaya' ? 'header__nav-item_active' }}"><a href="{{ '/onlajn-priemnaya' }}">Онлайн-приемная</a></li> -->
-			{% if Authorization.allow == true %}
-				{% if Authorization.role == 'Преподаватель' and Authorization.groups == true or Authorization.role == 'Ученик' %}
-				<li class="header__nav-item {{ this.page.id == 'elektronnyj-zhurnal' ? 'header__nav-item_active' }}"><a href="{{ '/elektronnyj-zhurnal' }}">Электронный журнал</a></li>
+<li class="header__nav-item {{ this.page.id == 'tehpodderzhka' ? 'header__nav-item_active' }}"><a href="{{ '/tehpodderzhka' }}">Техподдержка</a></li>
+<li class="header__nav-item {{ this.page.id == 'onlajn-priemnaya' ? 'header__nav-item_active' }}"><a href="{{ '/onlajn-priemnaya' }}">Онлайн-приемная</a></li>
+			{% if Authorization.role == 'Преподаватель' or Authorization.role == 'Студент' %}
+				{% if Authorization.groups == true %}
+					<li class="header__nav-item {{ this.page.id == 'elektronnyj-zhurnal' ? 'header__nav-item_active' }}"><a href="{{ '/elektronnyj-zhurnal' }}">Электронный журнал</a></li>
 				{% endif %}
 			{% endif %}
 		</ul>
@@ -24,16 +24,16 @@
 		<div class="header__dropdown user-dropdown">
 			<button class="user-dropdown__btn">{{ Authorization.getFullName() }}</button>
 			<ul class="user-dropdown__list">
-				{% if Authorization.role == 'Преподаватель' %}
+				{% if Authorization.role == 'Преподаватель' or Authorization.role == 'Учитель'%}
 					{% if Authorization.class %}
 						<li><a  class="user-dropdown__item" href="{{ '/raspisanie-klassa' }}">Класс</a></li>
 						<li><a  class="user-dropdown__item" href="{{ '/individualnoe-raspisanie' }}">Индивидуальное расписание</a></li>
 					
 					{% else %}
-						<li class="user-dropdown__item">У вас нет классов</li>
+						<li class="user-dropdown__item">У вас нет классов/групп</li>
 					{% endif %}
 					
-				{% elseif Authorization.role == 'Ученик' %}
+				{% elseif Authorization.role == 'Ученик' or Authorization.role == 'Студент' %}
 					<li class="user-dropdown__item"><a href="{{ '/redaktirovanie-raspisaniya' }}">Редактировать</a></li>
 				{% endif %}
 			</ul>

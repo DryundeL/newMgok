@@ -26,4 +26,41 @@ class Journal extends Model
      */
     public $rules = [
     ];
+
+    public function createMark($group, $subject, $mark) {
+        $journal = $this->findMark($group, $subject, $mark);
+
+        if ($journal->doesntExist()) {
+            $journal = new Journal;
+            $journal->class = $group;
+            $journal->subject = $subject;
+            $journal->student = $mark['fio'];
+            $journal->mark = $mark['mark'];
+            $journal->date = $mark['date'];
+            $journal->number_lesson = $mark['numberLesson'];
+            $journal->save();
+        } else {
+            $journal->mark = $mark['mark'];
+            $journal->save();
+        }
+    }
+
+    private function findMark($group, $subject, $mark) {
+        return Journal::where('class', $group)
+            ->where('subject', $subject)
+            ->where('date', $mark['date'])
+            ->where('student', $mark['fio'])
+            ->where('number_lesson', $mark['numberLesson'])
+            ->first();
+    }
+
+    public static function getClassMarksByDay($group, $lesson, $number_lesson, $date) {
+        // var_dump($group, $lesson, $date, "<br>");
+        // var_dump(Journal::where('class', $group)->where('subject', $lesson)->get(), "<br>");
+        return Journal::where('class', $group)
+            ->where('subject', $lesson)
+            ->where('date', $date)
+            ->where('number_lesson', $number_lesson)
+            ->get();
+    }
 }

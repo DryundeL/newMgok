@@ -1,0 +1,12 @@
+==
+<select class="select-group" name='group' id='group-select'>
+	{% for group in groups %}
+		<option value="{{group}}" 
+			{% if selected_group == group %}
+				selected
+			{% endif %}
+		>
+			{{group}}
+		</option>
+	{% endfor %}
+</select>

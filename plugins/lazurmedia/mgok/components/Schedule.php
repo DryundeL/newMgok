@@ -93,7 +93,7 @@ class Schedule extends \Cms\Classes\ComponentBase
     // if not search
     if ($searchRole === NULL || $searchText === NULL) {
       // default schedule
-      if ($role === 'Преподаватель')
+      if ($role === 'Преподаватель' || $role === 'Учитель')
         $schedule = (new ScheduleClass)->getTeacherSchedule($user);
       else
         $schedule = (new ScheduleClass)->getStudentSchedule($user);
@@ -248,6 +248,7 @@ class Schedule extends \Cms\Classes\ComponentBase
   public function onDeleteEvent() {
     $event = post('event');
 
+    // if (Authorization::getRole() == 'Преподаватель' || Authorization::getRole() == 'Учитель') {
     if ($event['event_class'] == true) {
       // if class event
       $route = $this->page->url;
@@ -265,6 +266,9 @@ class Schedule extends \Cms\Classes\ComponentBase
       $class_event = EventsModel::find($event['id']);
       $class_event->delete();
     }
+    // } else {
+    //   return false;
+    // } 
   }
 
   private function fullDeleteClassEvent($event) {

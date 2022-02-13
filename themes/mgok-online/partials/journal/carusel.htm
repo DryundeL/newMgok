@@ -1,18 +1,18 @@
 ==
-<form class = 'carusel-form'>
-	<div class="top-div">
-		<img class="carousel-arrow" src="{{ 'assets/icons/carousel-left.png'|theme }}">
-		<div class="image-slider swiper-container">
-			<div class="image-slider__wrapper swiper-wrapper">
-					{% for lesson in lessons %}
-						<div class="image-slider__slide swiper-slide">
-							<div class="image-slider__image">
-								<div class="slide-text">{{lesson.lesson_name}}</div>
-							</div>
-						</div>
-					{% endfor %}
-			</div>
-		</div>
-		<img class="carousel-arrow" src="{{ 'assets/icons/carousel-right.png'|theme }}">	
-	</div>
-</form>
+<?php
+function onStart() {
+	$this['selected_subject'] = Request::get('subject') ?? $this->page->components['ELjournal']->subjects[0]->lesson_name;
+}
+?>
+==
+<select class="select-subject" name='subject' id='subject-select'>
+	{% for subject in subjects %}
+		<option value="{{subject.lesson_name}}" 
+			{% if selected_subject == subject.lesson_name %}
+				selected
+			{% endif %}
+		>
+			{{subject.lesson_name}}
+		</option>
+	{% endfor %}
+</select>

@@ -26,4 +26,35 @@ class AddictionalLessons extends Model
      */
     public $rules = [
     ];
+
+    public function createAddictiveMark($group, $subject, $addictive) {
+        $journal = $this->findAddictiveMark($addictive);
+        // var_dump(!$journal, $addictive['mark']);
+        if (!$journal) {
+            $journal = new AddictionalLessons;
+            $journal->class = $group;
+            $journal->subject = $subject;
+            $journal->student = $addictive['fio'];
+            $journal->mark = $addictive['mark'];
+            $journal->date_lesson = $addictive['date'];
+            $journal->name_lesson = $addictive['event'];
+            $journal->unique_id = $addictive['unique_id'];
+            $journal->save();
+        } else {
+            $journal->mark = $addictive['mark'];
+            $journal->date_lesson = $addictive['date'];
+            $journal->name_lesson = $addictive['event'];
+            $journal->save();
+        }
+    }
+
+    private function findAddictiveMark($addictive) {
+        return AddictionalLessons::where('unique_id', $addictive['unique_id'])
+            ->where('student', $addictive['fio'])
+            ->first();
+    }
+
+    public function deleteMarks($uniqueId){
+        AddictionalLessons::where('unique_id', $uniqueId)->delete();
+    }
 }

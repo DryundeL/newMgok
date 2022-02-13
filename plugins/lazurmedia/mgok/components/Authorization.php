@@ -26,34 +26,23 @@ class Authorization extends \Cms\Classes\ComponentBase
 
   public function onRun() 
   {
-    $this->getSchool();
     $this->getGroupsForTeacher();
     return $this->route($this->page->url);
   }
 
   private function getGroupsForTeacher() 
   {
-    $teacher = Authorization::getName();
-    $classes = Schedule::where('teacher', $teacher)->get()->unique('class');
-    $this->groups = true;
-    if ($classes->isEmpty())
-      return $this->groups = false;
-  }
-
-  private function getSchool()
-  {
-
-    $class = Authorization::getClass();
-    $view_journal = ['1','2','3', '4', '5', '6', '7', '8', '9', '10', '11'];
-    $classes = explode('-', $class);
-    $this->allow = true;
-    foreach ($view_journal as $view)
+    if (Authorization::getRole() == 'Студент')
     {
-      if ($classes[0] == $view) {
-        $this->allow = false;
-      }
+      $this->groups = true;
     }
-    
+    else {
+      $teacher = Authorization::getName();
+      $classes = Schedule::where('teacher', $teacher)->get()->unique('class');
+      $this->groups = true;
+      if ($classes->isEmpty())
+        return $this->groups = false;
+    }
   }
 
   private function route($route) {

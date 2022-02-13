@@ -1,14 +1,3 @@
-$(document).ready(function() {
-	(function( $ ) {
-	  $(function() {
-	    $('.cab__input').mask('000')
-	   
-	
-	    // $('pre').each(function(i, e) {hljs.highlightBlock(e)});
-	  });
-	})(jQuery);
-})
-
 let remove = document.querySelectorAll(".remove__div")
 const urlParams = document.URL
 console.log(urlParams);
@@ -60,88 +49,90 @@ if (groupSelect){
 
 // individual raspisanie
 // change student
-$('#student-select').change(function () {
-	const queryString = window.location.search;
-	const urlParams = new URLSearchParams(queryString);
-	urlParams.set('student', $(this).val());
-	window.location.search = urlParams.toString()
-})
+
+	
+	$('#student-select').change(function () {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		urlParams.set('student', $(this).val());
+		window.location.search = urlParams.toString()
+	})
 
 
 
-$('.schedule').on('click', '.schedule__element-li', function() {
-	
-	// hide all plus divs
-	$('.event-plus__div').each((i, plus) => $(plus).hide())
-	// form addEvent
-	const formWrapper = $(this).next()
-	const form = $(formWrapper.children()[0])
-	formWrapper.show()
-	$('.time-field').mask('00:00');
-	
-	// form send
-	form.submit(function (e) {
-		e.preventDefault();
+	$('.schedule').on('click', '.schedule__element-li', function() {
 		
-		const day = form.data('day')
-		const student = $('.student__select').val()
-		const inputs = form.find('.field')
-		const alertEmpty = form.find('#alert-empty')
-		const alertWrong = form.find('#alert-wrong')
-		let validation = true
+		// hide all plus divs
+		$('.event-plus__div').each((i, plus) => $(plus).hide())
+		// form addEvent
+		const formWrapper = $(this).next()
+		const form = $(formWrapper.children()[0])
+		formWrapper.show()
+		$('.time-field').mask('00:00');
 		
-		alertEmpty.removeClass('alert__span_active')
-		alertWrong.removeClass('alert__span_active')
+		// form send
+		form.submit(function (e) {
+			e.preventDefault();
+			
+			const day = form.data('day')
+			const student = $('.student__select').val()
+			const inputs = form.find('.field')
+			const alertEmpty = form.find('#alert-empty')
+			const alertWrong = form.find('#alert-wrong')
+			let validation = true
+			
+			alertEmpty.removeClass('alert__span_active')
+			alertWrong.removeClass('alert__span_active')
+			
+			// validation
+			inputs.each(function() {
+				
+				if (!$(this).val()) {
+					alertEmpty.addClass('alert__span_active')
+					validation = false
+				}
+				
+				else if ($(this).val() == '00:00'){
+					alertWrong.addClass('alert__span_active')
+					validation = false
+				}
+				
+				else if ($(this).hasClass('time-field') && !checkTimeFields($(this).val())) {
+					alertWrong.addClass('alert__span_active')
+					validation = false
+				}
+				
+				else if (!checkTimeFields(inputs[0].value, inputs[1].value)) {
+					alertWrong.addClass('alert__span_active')
+					validation = false
+				}
+			})
+				// form send
+				if (validation) {
+					form.request('onAddEvent', {
+						data: { 
+							date: day, 
+							student: student,
+						},
+				    // update: {'schedule/schedule-edit': '#schedule'},
+					})
+					formWrapper.hide()
+				}
+			})
 		
-		// validation
-		inputs.each(function() {
-			
-			if (!$(this).val()) {
-				alertEmpty.addClass('alert__span_active')
-				validation = false
-			}
-			
-			else if ($(this).val() == '00:00'){
-				alertWrong.addClass('alert__span_active')
-				validation = false
-			}
-			
-			else if ($(this).hasClass('time-field') && !checkTimeFields($(this).val())) {
-				alertWrong.addClass('alert__span_active')
-				validation = false
-			}
-			
-			else if (!checkTimeFields(inputs[0].value, inputs[1].value)) {
-				alertWrong.addClass('alert__span_active')
-				validation = false
-			}
-		})
-			// form send
-			if (validation) {
-				form.request('onAddEvent', {
-					data: { 
-						date: day, 
-						student: student,
-					},
-			    // update: {'schedule/schedule-edit': '#schedule'},
-				})
-				formWrapper.hide()
-			}
-		})
-	
-	// cancel form
-	$('.cancel__button').click(() => {
-	  formWrapper.hide()
-	  $('.event-plus__div').each((i, plus) => $(plus).show())
+		// cancel form
+		$('.cancel__button').click(() => {
+		  formWrapper.hide()
+		  $('.event-plus__div').each((i, plus) => $(plus).show())
+		});
 	});
-});
 
 
 
 
-$('.schedule').on('click', '#remove-event', function() {
-	$(this).closest('li').remove()
-});
+	$('.schedule').on('click', '#remove-event', function() {
+		$(this).closest('li').remove()
+	});
 
 function checkTimeFields(timeString, secondTimeString) {
 	const hours = parseInt(timeString.split('').slice(0, 2).join(''))
@@ -164,22 +155,23 @@ function checkTimeFields(timeString, secondTimeString) {
 	}
 }
 
-$('main').on('click', '.change-week', function() {
-	const queryString = window.location.search;
-	const urlParams = new URLSearchParams(queryString);
-	const numberWeek = urlParams.get('number_of_week') ?? 0;
-	const newNumberWeek = $(this).hasClass('next-week') ? parseInt(numberWeek) + 1 : parseInt(numberWeek) - 1
-	console.log(newNumberWeek)
-	if (newNumberWeek >= 0 && newNumberWeek < 4) {
-		urlParams.set('number_of_week', newNumberWeek);
-		window.location.search = urlParams.toString()
-	}
-})
+	$('.change-week').on('click', function() {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		const numberWeek = urlParams.get('number_of_week') ?? 0;
+		const newNumberWeek = $(this).hasClass('next-week') ? parseInt(numberWeek) + 1 : parseInt(numberWeek) - 1
+		console.log(newNumberWeek)
+		if (newNumberWeek >= 0 && newNumberWeek < 4) {
+			urlParams.set('number_of_week', newNumberWeek);
+			window.location.search = urlParams.toString()
+		}
+	})
 
-const input = $('.event-target__input')
-const searchForm = $('.schedule-search__wrapper')
-const resList = $('.schedule-search__hints')
-const select = $('.event-target__select')
+
+const input = $('.event-target__input') ?? ''
+const searchForm = $('.schedule-search__wrapper')?? ''
+const resList = $('.schedule-search__hints')?? ''
+const select = $('.event-target__select')?? ''
 
 resList.on('click', 'li', function(e) {
 	console.log($(this))

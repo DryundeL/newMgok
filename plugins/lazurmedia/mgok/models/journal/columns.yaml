@@ -27,3 +27,8 @@ columns:
         label: Дата
         type: date
         sortable: true
+    number_lesson:
+        label: 'Номер урока'
+        type: number
+        searchable: true
+        sortable: true

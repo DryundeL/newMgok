@@ -18,7 +18,7 @@ class Dates {
     'декабря'
   );
 
-  private static $days_of_week_list = array(
+  public $days_of_week_list = array(
     'Monday',
     'Tuesday',
     'Wednesday',
@@ -69,6 +69,20 @@ class Dates {
       $dates[] =  date("Y-m-d", strtotime('+' . $i . ' day', $date));
     }
     return $dates;
+  }
+
+  public function getParity($date)
+  {
+    $date_time_start = date_create('2020-12-21');
+    $date_time_now = date_create($date);
+    $interval = date_diff($date_time_start, $date_time_now);
+    $amount = $interval->format('%a');
+    $weeks = floor($amount / 7);
+    $parity = $weeks % 2;
+
+    if ($parity === 0) return 'По чётным неделям';
+    else if ($parity === 1) return 'По нечётным неделям';
+    else return 'Каждую неделю';
   }
 }
 

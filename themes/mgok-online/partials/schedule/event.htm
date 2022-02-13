@@ -18,7 +18,7 @@ function onStart() {
 <li>
 	<form data-request = "onDeleteEvent" class="schedule__event-item">
 		
-		{% if this.page.url != "/" and not ( Authorization.role == 'Ученик' and event.creater != Authorization.getLogin()) %}
+		{% if this.page.url != "/" and not ( Authorization.role == 'Ученик' or Authorization.role == 'Студент' and event.creater != Authorization.getLogin()) %}
 			<button 
 				class="remove-event" 
 				id="remove-event"

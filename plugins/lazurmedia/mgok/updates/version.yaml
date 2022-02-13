@@ -195,3 +195,18 @@
 1.0.66:
     - 'Updated table lazurmedia_mgok_events'
     - builder_table_update_lazurmedia_mgok_events_5.php
+1.0.67:
+    - 'Updated table lazurmedia_mgok_journal'
+    - builder_table_update_lazurmedia_mgok_journal_9.php
+1.0.68:
+    - 'Updated table lazurmedia_mgok_journal'
+    - builder_table_update_lazurmedia_mgok_journal_10.php
+1.0.69:
+    - 'Updated table lazurmedia_mgok_addictional_lessons'
+    - builder_table_update_lazurmedia_mgok_addictional_lessons_4.php
+1.0.70:
+    - 'Updated table lazurmedia_mgok_addictional_lessons'
+    - builder_table_update_lazurmedia_mgok_addictional_lessons_5.php
+1.0.71:
+    - 'Updated table lazurmedia_mgok_addictional_lessons'
+    - builder_table_update_lazurmedia_mgok_addictional_lessons_6.php

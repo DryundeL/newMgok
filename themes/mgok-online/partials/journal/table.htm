@@ -2,14 +2,21 @@
 <?php
 function onStart()
 {
-	$this['functions'] = new class {
+	$selected_month = Request::get('month');
+	$months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+	if (!$selected_month) {
+		$month = date('n');
+		$selected_month = $months[$month - 1];
+	}
+	$this['selected_month'] = $selected_month;
 	
+	
+	$this['functions'] = new class {
 		public function setDateAttribute( $date ) {
 		  $x = explode('-', $date);
 			$day = $x[2];
 			return $day;
 		}
-		
 	};
 }
 ?>
@@ -29,8 +36,8 @@ function onStart()
 <div class="table-head">
 	<div class="head-cell num-head">№</div>
 	<div class="head-cell stud-head">Студенты</div>
-	<div class="head-cell sem-head">{{month}}</div>
-	<div class="head-cell add-head">Доп. поля</div>
+	<div class="head-cell sem-head">{{selected_month}}</div>
+	<div class="head-cell add-head">Доп. поле</div>
 	<div class="head-cell res-head">Итоговая</div>
 </div>
 <div class="table-body">
@@ -48,27 +55,39 @@ function onStart()
 			<span class="fio-cell stud-count">{{student.full_name}}</span>
 		{% endfor %}
 	</div>
+	
 	<div class="dates">
 		{% set marksCount = 0 %}
-		{% for day in days %}
-		<div class="date-col">
-			<span class="date-head">{{day}}</span>
-			{% if role == "Ученик" %}
-				{% for student in students %}
-					<span class="date-row">
-						{{ marks[marksCount]}}
-					</span>
-					{% set marksCount = marksCount + 1 %}
-				{% endfor %}
+		{% for index, day in days %}
+			<div class="date-col scrollable">
+				<span 
+					class="date-head"
+					data-number-lesson={{day.number_lesson}}
+				>{{day.date}}</span>
+			
+				{% if role == "Студент" %}
+					{% for student in students %}
+						<span class="date-row">
+							{{marks[index][marksCount]}}
+						</span>
+						{% set marksCount = marksCount + 1 %}
+					{% endfor %}
 				{% else %}
-				{% for student in students %}
-					<input class="date-row__input" value="{{marks[marksCount]}}">
-					{% set marksCount = marksCount + 1 %}
-				{% endfor %}
-			{% endif %}
-		</div>
+					{% for student in students %}
+						<input class="date-row__input" value="{{marks[index][marksCount]}}">
+						{% set marksCount = marksCount + 1 %}
+					{% endfor %}
+				{% endif %}
+			</div>
 		{% endfor %}
 	</div>
+	
+	<div class="hide-additional-field">
+		{% partial "journal/hideAdditionalColumn" 
+			addictives=addictives 
+		%}
+	</div>
+	
 	<div class="additional-field">
 		{% if columnCount != null %}
 			{% set addCount = 0 %}
@@ -96,7 +115,7 @@ function onStart()
 					</div>
 					
 					{% for student in students %}
-						{% if role == "Ученик" %}
+						{% if role == "Студент" %}
 							<span class="addTaskMark" type="text">{{addict[addCount].mark}}</span>
 							{% set addCount = addCount + 1 %}
 						{% else %}
@@ -107,29 +126,32 @@ function onStart()
 				</div>
 			{% endfor %}
 		{% endif %}
+		
 		<div class="add-fields-col">
 			<div class="add-field-plus">
+				{% if role == 'Преподаватель' %}
 				<img class="add-field__img" src="{{ 'assets/icons/add.png'|theme }}">
-			</div>
-			{% for student in students %}
-				{% if role == "Ученик" %}
-					<span class="add-field no-plus"></span>
-				{% else %}
-					<input class="add-field no-plus">
 				{% endif %}
+			</div>
+		
+			{% for student in students %}
+					<span class="add-field no-plus"></span>
 			{% endfor %}
+			
 		</div>
 	</div>
+
 	<div class="res-col">
 		<div class="res-cell"></div>
 		{% set resCount = 0 %}
 		{% for student in students %}
-			{% if role == "Ученик" %}
-				<span class="res-cell">{{result_marks[resCount]}}</span>
+			{% if role == "Студент" %}
+				<span class="res-cell">{{finals[resCount].mark}}</span>
 			{% else %}
-				<input class="res-cell__input final" value="{{result_marks[resCount]}}">
+				<input class="res-cell__input final" value="{{finals[resCount].mark}}">
 			{% endif %}
 			{% set resCount = resCount + 1 %}
 		{% endfor %}
 	</div>
 </div>
+<script src="{{ 'assets/js/general.js'|theme }}"></script>

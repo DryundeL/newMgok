@@ -1,0 +1,52 @@
+==
+<?php
+function onStart() {
+	$selected_semester = Request::get('semester');
+	if (!$selected_semester) {
+		$month = date('n');
+		if ($month > 6) 
+			$selected_semester = "1";
+		else
+			$selected_semester = "2";
+	}
+	$this['selected_semester'] = $selected_semester;
+	
+	if ($selected_semester == "2") {
+		$this['months'] = [
+			'Январь',
+			'Февраль',
+			'Март',
+			'Апрель',
+			'Май',
+			'Июнь',	
+		];
+	} else {
+		$this['months'] = [
+			'Сентябрь',
+			'Октябрь',
+			'Ноябрь',
+			'Декабрь',
+		];
+	}
+	
+	$selected_month = Request::get('month');
+	if (!$selected_month) {
+		$month = date('n');
+		if ($month > 6) $month - 6;
+		$selected_month = $this['months'][$month - 1];
+	}
+	$this['selected_month'] = $selected_month;
+}
+?>
+==
+<select class="select-mon" name='month' id='month-select'>
+	{% for month in months %}
+		<option value="{{month}}"
+			{% if selected_month == month %}
+				selected
+			{% endif %}
+		>
+			{{month}}
+		</option>
+	{% endfor %}
+</select>

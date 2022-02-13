@@ -47,4 +47,14 @@ class Schedule extends Model
             ->orderBy('number_lesson', 'asc')
             ->get();
     }
+
+    public function getLessonByDay($class, $day_of_week, $parity, $lesson_name) {
+        $lesson = Schedule::where('class', $class)
+            ->where('day_of_week', $day_of_week)
+            ->whereIn('parity', [$parity, 'Каждую неделю'])
+            ->where('lesson_name', $lesson_name)
+            ->get();
+
+        return $lesson;
+    }
 }

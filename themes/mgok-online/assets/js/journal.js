@@ -1,7 +1,7 @@
-const groupSelect = document.querySelector('#group-select')
+const groupSel = document.querySelector('#group-select')
 
-if (groupSelect){
-	groupSelect.addEventListener("change", function(){
+if (groupSel){
+	groupSel.addEventListener("change", function(){
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		urlParams.set('group', $(this).val());
@@ -12,10 +12,10 @@ var pickSub = ""
 const semestrSelect = document.querySelector('#semester-select')
 
 semestrSelect.addEventListener("change", function(){
-	const queryString = window.location.search;
+	/*const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	urlParams.set('semester', $(this).val());
-	window.location.search = urlParams.toString()
+	window.location.search = urlParams.toString()*/
 })
 
 const monthSelect = document.querySelector('#month-select')
@@ -27,6 +27,15 @@ monthSelect.addEventListener("change", function(){
 	window.location.search = urlParams.toString()
 })
 
+const subjectSelect = document.querySelector('#subject-select')
+
+subjectSelect.addEventListener("change", function(){
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	urlParams.set('subject', $(this).val());
+	window.location.search = urlParams.toString()
+})
+
 new Swiper('.image-slider', {
 	freeMode: true, 
 	slidesPerView: 4,
@@ -35,28 +44,40 @@ new Swiper('.image-slider', {
 
 const table = document.querySelector(".table")
 
-const subjectsBtn = document.querySelectorAll('.slide-text')
-const caruselForm = document.querySelector('.carusel-form')
+// const subjectsBtn = document.querySelectorAll('.slide-text')
+// const caruselForm = document.querySelector('.carusel-form')
 
-subjectsBtn.forEach(btn => {
-	btn.addEventListener("click", (event) => {
-		subjectsBtn.forEach(el => {
-			el.classList.remove("choosenSub")
-		})
-		event.target.classList.add("choosenSub")
-		pickSub = event.target.innerHTML
-		if(table.classList.contains("table-hide")) table.classList.remove("table-hide")
+// subjectsBtn.forEach(btn => {
+// 	btn.addEventListener("click", (event) => {
+// 		// subjectsBtn.forEach(el => {
+// 		// 	el.classList.remove("choosenSub")
+// 		// })
+// 		pickSub = event.target.innerHTML
+// 		if(table.classList.contains("table-hide")) table.classList.remove("table-hide")
 
-		$(caruselForm).request('onChangeSubject', {
+// 		// $(caruselForm).request('onChangeSubject', {
 			
-			data: {
-				subject: event.target.innerText,
-				month: monthSelect.value,
-			}
-		})
+// 		// 	data: {
+// 		// 		subject: event.target.innerText,
+// 		// 		month: monthSelect.value,
+// 		// 	}
+// 		// })
+
+// 		// const activeSubject = event.target.closest('.swiper-slide').classList.contains('choosenSub');
+// 		// if (!activeSubject) {
+// 		// 	const queryString = window.location.search;
+// 		// 	const urlParams = new URLSearchParams(queryString);
+// 		// 	urlParams.set('subject', event.target.innerText);
+// 		// 	window.location.search = urlParams.toString()
+// 		// }
 		
-		const saveBtn = document.querySelector(".save-btn")
-		const cont = document.querySelector(".EJ-container")
+		
+		
+// 	})
+// })
+
+const saveBtn = document.querySelector(".save-btn")
+const cont = document.querySelector(".EJ-container")
 		
 		cont.addEventListener("keyup", (event) => {
 			const target = event.target.closest(".date-row__input")
@@ -68,9 +89,17 @@ subjectsBtn.forEach(btn => {
 				if(saveBtn.classList.contains("hide")) saveBtn.classList.remove("hide")
 			}
 		})
-	})
-})
 
+function checkScroll(elem)
+{
+	if (elem.scrollWidth > elem.clientWidth)
+	{
+		elem.style.top = '-17px'
+	}
+	else {
+		elem.style.top = ''
+	}
+}
 
 const fios = document.querySelectorAll(".stud-count")
 let count = 0
@@ -92,7 +121,7 @@ const marksFields = count => {
 	return fields
 }
 
-const cont = document.querySelector(".EJ-container")
+
 cont.addEventListener("click", (event) => {
 	const target = event.target
 	if (target.closest(".add-field__img")) {
@@ -100,7 +129,12 @@ cont.addEventListener("click", (event) => {
 		<div class="add-fields-col">
 			<div class="addTaskHead">
 				<div class="addTaskInput__div">
-					<input class="addTaskName" placeholder="Событие" type="text">
+					<select class="selectTask">
+						<option>Кр</option>
+						<option>Пр</option>
+						<option>Пара</option>
+						<option>Экз</option>
+						<option>Зач</option>
 					<input class="addTaskDate" placeholder="Число:" type="text">
 				</div>
 				<div class="plus-img__div">
@@ -133,33 +167,37 @@ cont.addEventListener("click", (event) => {
 			marksArr.push(input.value)
 		})
 		const dayMark = target.closest(".add-fields-col").querySelector(".addTaskDate").value
-		const name = target.closest(".add-fields-col").querySelector(".addTaskName").value
+		const name = target.closest(".add-fields-col").querySelector(".selectTask").value
+		const uniqueId = target.closest(".addictional-head")?.querySelector(".addTaskInput__div")?.dataset?.uniqueId;
 		const surnamesSpanArr = document.querySelectorAll(".stud-count")
 		const surnamesArr = []
 		surnamesSpanArr.forEach(surname => {
 			surnamesArr.push(surname.innerText)
 		})
-		if (inputsArr == [] || dayMark == '')
+		if (!uniqueId)
 		{
 			target.closest(".add-fields-col").remove()
 		}
 		else {
 			$(target.closest(".addTaskDelete")).request('onDeleteAddict', {
 				data: {
-					date: year + '.' + month + '.' + dayMark,
-					name: name,
-					marks: marksArr,
-					surnames: surnamesArr
+					unique_id: uniqueId
 				}
 			})
+			target.closest(".add-fields-col").remove()
+			const elem = document.querySelector('.dates')
+	
+			checkScroll(elem)
 		}
 		
 	}
 })
 
 
+const tableScroollable = document.querySelector('#table')
 
-const saveBtn = document.querySelector('#save-btn')
+
+
 const monthName = document.querySelector('.sem-head')
 const group = document.querySelector('.select-group')
 
@@ -185,120 +223,185 @@ if (month > 8) {
 	year--
 }
 
-function daysInMonth (month, year) { // Use 1 for January, 2 for February, etc.
+function daysInMonth (month, year) {
   return new Date(year, month, 0).getDate();
 }
 
 if (saveBtn) {
 	saveBtn.addEventListener('click', (event) => {
-		let array = []
 		const days = document.querySelectorAll('.date-head') 	
 		const subject = document.querySelector('.choosenSub')
+	
+		//-- marks start
+		const inputs = Array.from(document.querySelectorAll('.date-col .date-row__input'))
+		const marksObjectCreate = input => {
+			const headerColumn = input.closest('.date-col')?.querySelector('.date-head');
+			const mark = input.value;
+			const date = year + '.' + month + '.' + headerColumn.innerText;
+			const numberLesson = headerColumn?.dataset?.numberLesson;
+			const fio = fios[$(input).index() - 1]?.textContent;
+			
+			return {
+				mark, 
+				date,
+				numberLesson,
+				fio
+			}
+		}
+		const marks = inputs.map(input => marksObjectCreate(input))
+		//-- marks end
 		
-		const inputs = Array.from(document.querySelectorAll('.date-row__input'))
-		const marks = inputs.map(input => ({
-			mark: input.value
-		}))
-		days.forEach(day=> {
-			fios.forEach(fio=>{
-				let data = {
-					date: year + '.' + month + '.' + day.innerText,
-					subject: subject.innerText, 
+		//-- additional start
+		const additionalInputs = Array.from(document.querySelectorAll('.add-fields-col .addTaskMark'));
+		let uniqueId = Date.now();
+		
+		const marksAdditionalObjectCreate = input => {
+			const headerColumn = input.closest('.add-fields-col')?.querySelector('.addTaskInput__div');
+			const mark = input.value;
+			const date = year + '.' + month + '.' + headerColumn.querySelector('input').value;
+			const event = headerColumn.querySelector('.selectTask').value;
+			const index = $(input).parent().index();
+			const fio = fios[index - 1]?.textContent;
+			
+			if (index - 1 === 0) {
+				uniqueId = Date.now();
+			}
+			const markUniqueId = headerColumn.dataset.uniqueId ?? uniqueId;
+			
+			return {
+				mark, 
+				date,
+				event,
+				fio,
+				unique_id: markUniqueId
+			}
+		}
+
+		const additionalMarks = additionalInputs?.map(input => marksAdditionalObjectCreate(input));
+		//-- additional end
+		
+		//-- final start
+		const finalInputs = Array.from(document.querySelectorAll('.res-cell__input'));
+		const marksFinalObjectCreate = input => {
+			const mark = input.value;
+			const fio = fios[$(input).index() - 1]?.textContent;
+			const monthTitle = document.querySelector('.sem-head').textContent;
+			
+			
+			return {
+				mark, 
+				fio,
+				month: monthTitle
+			}
+		}
+
+		const finalMarks = finalInputs?.map(input => marksFinalObjectCreate(input))
+		//-- final end
+		
+		//-- validate start
+		const additionalDates = Array.from(document.querySelectorAll('.addTaskDate'));
+		const marksInputs = Array.from(document.querySelectorAll('.date-row__input, .addTaskMark'));
+		
+		const isAdditionalValidate = validationAdditionalsDates(additionalDates);
+		const isMarksValidate = validationAllowedMarks(marksInputs);
+		//-- validate end
+
+		if (isAdditionalValidate && isMarksValidate) {
+			$(saveBtn).request('onSaveMarks', {
+				data: {
+					subject: subject.innerText,
 					group: group.value,
-					name: fio.innerText,
+					marks: marks,
+					addictive: additionalMarks,
+					final: finalMarks,
 				}
-				array.push(data);
 			})
-		})
-
-		const finalGradesInputs = Array.from(document.querySelectorAll('.final'))
-		const finalGrades = finalGradesInputs.map(input=>({
-			month: monthName.innerText,
-			mark: input.value
-		}))
-
-		const taskNameInputs = document.querySelectorAll('.addTaskName')
-		const taskDateInputs = document.querySelectorAll('.addTaskDate')
-		const taskMarkInputs = document.querySelectorAll('.addTaskMark')
-		let addictiveArray = [];
-
-		taskDateInputs.forEach(input => {
-			if(input.value <= daysInMonth(month, year)){
-				for (i = 0; i < taskNameInputs.length; i++)
-				{
-					if (i > 0)
-					{
-						j = taskMarkInputs.length/taskNameInputs.length
-						for (; j < taskMarkInputs.length; j++)
-						{
-							let addict = {
-								name: taskNameInputs[i].value,
-								date: year + '.' + month + '.' + taskDateInputs[i].value,
-								mark: taskMarkInputs[j].value
-							}
-							addictiveArray.push(addict)
-						}
-					}
-					else 
-					{
-						j = 0
-						for (; j < taskMarkInputs.length/taskNameInputs.length; j++)
-						{
-							let addict = {
-								name: taskNameInputs[i].value,
-								date: year + '.' + month + '.' + taskDateInputs[i].value,
-								mark: taskMarkInputs[j].value
-							}
-							addictiveArray.push(addict)
-						}
-					}
-				}
-			if (!saveBtn.classList.contains("hide"))saveBtn.classList.add("hide")
-			alert("Данные занесены!")
-			}
-			else alert("Число введено неверно!")
-		})
-
-		
-		console.log(addictiveArray)
-		$(saveBtn).request('onSaveMarks', {
-			data: {
-				data: array,
-				marks: marks,
-				finalGrades: finalGrades,
-				addictive: addictiveArray
-			}
-		})
-
+		}
 	})
 }
+
+
+
+function validationAdditionalsDates(additionalDates) {
+	let errors = 0;
+
+	additionalDates.forEach(input => {
+		const daysCount = daysInMonth (month, year);
+		const day = input.value;
+		
+		if (day < 0 || day > daysCount || day === '00') {
+			input.classList.add('validation-field');
+			errors++;
+		} else {
+			input.classList.remove('validation-field');
+		}
+	})
+	
+	return errors === 0;
+}
+
+function validationAllowedMarks(markInputs) {
+	let errors = 0;
+
+	const allowedMarks = ['2', '3', '4', '5', 'нб'];
+	markInputs.forEach(input => {
+		const value = input.value;
+		const isValidate = allowedMarks.includes(value) || value === '';
+		
+		console.log(value)
+		if (isValidate) {
+			input.classList.remove('validation-field');
+		} else {
+			input.classList.add('validation-field');
+			errors++;
+		}
+	})
+	
+	return errors === 0;
+}
+
+
+
 document.addEventListener("DOMContentLoaded", function(){
 	const body = document.querySelector("body")
 	const subjArr = document.querySelectorAll(".slide-text")
+	
+	const elem = document.querySelector('.dates')
+	
+	checkScroll(elem)
 	
 	const saveBtn = document.querySelector(".save-btn")
 	const cont = document.querySelector(".EJ-container")
 	
 	cont.addEventListener("keyup", (event) => {
-		const target = event.target.closest(".date-row__input")
-		const addTarget = event.target.closest(".addTaskMark")
-		if (target) {
-			if(saveBtn.classList.contains("hide")) saveBtn.classList.remove("hide")
-		}
-		if (addTarget) {
-			if(saveBtn.classList.contains("hide")) saveBtn.classList.remove("hide")
+		const target = event.target.closest(".date-row__input");
+		const addTarget = event.target.closest(".addTaskMark");
+		const changeDate = event.target.closest('.addTaskInput__div');
+		const finalMark = event.target.closest('.res-cell__input');
+		
+		if ((target || addTarget || changeDate || finalMark) && saveBtn.classList.contains("hide")) {
+			saveBtn.classList.remove("hide")
 		}
 	})
 	
-	
-	subjArr[0].classList.add("choosenSub")
-	pickSub = subjArr[0].innerHTML
-	$(body).request('onLoadPage', {
-		data: {
-			month: monthSelect.value,
-			subject: pickSub
+	cont.addEventListener("click", (event) => {
+		const target = event.target;
+
+		if (target.classList.contains('selectTask') && saveBtn.classList.contains("hide")) {
+			target.addEventListener('change', () => {
+				saveBtn.classList.remove("hide")
+			})
 		}
 	})
+	
+	// subjArr[0].classList.add("choosenSub")
+	// pickSub = subjArr[0].innerHTML
+	// $(body).request('onLoadPage', {
+	// 	data: {
+	// 		month: monthSelect.value,
+	// 		subject: pickSub
+	// 	}
+	// })
 })
 
 

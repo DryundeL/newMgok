@@ -3,48 +3,36 @@
 namespace LazurMedia\Mgok\Components;
 
 use Lazurmedia\Mgok\Components\Authorization;
-use Lazurmedia\Mgok\Models\Journal;
+use Lazurmedia\Mgok\Models\Journal as JournalModel;
 use Lazurmedia\Mgok\Models\FinalGrades;
 use Lazurmedia\Mgok\Models\AddictionalLessons;
-use Lazurmedia\Mgok\Models\Schedule;
+use Lazurmedia\Mgok\Models\Schedule as ScheduleModel;
+use Lazurmedia\Mgok\Classes\Dates as DatesClass;
 use Lazurmedia\Mgok\Classes\Schedule as ScheduleClass;
+use Lazurmedia\Mgok\Classes\Journal as JournalClass;
 use Lazurmedia\Mgok\Models\Users;
 use Request;
+use Redirect;
 
 class ELjournal extends \Cms\Classes\ComponentBase
 {
+  public $groups;
+  public $days = [];
+  public $addictives;
+  public $marks;
+  public $result_marks;
+
   public $subjects;
   public $lessons;
 
-  public $marks;
 
-  public $classes;
 
   public $role;
 
-  public $classmates;
   public $students;
 
-  public $semesters = [1, 2];
-  public $months = [];
-
+  public $months = ['Январь', 'Февраль', 'Март','Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
   public $month;
-  public $days;
-
-  public $days_of_week_rus = array(
-    'Понедельник', 
-    'Вторник', 
-    'Среда', 
-    'Четверг', 
-    'Пятница', 
-  );
-  public $days_of_week_eng = array(
-    'Monday', 
-    'Tuesday', 
-    'Wednesday', 
-    'Thursday', 
-    'Friday', 
-  );
 
   public function componentDetails()
   {
@@ -56,69 +44,208 @@ class ELjournal extends \Cms\Classes\ComponentBase
 
   public function onRun() 
   {
+    
     $this->role = Authorization::getRole();
-    return $this->routes($this->role);
+    
+    if ($this->role !== 'Преподаватель' && $this->role !== 'Студент') {
+      return Redirect::to('/');
+    }
+    
+    return $this->main();
   }
 
-  private function routes($role) 
-  { 
-    if ($role == 'Ученик')
+  private function main()
+  {
+    if ($this->role === 'Преподаватель')
     {
+      $this->getGroupsForTeacher(); 
+      $this->getSubjectsForTeacher();
+      $this->getStudentsForTeacher();
+      $this->getDates();
+      $this->getMarks();
+      $this->getAddictiveMarks();
+      $this->getFinalMarks();
+    } else {
       $this->getSubjectsForStudent();
       $this->getClassmates();
-      $this->getMonthsBySemester();
-      $this->setMonths();
+      $this->getDates();
+      $this->getMarks();
+      $this->getAddictiveMarks();
+      $this->getFinalMarks();
     }
-    else 
-    {
-      $this->getGroupsForTeacher();
-      $this->getStudentsByGroup();
-      $this->getSubjectsForTeacher();
-      $this->getMonthsBySemester();
-      $this->setMonths();
-    }
-    
-  }
-
-  private function mainPage()
-  {
-    
-  }
-
-  private function getSubjectsForStudent() 
-  {
-    $class = Authorization::getClass();
-    $this->subjects = Schedule::where('class', $class)->get()->unique('lesson_name');
-  }
-
-  private function getSubjectsForTeacher() 
-  {
-    $role = Authorization::getRole();
-    if ($role =='Преподаватель') {
-      $class = Request::get('group');
-      $teacher = Authorization::getName();
-      if (!$class){
-        $groups = $this->getGroupsForTeacher();
-        $class = $groups[0]->class;
-      }
-      $this->lessons = Schedule::where('class', $class)->where('teacher', $teacher)->get()->unique('lesson_name');
-    }
-  }
-
-  private function getClassmates() 
-  {
-    $class = Authorization::getClass();
-    $classmates = Users::where('class', $class)->where('role', 'Ученик')->get()->sortBy('full_name');
-    $this->classmates = $classmates;
-
   }
 
   private function getGroupsForTeacher() 
   {
-    $classes = Schedule::where('teacher', Authorization::getName())->get()->unique('class');
-    $this->classes = $classes;
-    return $classes;
+    $teacher_full_name = Authorization::getName();
+    $this->groups = JournalClass::getGroupsByTeacher($teacher_full_name)->map->class;
   }
+
+  private function getSubjectsForTeacher() 
+  {
+    $group = Request::get('group') ?? $this->groups[0];
+    $teacher_name = Authorization::getName();
+    $this->subjects = JournalClass::getSubjectsForTeacher($teacher_name, $group);
+  }
+
+  private function getStudentsForTeacher() {
+    $group = Request::get('group') ?? $this->groups[0];
+    $this->students = JournalClass::getStudentsByGroup($group);
+  }
+  
+  private function getSubjectsForStudent() 
+  {
+    $this->groups[0] = Authorization::getClass();
+    $this->subjects = JournalClass::getSubjectsForStudent($this->groups[0]);
+  }
+
+  private function getClassmates() {
+    $group = Authorization::getClass();
+    $this->students = JournalClass::getStudentsByGroup($group);
+  }
+
+  private function getDates() {
+    $group = Request::get('group') ?? $this->groups[0];
+    $year = $this->getYear();
+    $month_index = $this->getMonth();
+    $number_of_days = cal_days_in_month(CAL_GREGORIAN, $month_index, $year);
+
+    $this->days = [];
+    for($i = 1; $i <= $number_of_days; $i++) {
+      $date = "$year-$month_index-$i";
+      $parity = (new DatesClass)->getParity($date);
+      $day_of_week = $this->getDayOfWeek($date);
+      $subject = Request::get('subject') ?? $this->subjects[0]->lesson_name;
+      $lessons = (new ScheduleModel)->getLessonByDay($group, $day_of_week, $parity, $subject);
+      if (count($lessons) > 0) {
+        foreach($lessons as $lesson) {
+          $day = [
+            'date' => $i,
+            'number_lesson' => $lesson->number_lesson
+          ];
+          array_push($this->days, $day);
+        }
+      }
+    }
+  }
+
+  private function getYear() {
+    $year = date("Y");
+    $month = date('m');
+    $semester = (int) Request::get('semester') ?? 1;
+    if ($month < 8 && $semester === 1) {
+      $year--;
+    }
+    return (string) $year;
+  }
+
+  private function getMonth() {
+    $month = Request::get('month');
+    if (!$month) {
+      $month = date('n');
+    } else {
+      $months = ['Январь', 'Февраль', 'Март','Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+      $month = array_search($month, $months) + 1;
+    }
+    return $month;
+  }
+
+  private function getDayOfWeek($date) {
+    $day_of_week_eng = date('l', strtotime($date));
+    $index_of_day = array_search($day_of_week_eng, (new DatesClass)->days_of_week_list);
+    $day_of_week_rus = (new DatesClass)->days_of_week_rus[$index_of_day];
+    return $day_of_week_rus;
+  }
+
+  private function getMarks() {
+    $year = $this->getYear();
+    $month_index = $this->getMonth();
+    $group = Request::get('group') ?? $this->groups[0];
+    $subject = Request::get('subject') ?? $this->subjects[0]->lesson_name;
+    foreach($this->days as $day) {
+      $date = "$year-$month_index-$day[date]";
+      $colection_marks_of_class_by_day = JournalModel::getClassMarksByDay($group, $subject, $day['number_lesson'], $date);   
+
+      foreach($colection_marks_of_class_by_day as $collection) {
+        $marks[] = $collection->mark;
+      }
+
+      $this->marks[] = $marks ?? [];
+    }
+  }
+
+  private function getAddictiveMarks() {
+    $month_index = $this->getMonth();
+    $group = Request::get('group') ?? $this->groups[0];
+    $subject = Request::get('subject') ?? $this->subjects[0]->lesson_name;
+    $addictive_marks = AddictionalLessons::where('class', $group)->where('subject', $subject)->get();
+    $addictives = [];
+    foreach ($addictive_marks as $addictive)
+    {
+      $addictive_month = date_parse($addictive->date_lesson)['month'];
+      if ($month_index == $addictive_month)
+      {
+        array_push($addictives, $addictive);
+      }
+    }
+    $this->addictives = $addictives;
+  }
+
+  private function getFinalMarks() {
+    $year = $this->getYear();
+    $month_index = $this->getMonth();
+    $month = $this->months[$month_index - 1];
+    $group = Request::get('group') ?? $this->groups[0];
+    $subject = Request::get('subject') ?? $this->subjects[0]->lesson_name;
+
+    $finals = (new FinalGrades)->getFinalMarks($group, $subject, $month);
+
+    $this->result_marks = $finals ?? [];
+  }
+
+  // -- Events -- //
+
+  public function onSaveMarks() 
+  { 
+    $data = post();
+    $group = $data['group'];
+    $subject = $data['subject'];
+    $marks = $data['marks'];
+    $addictives = $data['addictive'];
+    $finals = $data['final'];
+    
+    foreach($marks as $mark) {
+      (new JournalModel)->createMark($group, $subject, $mark);
+    }
+
+    foreach($addictives as $addictive) {
+      (new AddictionalLessons)->createAddictiveMark($group, $subject, $addictive);
+    }
+
+    foreach($finals as $final) {
+      (new FinalGrades)->createFinalMark($group, $subject, $final);
+    }
+
+    return back();
+  }
+
+  public function onDeleteAddict()
+  {
+    $data = post();
+    $unique_id = $data['unique_id'];
+    (new AddictionalLessons)->deleteMarks($unique_id);
+  }
+
+
+  // Старый код
+
+  // private function getClassmates() 
+  // {
+  //   $class = Authorization::getClass();
+  //   $classmates = Users::where('class', $class)->where('role', 'Ученик')->get()->sortBy('full_name');
+  //   $this->classmates = $classmates;
+
+  // }
 
   private function getStudentsByGroup()
   {
@@ -159,6 +286,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
     }
     if ($parity === 0) 
     {
+      $month_now = date('n');
       $this->months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь'];
       for ($i = 0; $i< $month_now-1; $i++)
       {
@@ -313,7 +441,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
 
     $this->days = $days_array;
     if ($role == 'Преподаватель') {
-      $marks = Journal::where('class', $class)->where('subject', $subject)->get();
+      $marks = Journal::where('class', $class)->where('subject', $subject)->get();      
       $marksArr = [];
       $datesArr = [];
       foreach ($days_array as $day)
@@ -401,100 +529,6 @@ class ELjournal extends \Cms\Classes\ComponentBase
         'addict'=> $addict_arr,
       ])];
     }
-  }
-
-  public function onSaveMarks() 
-  { 
-    $data = post();
-    $names = $data['data'];
-    $marks = $data['marks'];
-    $final_grades = $data['finalGrades'];
-    
-    
-    for ($i = 0; $i < count($names); $i++){
-
-      if (Journal::where('class', $names[$i]['group'])->where('subject', $names[$i]['subject'])->where('student', $names[$i]['name'])->where('date', $names[$i]['date'])->doesntExist())
-      {
-        $journal = new Journal;
-        $journal->class = $names[$i]['group'];
-        $journal->subject = $names[$i]['subject'];
-        $journal->student = $names[$i]['name'];
-        $journal->mark = $marks[$i]['mark'];
-        $journal->date = $names[$i]['date'];
-        $journal->save();
-      }
-      else 
-      {
-        $student = Journal::where('class', $names[$i]['group'])->where('subject', $names[$i]['subject'])->where('student', $names[$i]['name'])->where('date', $names[$i]['date'])->first();
-        $student->mark = $marks[$i]['mark'];
-        $student->save();
-      }
-
-      
-    }
-
-    for ($i = 0; $i < count($final_grades); $i++){
-
-      if (FinalGrades::where('class', $names[$i]['group'])->where('subject', $names[$i]['subject'])->where('student', $names[$i]['name'])->where('month', $final_grades[$i]['month'])->doesntExist())
-      {
-        $final = new FinalGrades;
-        $final->class = $names[$i]['group'];
-        $final->subject = $names[$i]['subject'];
-        $final->month = $final_grades[$i]['month'];
-        $final->student = $names[$i]['name'];
-        $final->mark = $final_grades[$i]['mark'];
-        $final->save();
-      }
-      else 
-      {
-        $student = FinalGrades::where('class', $names[$i]['group'])->where('subject', $names[$i]['subject'])->where('student', $names[$i]['name'])->where('month', $final_grades[$i]['month'])->first();
-        $student->mark = $final_grades[$i]['mark'];
-        $student->save();
-      }
-
-    }
-
-    if (isset($data['addictive']))
-    {
-      $addictive_marks = $data['addictive'];
-      for ($i = 0; $i < count($addictive_marks); $i++)
-      {
-        if (AddictionalLessons::where('class', $names[$i]['group'])->where('subject', $names[$i]['subject'])->where('student', $names[$i]['name'])->where('name_lesson', $addictive_marks[$i]['name'])->where('date_lesson', $addictive_marks[$i]['date'])->doesntExist())
-        {
-          $addictive = new AddictionalLessons;
-          $addictive->name_lesson = $addictive_marks[$i]['name'];
-          $addictive->date_lesson = $addictive_marks[$i]['date'];
-          $addictive->student = $names[$i]['name'];
-          $addictive->mark = $addictive_marks[$i]['mark'];
-          $addictive->class = $names[$i]['group'];
-          $addictive->subject = $names[$i]['subject'];
-          $addictive->save();
-        }
-        else 
-        {
-          $addict = AddictionalLessons::where('class', $names[$i]['group'])->where('subject', $names[$i]['subject'])->where('student', $names[$i]['name'])->where('name_lesson', $addictive_marks[$i]['name'])->where('date_lesson', $addictive_marks[$i]['date'])->first();
-          $addict->mark = $addictive_marks[$i]['mark'];
-          $addict->save();
-        }
-      }
-    }
-
-  }
-
-  public function onDeleteAddict()
-  {
-    $data = post();
-    $name_addict = $data['name'];
-    $date_addict = $data['date'];
-    $addict_marks = $data['marks'];
-    $students = $data['surnames'];
-
-      for ($i = 0; $i < count($students); $i++){
-        $addict = AddictionalLessons::where('student', $students[$i])->where('name_lesson',  $name_addict)->where('date_lesson', $date_addict)->where('mark', $addict_marks[$i])->first();
-        $addict->delete();
-      }
-
-      return back();
   }
 
   public function onLoadPage()
@@ -608,6 +642,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
       }
     }
 
+    // числа занятий по дням
     $days_array = [];
     $number_of_days = cal_days_in_month(CAL_GREGORIAN,$month, $year);
     for ($x = 1; $x <= $number_of_days; $x++) {
@@ -622,8 +657,9 @@ class ELjournal extends \Cms\Classes\ComponentBase
 
     $this->days = $days_array;
     if ($role == 'Преподаватель') {
+      // Получение оценок
       $marks = Journal::where('class', $class)->where('subject', $subject)->get();
-      // var_dump($marks);
+
       $marksArr = [];
       $datesArr = [];
       foreach ($days_array as $day)
@@ -642,7 +678,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
         }
       }
       
-
+      // Дополнительные поля
       $addict_grades = AddictionalLessons::where('class', $class)->where('subject', $subject)->get();
       $addict_arr = [];
       foreach ($addict_grades as $addict)
@@ -664,7 +700,6 @@ class ELjournal extends \Cms\Classes\ComponentBase
         'marks'=> $marksArr,
         'result_marks'=> $result_arr,
         'addict'=> $addict_arr,
-        //передавать оценки из бд
       ])];
     }
     else {

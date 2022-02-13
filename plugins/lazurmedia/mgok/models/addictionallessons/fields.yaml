@@ -24,3 +24,7 @@ fields:
         label: Класс
         span: auto
         type: text
+    unique_id:
+        label: 'Уникальный id'
+        span: auto
+        type: text

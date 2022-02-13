@@ -1,0 +1,51 @@
+==
+<?php
+function onStart() {
+	$selected_semester = Request::get('semester');
+	if (!$selected_semester) {
+		$month = date('n');
+		if ($month > 6) 
+			$selected_semester = "1";
+		else
+			$selected_semester = "2";
+	}
+	$this['selected_semester'] = $selected_semester;
+}
+?>
+==
+<select class="select-sem" name='semester' id='semester-select'>
+	<option value="1"
+		{% if selected_semester == "2" %}
+			selected
+		{% endif %}
+	>1</option>
+	
+	<option value="2"
+		{% if selected_semester == "2" %}
+			selected
+		{% endif %}
+	>2</option>
+</select>
+
+<script>
+	const semestr = document.querySelector('.select-sem')
+	
+	semestr.addEventListener('change', function (){
+		
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+		
+		if (semestr.value == 1) {
+			urlParams.set('semester', semestr.value);
+			urlParams.set('month', 'Сентябрь')
+			window.location.search = urlParams.toString()
+		}
+		else {
+			
+			urlParams.set('semester', semestr.value);
+			urlParams.set('month', 'Январь')
+			window.location.search = urlParams.toString()
+		}
+		
+	})
+</script>

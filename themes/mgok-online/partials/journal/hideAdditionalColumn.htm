@@ -1,0 +1,97 @@
+==
+<?php
+function onStart() {
+	$students_count = count($this->page->components['ELjournal']->students);
+	$addictives_count = count($this->page->components['ELjournal']->addictives);
+	$this['student_count'] = $students_count;
+	$this['columns'] = $addictives_count/$students_count;
+	$this['role'] = $this->page->components['ELjournal']->role;
+	$this['taskTypes'] = ['Кр', 'Пр', 'Пара', 'Экз', 'Зач'];
+	
+	$this['functions'] = new class {
+		public function setDateAttribute( $date ) {
+		  $x = explode('-', $date);
+			$day = $x[2];
+			return $day;
+		}
+	};
+}
+?>
+==
+{% if columns > 0 %}
+	{% for column in 1..columns %}
+
+		{% set indexFirstAddactive = student_count * column - student_count %}
+		{% set indexLastAddactive = student_count * column - 1 %}
+		
+		<div class="date-col-additional date-col-additional-hide add-fields-col scrollable">
+			<div class="addictional-head">
+				<div class="addTaskInput__div" data-unique-id={{addictives[indexFirstAddactive].unique_id}}>
+					
+					<select class="selectTask">
+						{% for taskType in taskTypes %}
+							<option
+								{% if addictives[indexFirstAddactive].name_lesson == taskType %}
+									selected
+								{% endif %}
+							>
+								{{taskType}}
+							</option>
+						{% endfor %}
+					</select>
+					<input 
+						class="addTaskDate" 
+						placeholder="Число:" 
+						type="text" 
+						value={{functions.setDateAttribute(addictives[indexFirstAddactive].date_lesson)}}
+					>
+				</div>
+				<div class="plus-img__div">
+					{% if Authorization.role == 'Преподаватель' %}
+	          <svg class="addTaskDelete" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+	            <path d="M15 6L6 15" stroke="#CACACA" stroke-width="2" stroke-linecap="round"/>
+	            <path d="M15 15L6 6" stroke="#CACACA" stroke-width="2" stroke-linecap="round"/>
+	          </svg>
+	         {% endif %} 
+	       </div>
+			</div>
+			
+			{% for addictiveIndex in indexFirstAddactive..indexLastAddactive %}
+				{% if role == "Студент" %}
+					<span class="date-row">
+						{{ addictives[addictiveIndex].mark }}
+					</span>
+				{% else %}
+					<div class="add-field__plus">
+						<input class="date-row__input addTaskMark" value="{{ addictives[addictiveIndex].mark }}">
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+	{% endfor %}
+{% endif %}
+
+<script>
+	const additionalHideColumns = Array.from(document.querySelectorAll('.date-col-additional-hide'));
+	let defaultColumns = Array.from(document.querySelectorAll('.dates .date-col, .add-fields-col'));
+	const defaultColumnsDates = defaultColumns.filter(column => column.querySelector('.date-head')).map(column => parseInt(column?.textContent) );
+
+	additionalHideColumns?.forEach(column => {
+		const date = parseInt(column.querySelector('.addTaskDate').value);
+		for(const [index, defaultColumnDate] of defaultColumnsDates.entries()) {
+			const isSetColumn = date < defaultColumnsDates[index + 1] || index === defaultColumnsDates.length - 1;
+
+			if (isSetColumn && index === 0) {
+				defaultColumns[index].insertAdjacentElement('beforebegin', column);
+				defaultColumnsDates.splice(0, 0, date);
+				break;
+			} else if (isSetColumn) {
+				defaultColumns[index].insertAdjacentElement('afterend', column);
+				defaultColumnsDates.splice(index + 1, 0, date);
+				break;
+			}
+		}
+
+		defaultColumns = Array.from(document.querySelectorAll('.dates .date-col, .add-fields-col'));
+	})
+</script>

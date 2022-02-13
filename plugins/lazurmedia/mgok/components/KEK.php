@@ -2,6 +2,8 @@
 
 namespace LazurMedia\Mgok\Components;
 use Lazurmedia\Mgok\Models\Criterias;
+use Lazurmedia\Mgok\Models\Users;
+use Lazurmedia\Mgok\Models\Schedule;
 use Lazurmedia\Mgok\Components\Authorization;
 use Redirect;
 use Cookie;
