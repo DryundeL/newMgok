@@ -84,6 +84,13 @@ class Dates {
     else if ($parity === 1) return 'По нечётным неделям';
     else return 'Каждую неделю';
   }
+  
+  public function getDayOfWeek($date) {
+    $day_of_week_eng = date('l', strtotime($date));
+    $index_of_day = array_search($day_of_week_eng, $this->days_of_week_list);
+    $day_of_week_rus = $this->days_of_week_rus[$index_of_day];
+    return $day_of_week_rus;
+  }
 }
 
 ?>

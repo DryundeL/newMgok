@@ -114,7 +114,7 @@ class ELjournal extends \Cms\Classes\ComponentBase
     for($i = 1; $i <= $number_of_days; $i++) {
       $date = "$year-$month_index-$i";
       $parity = (new DatesClass)->getParity($date);
-      $day_of_week = $this->getDayOfWeek($date);
+      $day_of_week = (new DatesClass)->getDayOfWeek($date);
       $subject = Request::get('subject') ?? $this->subjects[0]->lesson_name;
       $lessons = (new ScheduleModel)->getLessonByDay($group, $day_of_week, $parity, $subject);
       if (count($lessons) > 0) {
@@ -148,13 +148,6 @@ class ELjournal extends \Cms\Classes\ComponentBase
       $month = array_search($month, $months) + 1;
     }
     return $month;
-  }
-
-  private function getDayOfWeek($date) {
-    $day_of_week_eng = date('l', strtotime($date));
-    $index_of_day = array_search($day_of_week_eng, (new DatesClass)->days_of_week_list);
-    $day_of_week_rus = (new DatesClass)->days_of_week_rus[$index_of_day];
-    return $day_of_week_rus;
   }
 
   private function getMarks() {

@@ -149,15 +149,15 @@ class Schedule {
 
   public function getParity($date)
   {
-    $date_time_start = date_create('2020-12-21');
+    $date_time_start = date_create('2022-01-10');
     $date_time_now = date_create($date);
     $interval = date_diff($date_time_start, $date_time_now);
     $amount = $interval->format('%a');
     $weeks = floor($amount / 7);
     $parity = $weeks % 2;
 
-    if ($parity === 0) return 'По чётным неделям';
-    else if ($parity === 1) return 'По нечётным неделям';
+    if ($parity === 0) return 'По нечётным неделям';
+    else if ($parity === 1) return 'По чётным неделям';
     else return 'Каждую неделю';
   }
 }

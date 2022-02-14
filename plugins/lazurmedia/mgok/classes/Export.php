@@ -22,8 +22,10 @@ class Export
     $sheet->setCellValue('A1', 'Логин');
     $sheet->setCellValue('B1', 'Пароль');
     $sheet->setCellValue('C1', 'ФИО');
-    $sheet->setCellValue('D1', 'Дата рождения');
-    $sheet->setCellValue('E1', 'Класс');
+    $sheet->setCellValue('D1', 'Класс');
+    $sheet->setCellValue('E1', 'Дата рождения');
+    $sheet->setCellValue('F1', 'Роль');
+    $sheet->setCellValue('G1', 'Доступ к КЭК');
 
     $users = Users::all();
     foreach($users as $index => $user) {
@@ -31,8 +33,10 @@ class Export
       $sheet->setCellValue("A$index", $user->login);
       $sheet->setCellValue("B$index", $user->password);
       $sheet->setCellValue("C$index", $user->full_name);
-      $sheet->setCellValue("D$index", $user->date_of_birth);
-      $sheet->setCellValue("E$index", $user->class);
+      $sheet->setCellValue("D$index", $user->class);
+      $sheet->setCellValue("E$index", $user->date_of_birth);
+      $sheet->setCellValue("F$index", $user->role);
+      $sheet->setCellValue("G$index", $user->access);
     }
 
 
