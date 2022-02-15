@@ -30,7 +30,7 @@ class Journal extends Model
     public function createMark($group, $subject, $mark) {
         $journal = $this->findMark($group, $subject, $mark);
 
-        if ($journal->doesntExist()) {
+        if (!$journal) {
             $journal = new Journal;
             $journal->class = $group;
             $journal->subject = $subject;

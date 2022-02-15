@@ -204,15 +204,18 @@ class ELjournal extends \Cms\Classes\ComponentBase
     $group = $data['group'];
     $subject = $data['subject'];
     $marks = $data['marks'];
-    $addictives = $data['addictive'];
+    
     $finals = $data['final'];
     
     foreach($marks as $mark) {
       (new JournalModel)->createMark($group, $subject, $mark);
     }
 
-    foreach($addictives as $addictive) {
-      (new AddictionalLessons)->createAddictiveMark($group, $subject, $addictive);
+    if (array_key_exists('addictive', $data)){
+      $addictives = $data['addictive'];
+      foreach($addictives as $addictive) {
+        (new AddictionalLessons)->createAddictiveMark($group, $subject, $addictive);
+      }
     }
 
     foreach($finals as $final) {

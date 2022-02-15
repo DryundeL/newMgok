@@ -79,15 +79,20 @@ function onStart() {
 	additionalHideColumns?.forEach(column => {
 		const date = parseInt(column.querySelector('.addTaskDate').value);
 		for(const [index, defaultColumnDate] of defaultColumnsDates.entries()) {
-			const isSetColumn = date < defaultColumnsDates[index + 1] || index === defaultColumnsDates.length - 1;
+			const isSetColumn = date < defaultColumnsDates[index] || index === defaultColumnsDates.length - 1;
 
 			if (isSetColumn && index === 0) {
 				defaultColumns[index].insertAdjacentElement('beforebegin', column);
 				defaultColumnsDates.splice(0, 0, date);
 				break;
-			} else if (isSetColumn) {
-				defaultColumns[index].insertAdjacentElement('afterend', column);
-				defaultColumnsDates.splice(index + 1, 0, date);
+			}
+			else if (isSetColumn) {
+				if (date >= defaultColumnsDates[index]) {
+					defaultColumns[index].insertAdjacentElement('afterend', column);
+				} else {
+					defaultColumns[index].insertAdjacentElement('beforebegin', column);
+				}
+				defaultColumnsDates.splice(index, 0, date);
 				break;
 			}
 		}

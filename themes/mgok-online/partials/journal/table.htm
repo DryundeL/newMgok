@@ -15,7 +15,8 @@ function onStart()
 		public function setDateAttribute( $date ) {
 		  $x = explode('-', $date);
 			$day = $x[2];
-			return $day;
+			
+			return (int)$day;
 		}
 	};
 }

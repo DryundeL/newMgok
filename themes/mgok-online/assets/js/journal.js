@@ -148,10 +148,7 @@ cont.addEventListener("click", (event) => {
 		</div>
 		`)
 		$(document).ready(function(){
-			$('.addTaskDate').mask('AB', {'translation':{
-				A: {pattern: /[0-3]/},
-				B: {pattern: /[0-9]/}
-			}})
+			$('.addTaskDate').mask('00')
 		})
 		$(document).ready(function(){
 			$('.addTaskName').mask('AAAAA', {'translation':{
@@ -230,7 +227,7 @@ function daysInMonth (month, year) {
 if (saveBtn) {
 	saveBtn.addEventListener('click', (event) => {
 		const days = document.querySelectorAll('.date-head') 	
-		const subject = document.querySelector('.choosenSub')
+		const subject = document.querySelector('.select-subject')
 	
 		//-- marks start
 		const inputs = Array.from(document.querySelectorAll('.date-col .date-row__input'))
@@ -309,7 +306,7 @@ if (saveBtn) {
 		if (isAdditionalValidate && isMarksValidate) {
 			$(saveBtn).request('onSaveMarks', {
 				data: {
-					subject: subject.innerText,
+					subject: subject.value,
 					group: group.value,
 					marks: marks,
 					addictive: additionalMarks,
