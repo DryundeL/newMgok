@@ -16,7 +16,7 @@ use Redirect;
 
 class ELjournal extends \Cms\Classes\ComponentBase
 {
-  public $groups;
+  public $groups = [];
   public $days = [];
   public $addictives;
   public $marks;
@@ -78,7 +78,14 @@ class ELjournal extends \Cms\Classes\ComponentBase
   private function getGroupsForTeacher() 
   {
     $teacher_full_name = Authorization::getName();
-    $this->groups = JournalClass::getGroupsByTeacher($teacher_full_name)->map->class;
+    $groups = JournalClass::getGroupsByTeacher($teacher_full_name)->map->class;
+    
+    foreach($groups as $group) {
+      $first_letter = explode('-', $group)[0];
+      if (!is_numeric($first_letter)) {
+        array_push($this->groups, $group);
+      }
+    }
   }
 
   private function getSubjectsForTeacher() 
@@ -159,12 +166,14 @@ class ELjournal extends \Cms\Classes\ComponentBase
       $date = "$year-$month_index-$day[date]";
       $colection_marks_of_class_by_day = JournalModel::getClassMarksByDay($group, $subject, $day['number_lesson'], $date);   
 
+      $marks = [];
       foreach($colection_marks_of_class_by_day as $collection) {
-        $marks[] = $collection->mark;
+        array_push($marks, $collection->mark);
       }
 
       $this->marks[] = $marks ?? [];
     }
+    //var_dump($this->marks);
   }
 
   private function getAddictiveMarks() {

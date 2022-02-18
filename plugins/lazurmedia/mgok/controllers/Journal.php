@@ -1,7 +1,11 @@
 <?php namespace Lazurmedia\Mgok\Controllers;
 
 use Backend\Classes\Controller;
+use Lazurmedia\Mgok\Classes\Export;
+use Lazurmedia\Mgok\Classes\Import;
 use BackendMenu;
+use Redirect;
+use Input;
 
 class Journal extends Controller
 {
@@ -15,5 +19,17 @@ class Journal extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('Lazurmedia.Mgok', 'main-menu-item', 'side-menu-item8');
+    }
+
+    public function onExport() { 
+        Export::exportJournal('journal');
+        return Redirect::to('downloadexports');
+    }
+
+    public function onImport() {
+        $path = './plugins/lazurmedia/mgok/controllers';
+        Input::file('import')->move($path, '_import.xlsx');
+        
+        return Import::import('journal');
     }
 }

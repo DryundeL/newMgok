@@ -55,8 +55,9 @@ class Journal extends Model
     }
 
     public static function getClassMarksByDay($group, $lesson, $number_lesson, $date) {
-        // var_dump($group, $lesson, $date, "<br>");
-        // var_dump(Journal::where('class', $group)->where('subject', $lesson)->get(), "<br>");
+        // $test = count(Journal::where('class', $group)->where('subject', $lesson)->where('date', $date)->where('number_lesson', $number_lesson)->get());
+        // var_dump($group, $lesson, $date, $test, "<br>");
+        // var_dump(, "<br>");
         return Journal::where('class', $group)
             ->where('subject', $lesson)
             ->where('date', $date)

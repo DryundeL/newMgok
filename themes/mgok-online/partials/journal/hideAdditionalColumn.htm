@@ -3,7 +3,7 @@
 function onStart() {
 	$students_count = count($this->page->components['ELjournal']->students);
 	$addictives_count = count($this->page->components['ELjournal']->addictives);
-	$this['student_count'] = $students_count;
+	/*$this['student_count'] = $students_count;
 	$this['columns'] = $addictives_count/$students_count;
 	$this['role'] = $this->page->components['ELjournal']->role;
 	$this['taskTypes'] = ['Кр', 'Пр', 'Пара', 'Экз', 'Зач'];
@@ -14,7 +14,7 @@ function onStart() {
 			$day = $x[2];
 			return $day;
 		}
-	};
+	};*/
 }
 ?>
 ==

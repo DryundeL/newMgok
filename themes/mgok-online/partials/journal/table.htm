@@ -41,6 +41,7 @@ function onStart()
 	<div class="head-cell add-head">Доп. поле</div>
 	<div class="head-cell res-head">Итоговая</div>
 </div>
+
 <div class="table-body">
 	<div class="stud-numbers">
 		<span class="num-cell"></span>
@@ -58,14 +59,14 @@ function onStart()
 	</div>
 	
 	<div class="dates">
-		{% set marksCount = 0 %}
 		{% for index, day in days %}
+			{% set marksCount = 0 %}
 			<div class="date-col scrollable">
 				<span 
 					class="date-head"
 					data-number-lesson={{day.number_lesson}}
 				>{{day.date}}</span>
-			
+				
 				{% if role == "Студент" %}
 					{% for student in students %}
 						<span class="date-row">
@@ -155,4 +156,3 @@ function onStart()
 		{% endfor %}
 	</div>
 </div>
-<script src="{{ 'assets/js/general.js'|theme }}"></script>

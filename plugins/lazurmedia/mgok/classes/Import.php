@@ -6,7 +6,10 @@ use Db;
 use Redirect;
 use Lazurmedia\Mgok\Models\Users;
 use Lazurmedia\Mgok\Models\Schedule;
-
+use Lazurmedia\Mgok\Models\Journal;
+use Lazurmedia\Mgok\Models\AddictionalLessons;
+use Lazurmedia\Mgok\Classes\Schedule as ScheduleClass;
+use Lazurmedia\Mgok\Controllers\AddictionalLessons as ControllersAddictionalLessons;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -30,6 +33,8 @@ class Import
 
         if ($table === 'users' && $index === 'F') break;
         if ($table === 'lessons' && $index === 'J') break;
+        if ($table === 'journal' && $index === 'F') break;
+        if ($table === 'addictional' && $index === 'G') break;
       }
 
       $rows[] = $cells;
@@ -42,9 +47,60 @@ class Import
       case 'lessons':
         self::importLessons($rows);
         break;
+      case 'journal':
+        self::importJournal($rows);
+        break;
+      case 'addictional':
+        self::importAddictional($rows);
+        break;
     }
 
     return Redirect::refresh();
+  }
+
+  private static function importJournal($rows) {
+    //Journal::truncate();
+    foreach($rows as $index => $array) {
+      // skip first row, it's titles
+      if ($index === 0) continue; 
+
+      if ($array[4]) {
+        $date = $array[4];
+      }
+      else {
+        $date = NULL;
+      }
+      
+      $journal = new Journal;
+      $journal->class = $array[0];
+      $journal->subject = $array[1];
+      $journal->student = $array[2];
+      $journal->mark = $array[3];
+      $journal->date = $date;
+      $journal->number_lesson = $array[5];      
+      $journal->save();
+    }
+  }
+
+  private static function importAddictional($rows) 
+  {
+    AddictionalLessons::truncate();
+    foreach($rows as $index => $array) {
+      // skip first row, it's titles
+      if ($index === 0) continue; 
+
+      $addictional = new AddictionalLessons;
+      $addictional->name_lesson = $array[0];
+      $addictional->date_lesson = $array[1];
+      $addictional->student = $array[2];
+      $addictional->mark = $array[3];
+      $addictional->class = $array[4];
+      $addictional->subject = $array[5];
+      $addictional->unique_id = $array[6];
+  
+      $addictional->save();
+    }
+
   }
 
   private static function importUser($rows) {
