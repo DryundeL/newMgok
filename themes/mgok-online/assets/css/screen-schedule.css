@@ -1,0 +1,268 @@
+.navigation-block{
+	display: flex;
+	max-width: 1180px;
+	width: 100%;
+	margin: 20px auto;
+}
+
+.search-block{
+	max-width: 485px;
+	width: 100%;
+	min-width: 340px;
+	display: flex;
+	background-color: #fff;
+}
+.input-block{
+	display: flex;
+	vertical-align: middle;
+	align-items: center;
+}
+.search-icon{
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
+	cursor: text;
+}
+.select-data,.input-data{
+	padding-left: 10px;
+}
+.input-data{
+	max-width: 285px;
+	width: 100%;
+	max-height: 44px;
+	height: 100%;
+}
+.select-data{
+	max-width: 175px;
+	width: 100%;
+	height: 48px;
+	background-color: #fff;
+	border: 1px solid #E0E0E0;
+}
+.input-block{
+	max-width: 310px;
+	width: 100%;
+	height: 48px;
+	background-color: #fff;
+	border-top: 1px solid #E0E0E0;
+	border-right: 1px solid #E0E0E0;
+	border-bottom: 1px solid #E0E0E0;
+}
+.week-wrapper{
+	justify-content: flex-end;
+	max-width: 700px;
+	min-width: 280px;
+	width: 100%;
+	margin: 0 auto;
+}
+.schedule-weeks__block{
+	margin-top: 10px;
+	justify-content: flex-end;
+}
+.schedule-block{
+	background-color: #fff;
+	padding: 20px 0;
+	max-height: 100vh;
+	height: 100%;
+}
+.table-div{
+	display: flex;
+	max-width: 1180px;
+	width: 100%;
+	margin: 0 auto;
+}
+.column-container{
+	display: flex; 
+	flex-direction: column;
+}
+.column-div{
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+.day-of-week{
+	margin-bottom: 10px;
+}
+.day__container{
+	height: 100%;
+	border-top: 1px solid #DBE9EE;
+	border-right: 1px solid #DBE9EE;
+	border-bottom: 1px solid #DBE9EE;
+}
+.monday__cont{
+	border-left: 1px solid #DBE9EE;
+}
+.lessons-container{
+	width: 236px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+}
+.lesson-div{
+	min-height: 68px;
+	background-color: #F3F9FB;
+	margin-bottom: 10px;
+}
+.lesson-head,.lesson-footer{
+	display: flex;
+	justify-content: space-between;
+}
+.pair-num,.lesson-time,.lesson-group{
+	color: #777777;
+}
+.lesson-cab{
+	color: #2183AA;
+}
+.pair-num,.lesson-time,.day-num,.lesson-group,.lesson-cab,.subject-name{
+	font-size: 14px;
+}
+.day-num{
+	display: block;
+	margin-bottom: 10px;
+	color: #5B5B5B;
+}
+.subject-name{
+	max-height: 50px;
+	overflow: hidden;
+	
+}
+.events__container{
+	width: 236px;
+	padding: 0 10px 10px 10px;
+}
+.event-card{
+	background-color: #FDEDEC;
+	margin-bottom: 10px;
+}
+.event-footer{
+	display: flex;
+	justify-content: space-between;
+}
+.event-head{
+	text-align: left;
+}
+.event-time,.event-name,.event-city,.event-address{
+	font-size: 14px;
+}
+.event-time,.event-city{
+	color: #777;
+}
+.event-address{
+	color: #B27770;
+}
+.add-event-plus{
+	cursor: pointer;
+	text-align: center;
+	background-color: #B27770;
+	border-radius: 3px;
+	color: #fff;
+	margin: 0px auto 10px auto;
+	max-width: 210px;
+}
+.lesson-div,.event-card{
+	padding: 5px;
+}
+.lesson-head,.event-head{
+	margin-bottom: 5px;
+}
+.lesson-footer,.event-footer{
+	margin-top: 5px;
+}
+.pair-num,.lesson-time,.subject-name,.lesson-group,.lesson-cab,.event-time,.event-name,.event-city,.event-address{
+	font-family: "Calibri";
+}
+
+.modal{
+	display: none;
+	position: fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+}
+.modal__overlay{
+	background-color: rgba(0, 0, 0, 0.5);
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.modal__container{
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	max-width: 490px;
+	width: 100%;
+	background-color: #fff;
+	padding: 40px 20px 20px 20px;
+	gap: 20px;
+}
+.modal__time-container{
+	display: flex;
+	gap: 20px;
+}
+.modal__time{
+	display: flex;
+	flex-direction: column;
+	max-width: 225px;
+	width: 100%;
+	gap: 10px;
+}
+.modal__row{
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.modal__time input,.modal__row select,.modal__row input{
+	background-color: transparent;
+	border: 1px solid #E0E0E0;
+	padding: 17px 20px;
+}
+.modal__time input{
+	width: 100%;
+}
+.modal__buttons{
+	display: flex;
+	gap: 20px;
+	max-width: 450px;
+	width: 100%;
+	margin-top: 40px;
+}
+.modal__submit,.modal__cancel{
+	width: 100%;
+	max-width: 155px;
+	background-color: transparent;
+	border: 1px solid #2183AA;
+	padding: 17px 0px;
+	cursor: pointer;
+}
+.modal__submit{
+	color: #fff;
+	background-color: #2183AA;
+}
+.modal__cancel{
+	color: #2183AA;
+}
+
+@media screen and (max-width: 650px){
+	.navigation-block{
+		flex-direction: column;
+		justify-content: center;
+	}
+	.schedule-weeks__block{
+		justify-content: center;
+	}
+	.search-block{
+		margin: 0 auto;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+}
+@media screen and (max-width: 1200px){
+	.table-div{
+		overflow-x: auto;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+}

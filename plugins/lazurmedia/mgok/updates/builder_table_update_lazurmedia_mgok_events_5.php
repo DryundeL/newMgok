@@ -9,7 +9,7 @@ class BuilderTableUpdateLazurmediaMgokEvents5 extends Migration
     {
         Schema::table('lazurmedia_mgok_events', function($table)
         {
-            $table->string('class', 15)->nullable()->change();
+            $table->string('day_of_week', 20);
         });
     }
     
@@ -17,7 +17,7 @@ class BuilderTableUpdateLazurmediaMgokEvents5 extends Migration
     {
         Schema::table('lazurmedia_mgok_events', function($table)
         {
-            $table->string('class', 15)->nullable(false)->change();
+            $table->dropColumn('day_of_week');
         });
     }
 }

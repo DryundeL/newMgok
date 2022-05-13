@@ -65,7 +65,7 @@ class Schedule extends \Cms\Classes\ComponentBase
         return Redirect::to('/koefficient-effektivnosti-kafedr');
       }
     }
-
+    
     switch($route) {
       case '/':
         $this->mainPage();

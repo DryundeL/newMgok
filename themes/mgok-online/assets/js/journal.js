@@ -4,22 +4,14 @@ if (groupSel){
 	groupSel.addEventListener("change", function(){
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
+		console.log(urlParams);
+		urlParams.delete('subject');
 		urlParams.set('group', $(this).val());
 		window.location.search = urlParams.toString()
 	})
 }
-var pickSub = ""
-const semestrSelect = document.querySelector('#semester-select')
-
-semestrSelect.addEventListener("change", function(){
-	/*const queryString = window.location.search;
-	const urlParams = new URLSearchParams(queryString);
-	urlParams.set('semester', $(this).val());
-	window.location.search = urlParams.toString()*/
-})
 
 const monthSelect = document.querySelector('#month-select')
-
 monthSelect.addEventListener("change", function(){
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
@@ -28,7 +20,6 @@ monthSelect.addEventListener("change", function(){
 })
 
 const subjectSelect = document.querySelector('#subject-select')
-
 subjectSelect.addEventListener("change", function(){
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
@@ -36,59 +27,8 @@ subjectSelect.addEventListener("change", function(){
 	window.location.search = urlParams.toString()
 })
 
-new Swiper('.image-slider', {
-	freeMode: true, 
-	slidesPerView: 4,
-});
-
-
-const table = document.querySelector(".table")
-
-// const subjectsBtn = document.querySelectorAll('.slide-text')
-// const caruselForm = document.querySelector('.carusel-form')
-
-// subjectsBtn.forEach(btn => {
-// 	btn.addEventListener("click", (event) => {
-// 		// subjectsBtn.forEach(el => {
-// 		// 	el.classList.remove("choosenSub")
-// 		// })
-// 		pickSub = event.target.innerHTML
-// 		if(table.classList.contains("table-hide")) table.classList.remove("table-hide")
-
-// 		// $(caruselForm).request('onChangeSubject', {
-			
-// 		// 	data: {
-// 		// 		subject: event.target.innerText,
-// 		// 		month: monthSelect.value,
-// 		// 	}
-// 		// })
-
-// 		// const activeSubject = event.target.closest('.swiper-slide').classList.contains('choosenSub');
-// 		// if (!activeSubject) {
-// 		// 	const queryString = window.location.search;
-// 		// 	const urlParams = new URLSearchParams(queryString);
-// 		// 	urlParams.set('subject', event.target.innerText);
-// 		// 	window.location.search = urlParams.toString()
-// 		// }
-		
-		
-		
-// 	})
-// })
-
 const saveBtn = document.querySelector(".save-btn")
 const cont = document.querySelector(".EJ-container")
-		
-		cont.addEventListener("keyup", (event) => {
-			const target = event.target.closest(".date-row__input")
-			const addTarget = event.target.closest(".addTaskMark")
-			if (target) {
-				if(saveBtn.classList.contains("hide")) saveBtn.classList.remove("hide")
-			}
-			if (addTarget) {
-				if(saveBtn.classList.contains("hide")) saveBtn.classList.remove("hide")
-			}
-		})
 
 function checkScroll(elem)
 {
@@ -102,15 +42,11 @@ function checkScroll(elem)
 }
 
 const fios = document.querySelectorAll(".stud-count")
-let count = 0
-
-fios.forEach(el => {
-	count++
-})
+let count = fios.length;
 
 const markFieldLayout = () => `
 	<div class="add-field__plus">
-		<input class="addTaskMark" type="text">
+		<span class="date-row addTaskMark" contenteditable="true">
 	</div>`
 	
 const marksFields = count => {
@@ -150,11 +86,6 @@ cont.addEventListener("click", (event) => {
 		$(document).ready(function(){
 			$('.addTaskDate').mask('00')
 		})
-		$(document).ready(function(){
-			$('.addTaskName').mask('AAAAA', {'translation':{
-				A: {pattern: /[А-Яа-я/]/}
-			}})
-		})
 	}
 	if (target.closest(".addTaskDelete")) {
 		
@@ -163,8 +94,7 @@ cont.addEventListener("click", (event) => {
 		inputsArr.forEach(input => {
 			marksArr.push(input.value)
 		})
-		const dayMark = target.closest(".add-fields-col").querySelector(".addTaskDate").value
-		const name = target.closest(".add-fields-col").querySelector(".selectTask").value
+
 		const uniqueId = target.closest(".addictional-head")?.querySelector(".addTaskInput__div")?.dataset?.uniqueId;
 		const surnamesSpanArr = document.querySelectorAll(".stud-count")
 		const surnamesArr = []
@@ -190,13 +120,9 @@ cont.addEventListener("click", (event) => {
 	}
 })
 
-
-const tableScroollable = document.querySelector('#table')
-
-
-
-const monthName = document.querySelector('.sem-head')
-const group = document.querySelector('.select-group')
+const monthName = document.querySelector('.sem-head');
+const subject = document.querySelector('.select-subject');
+const group = document.querySelector('.select-group');
 
 let year = new Date().getFullYear();
 const months = {
@@ -226,14 +152,13 @@ function daysInMonth (month, year) {
 
 if (saveBtn) {
 	saveBtn.addEventListener('click', (event) => {
-		const days = document.querySelectorAll('.date-head') 	
-		const subject = document.querySelector('.select-subject')
-	
 		//-- marks start
-		const inputs = Array.from(document.querySelectorAll('.date-col .date-row__input'))
+		const inputs = Array.from(document.querySelectorAll('.date-col .date-row'))
+			.filter(input => input.textContent !== '');
+			
 		const marksObjectCreate = input => {
 			const headerColumn = input.closest('.date-col')?.querySelector('.date-head');
-			const mark = input.value;
+			const mark = input.textContent;
 			const date = year + '.' + month + '.' + headerColumn.innerText;
 			const numberLesson = headerColumn?.dataset?.numberLesson;
 			const fio = fios[$(input).index() - 1]?.textContent;
@@ -249,12 +174,13 @@ if (saveBtn) {
 		//-- marks end
 		
 		//-- additional start
-		const additionalInputs = Array.from(document.querySelectorAll('.add-fields-col .addTaskMark'));
+		const additionalInputs = Array.from(document.querySelectorAll('.add-fields-col .addTaskMark'))
+			.filter(input => input.textContent.trim() !== '');
 		let uniqueId = Date.now();
 		
 		const marksAdditionalObjectCreate = input => {
 			const headerColumn = input.closest('.add-fields-col')?.querySelector('.addTaskInput__div');
-			const mark = input.value;
+			const mark = input.textContent;
 			const date = year + '.' + month + '.' + headerColumn.querySelector('input').value;
 			const event = headerColumn.querySelector('.selectTask').value;
 			const index = $(input).parent().index();
@@ -277,40 +203,26 @@ if (saveBtn) {
 		const additionalMarks = additionalInputs?.map(input => marksAdditionalObjectCreate(input));
 		//-- additional end
 		
-		//-- final start
-		const finalInputs = Array.from(document.querySelectorAll('.res-cell__input'));
-		const marksFinalObjectCreate = input => {
-			const mark = input.value;
-			const fio = fios[$(input).index() - 1]?.textContent;
-			const monthTitle = document.querySelector('.sem-head').textContent;
-			
-			
-			return {
-				mark, 
-				fio,
-				month: monthTitle
-			}
-		}
-
-		const finalMarks = finalInputs?.map(input => marksFinalObjectCreate(input))
-		//-- final end
-		
 		//-- validate start
 		const additionalDates = Array.from(document.querySelectorAll('.addTaskDate'));
-		const marksInputs = Array.from(document.querySelectorAll('.date-row__input, .addTaskMark'));
+		const marksInputs = Array.from(document.querySelectorAll('.date-row, .addTaskMark'));
 		
 		const isAdditionalValidate = validationAdditionalsDates(additionalDates);
 		const isMarksValidate = validationAllowedMarks(marksInputs);
 		//-- validate end
-
+		// console.log({
+		// 	subject: subject.value,
+		// 	group: group.value,
+		// 	marks: marks,
+		// 	addictive: additionalMarks,
+		// })
 		if (isAdditionalValidate && isMarksValidate) {
 			$(saveBtn).request('onSaveMarks', {
 				data: {
 					subject: subject.value,
 					group: group.value,
-					marks: marks,
+					marks: marks ?? [],
 					addictive: additionalMarks,
-					final: finalMarks,
 				}
 			})
 		}
@@ -321,16 +233,16 @@ if (saveBtn) {
 
 function validationAdditionalsDates(additionalDates) {
 	let errors = 0;
-
+	
 	additionalDates.forEach(input => {
-		const daysCount = daysInMonth (month, year);
-		const day = input.value;
+		const daysCount = daysInMonth(month, year);
+		const day = parseInt(input.value) || '';
 		
-		if (day < 0 || day > daysCount || day === '00') {
+		if (day > 0 && day <= daysCount && day !== '00') {
+			input.classList.remove('validation-field');
+		} else {
 			input.classList.add('validation-field');
 			errors++;
-		} else {
-			input.classList.remove('validation-field');
 		}
 	})
 	
@@ -341,11 +253,12 @@ function validationAllowedMarks(markInputs) {
 	let errors = 0;
 
 	const allowedMarks = ['2', '3', '4', '5', 'нб'];
+
+	
 	markInputs.forEach(input => {
-		const value = input.value;
+		const value = input.textContent.trim();
 		const isValidate = allowedMarks.includes(value) || value === '';
 		
-		console.log(value)
 		if (isValidate) {
 			input.classList.remove('validation-field');
 		} else {
@@ -358,11 +271,8 @@ function validationAllowedMarks(markInputs) {
 }
 
 
-
+// show SAVE btn
 document.addEventListener("DOMContentLoaded", function(){
-	const body = document.querySelector("body")
-	const subjArr = document.querySelectorAll(".slide-text")
-	
 	const elem = document.querySelector('.dates')
 	
 	checkScroll(elem)
@@ -371,12 +281,11 @@ document.addEventListener("DOMContentLoaded", function(){
 	const cont = document.querySelector(".EJ-container")
 	
 	cont.addEventListener("keyup", (event) => {
-		const target = event.target.closest(".date-row__input");
+		const target = event.target.closest(".date-row");
 		const addTarget = event.target.closest(".addTaskMark");
 		const changeDate = event.target.closest('.addTaskInput__div');
-		const finalMark = event.target.closest('.res-cell__input');
 		
-		if ((target || addTarget || changeDate || finalMark) && saveBtn.classList.contains("hide")) {
+		if ((target || addTarget || changeDate) && saveBtn.classList.contains("hide")) {
 			saveBtn.classList.remove("hide")
 		}
 	})
@@ -390,15 +299,80 @@ document.addEventListener("DOMContentLoaded", function(){
 			})
 		}
 	})
-	
-	// subjArr[0].classList.add("choosenSub")
-	// pickSub = subjArr[0].innerHTML
-	// $(body).request('onLoadPage', {
-	// 	data: {
-	// 		month: monthSelect.value,
-	// 		subject: pickSub
-	// 	}
-	// })
 })
 
+// fetch marks
+document.addEventListener("DOMContentLoaded", function() {
+	const group = document.querySelector('.table-head').dataset.group; 
+	// const loader
+	const tableBody = document.querySelector('.table-body');
+	const tebleLoader = document.querySelector('.table-loader');
 
+	const one = $.request('onGetMarks', {
+		data: {
+			subject: subject.value,
+			group: group,
+			month: monthSelect.value
+		},
+		success: function(students) {
+			console.log('first')
+			renderMarks(students);
+		}
+	})
+	
+	const two = $.request('onGetAdditionalMarks', {
+		data: {
+			subject: subject.value,
+			group: group,
+			month: monthSelect.value,
+		},
+		success: function(students) {
+			console.log('second')
+			renderAdditionalMarks(students);
+		}
+	})
+
+	Promise.all([one, two]).then(() => {
+		tableBody.classList.remove('table-hide');
+		tebleLoader.classList.add('hide');
+	})
+})
+
+function renderMarks(students) {
+	students?.forEach(student => {
+		const marks = student.marks;
+		const nameIndex = Array.from(fios)?.map(fio => fio.textContent)?.indexOf(student.full_name)
+		
+		marks?.forEach(mark => {
+			let day = mark.date.split('-').at(-1);
+			if (day < 10) {
+				day = day.replace('0', '');
+			}
+
+			const dateColumnHeader = Array.from(document.querySelectorAll(`.date-head`))
+				.find(column => column.textContent.trim() === day && column.dataset.numberLesson == mark.number_lesson);
+
+			if (dateColumnHeader) {
+				const markFields = dateColumnHeader.parentNode.querySelectorAll('.date-row');
+				markFields[nameIndex].textContent = mark.mark;
+			}
+		})
+	})
+}
+
+function renderAdditionalMarks(students) {
+	students?.forEach(student => {
+		const marks = student.marks;
+		const nameIndex = Array.from(fios)?.map(fio => fio.textContent)?.indexOf(student.full_name)
+		
+		marks?.forEach(mark => {
+			const dateColumnHeader = Array.from(document.querySelectorAll(`.addictional-head > div`))
+				?.find(column => column.dataset.uniqueId == mark.unique_id);
+			
+			if (dateColumnHeader) {
+				const markFields = dateColumnHeader.closest('.date-col-additional').querySelectorAll('.date-row');
+				markFields[nameIndex].textContent = mark.mark;
+			}
+		})
+	})
+}

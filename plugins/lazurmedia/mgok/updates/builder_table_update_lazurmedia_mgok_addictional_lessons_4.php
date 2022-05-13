@@ -9,7 +9,7 @@ class BuilderTableUpdateLazurmediaMgokAddictionalLessons4 extends Migration
     {
         Schema::table('lazurmedia_mgok_addictional_lessons', function($table)
         {
-            $table->integer('uniq_id')->nullable()->unsigned();
+            $table->string('subject', 100)->change();
         });
     }
     
@@ -17,7 +17,7 @@ class BuilderTableUpdateLazurmediaMgokAddictionalLessons4 extends Migration
     {
         Schema::table('lazurmedia_mgok_addictional_lessons', function($table)
         {
-            $table->dropColumn('uniq_id');
+            $table->string('subject', 30)->change();
         });
     }
 }

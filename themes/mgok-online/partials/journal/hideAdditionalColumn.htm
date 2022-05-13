@@ -2,11 +2,11 @@
 <?php
 function onStart() {
 	$students_count = count($this->page->components['ELjournal']->students);
-	$addictives_count = count($this->page->components['ELjournal']->addictives);
-	/*$this['student_count'] = $students_count;
-	$this['columns'] = $addictives_count/$students_count;
+	$this['addictives_count'] = count($this->page->components['ELjournal']->addictives);
+	$this['student_count'] = $students_count;
+	//$this['columns'] = $addictives_count/$students_count;
 	$this['role'] = $this->page->components['ELjournal']->role;
-	$this['taskTypes'] = ['Кр', 'Пр', 'Пара', 'Экз', 'Зач'];
+	$this['taskTypes'] = ['Кр', 'Пр', 'Пара', 'Экз', 'Зач', 'Срез'];
 	
 	$this['functions'] = new class {
 		public function setDateAttribute( $date ) {
@@ -14,40 +14,43 @@ function onStart() {
 			$day = $x[2];
 			return $day;
 		}
-	};*/
+	};
 }
 ?>
 ==
-{% if columns > 0 %}
-	{% for column in 1..columns %}
-
-		{% set indexFirstAddactive = student_count * column - student_count %}
-		{% set indexLastAddactive = student_count * column - 1 %}
-		
+{% if addictives_count > 0 %}
+	{% for column in 0..addictives_count - 1 %}
+	
 		<div class="date-col-additional date-col-additional-hide add-fields-col scrollable">
 			<div class="addictional-head">
-				<div class="addTaskInput__div" data-unique-id={{addictives[indexFirstAddactive].unique_id}}>
+				<div class="addTaskInput__div" data-unique-id={{addictives[column].unique_id}}>
 					
-					<select class="selectTask">
-						{% for taskType in taskTypes %}
-							<option
-								{% if addictives[indexFirstAddactive].name_lesson == taskType %}
-									selected
-								{% endif %}
-							>
-								{{taskType}}
-							</option>
-						{% endfor %}
-					</select>
-					<input 
-						class="addTaskDate" 
-						placeholder="Число:" 
-						type="text" 
-						value={{functions.setDateAttribute(addictives[indexFirstAddactive].date_lesson)}}
-					>
+					{% if Authorization.role == 'Преподаватель'  or Authorization.role == 'Модератор' %}
+						<select class="selectTask">
+							{% for taskType in taskTypes %}
+								<option
+									{% if addictives[column].name_lesson == taskType %}
+										selected
+									{% endif %}
+								>
+									{{taskType}}
+								</option>
+							{% endfor %}
+						</select>
+						<input 
+							class="addTaskDate" 
+							placeholder="Число:" 
+							type="text" 
+							value={{functions.setDateAttribute(addictives[column].date_lesson)}}
+						>
+					{% else %}
+						<span class="selectTask">{{addictives[column].name_lesson}}</span>
+						<span class="addTaskDate">{{functions.setDateAttribute(addictives[column].date_lesson)}}</span>
+					{% endif %}
+					
 				</div>
 				<div class="plus-img__div">
-					{% if Authorization.role == 'Преподаватель' %}
+					{% if Authorization.role == 'Преподаватель'  or Authorization.role == 'Модератор' %}
 	          <svg class="addTaskDelete" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 	            <path d="M15 6L6 15" stroke="#CACACA" stroke-width="2" stroke-linecap="round"/>
 	            <path d="M15 15L6 6" stroke="#CACACA" stroke-width="2" stroke-linecap="round"/>
@@ -56,21 +59,22 @@ function onStart() {
 	       </div>
 			</div>
 			
-			{% for addictiveIndex in indexFirstAddactive..indexLastAddactive %}
+			{% for addictiveIndex in 1..student_count %}
 				{% if role == "Студент" %}
 					<span class="date-row">
-						{{ addictives[addictiveIndex].mark }}
+						
 					</span>
 				{% else %}
 					<div class="add-field__plus">
-						<input class="date-row__input addTaskMark" value="{{ addictives[addictiveIndex].mark }}">
+						<span class="date-row addTaskMark" contenteditable="true">
+						
+						</span>
 					</div>
 				{% endif %}
 			{% endfor %}
 		</div>
 	{% endfor %}
 {% endif %}
-
 <script>
 	const additionalHideColumns = Array.from(document.querySelectorAll('.date-col-additional-hide'));
 	let defaultColumns = Array.from(document.querySelectorAll('.dates .date-col, .add-fields-col'));

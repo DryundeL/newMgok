@@ -1,0 +1,15 @@
+==
+<div class="column-div">
+	<span class="day-of-week">{{day}}</span>
+	<div 
+	class="day__container 
+	{% if day=='ПН' %}
+		monday__cont
+	{% endif %}
+	">
+		
+		{% partial 'schedule-board/lessons' %}
+
+		
+	</div>
+</div>

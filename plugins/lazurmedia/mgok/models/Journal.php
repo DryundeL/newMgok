@@ -1,5 +1,6 @@
 <?php namespace Lazurmedia\Mgok\Models;
 
+use Log;
 use Model;
 
 /**
@@ -31,6 +32,7 @@ class Journal extends Model
         $journal = $this->findMark($group, $subject, $mark);
 
         if (!$journal) {
+            Log::info("Add mark: G:$group SUB:$subject M:$mark[mark] STU: $mark[fio] D:$mark[date] NL: $mark[numberLesson]");
             $journal = new Journal;
             $journal->class = $group;
             $journal->subject = $subject;
@@ -40,8 +42,14 @@ class Journal extends Model
             $journal->number_lesson = $mark['numberLesson'];
             $journal->save();
         } else {
-            $journal->mark = $mark['mark'];
-            $journal->save();
+            if ($mark['mark'] === '') {
+                Log::info("Delete mark: G:$group SUB:$subject M:$mark[mark] STU: $mark[fio] D:$mark[date] NL: $mark[numberLesson]");
+                $journal->delete();
+            } else {
+                Log::info("Update mark: G:$group SUB:$subject M:$mark[mark] STU: $mark[fio] D:$mark[date] NL: $mark[numberLesson]");
+                $journal->mark = $mark['mark'];
+                $journal->save();
+            }
         }
     }
 
@@ -62,6 +70,7 @@ class Journal extends Model
             ->where('subject', $lesson)
             ->where('date', $date)
             ->where('number_lesson', $number_lesson)
-            ->get();
+            ->get()
+            ->sortBy('student');
     }
 }

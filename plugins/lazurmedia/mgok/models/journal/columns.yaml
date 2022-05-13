@@ -18,11 +18,10 @@ columns:
         label: Ученик
         type: text
         searchable: true
-        sortable: true
+        sortable: false
     mark:
         label: Оценка
         type: text
-        searchable: true
         sortable: true
     date:
         label: Дата

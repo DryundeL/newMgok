@@ -24,13 +24,13 @@ class Users extends Model
 
     public function getStudentsByClass($class) {
         return Users::where('class', $class)
-            ->where('role', 'Ученик')
+            ->whereIn('role', ['Ученик', 'Студент'])
             ->get()->sortBy('full_name');
     }
 
     public function getTeacher($class) {
         return Users::where('class', 'like', "%$class%")
-            ->where('role', 'Преподаватель')
+            ->whereIn('role', ['Преподаватель', 'Учитель'])
             ->first();
     }
 }

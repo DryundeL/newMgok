@@ -10,6 +10,7 @@ use Lazurmedia\Mgok\Models\Journal;
 use Lazurmedia\Mgok\Models\AddictionalLessons;
 use Lazurmedia\Mgok\Classes\Schedule as ScheduleClass;
 use Lazurmedia\Mgok\Controllers\AddictionalLessons as ControllersAddictionalLessons;
+use Lazurmedia\Mgok\Controllers\Schedule as ControllersSchedule;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -59,7 +60,7 @@ class Import
   }
 
   private static function importJournal($rows) {
-    //Journal::truncate();
+    Journal::truncate();
     foreach($rows as $index => $array) {
       // skip first row, it's titles
       if ($index === 0) continue; 
@@ -138,16 +139,18 @@ class Import
 
   private static function importLessons($row) {
     // Db::table('lazurmedia_mgok_schedule')->where('id', '>', 12)->delete();
+    Schedule::truncate();
     foreach($row as $index => $array) {
       // skip first row, it's titles
       if ($index === 0) continue; 
-
       // create record in db
       $lesson = new Schedule;
       $lesson->number_lesson  = $array[0];
       $lesson->lesson_name    = $array[1];
-      $lesson->time_from      = gmdate("H:i", Date::excelToTimestamp($array[2]));
-      $lesson->time_to        = gmdate("H:i", Date::excelToTimestamp($array[3]));
+      // $lesson->time_from      = gmdate("H:i", Date::excelToTimestamp($array[2]));
+      // $lesson->time_to        = gmdate("H:i", Date::excelToTimestamp($array[3]));
+      $lesson->time_from      = $array[2];
+      $lesson->time_to        = $array[3];
       $lesson->cabinet        = $array[4];
       $lesson->teacher        = $array[5];
       $lesson->day_of_week    = $array[6];

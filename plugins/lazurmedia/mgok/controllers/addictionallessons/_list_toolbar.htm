@@ -16,4 +16,37 @@
         data-stripe-load-indicator>
         <?= e(trans('backend::lang.list.delete_selected')) ?>
     </button>
+
+    <input 
+    type="file" 
+    name="import" 
+    style="display: none;" 
+    id="import"
+    enctype="multipart/form-data"
+    data-request="onImport"
+    data-request-files
+    data-request-update
+    />
+    <label for="import"
+        class="btn btn-default oc-icon-cloud-upload"
+        style="top: 0;"
+    > 
+        Импорт
+    </label>
+
+    <input 
+    type="submit" 
+    name="export" 
+    style="display: none;" 
+    id="export"
+    data-request="onExport"
+    data-request-files
+    data-request-update
+/>
+<label for="export"
+    class="btn btn-default oc-icon-cloud-download"
+    style="top: 0;"
+>
+    Экспорт
+</label>
 </div>

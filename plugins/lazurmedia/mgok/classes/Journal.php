@@ -33,4 +33,10 @@ class Journal {
       ->get()
       ->sortBy('full_name');
   }
+
+  public static function getSubjectsForModer($group) {
+    return LessonsModel::where('class', $group)
+      ->get()
+      ->unique('lesson_name');
+  }
 }

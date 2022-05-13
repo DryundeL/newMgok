@@ -9,7 +9,7 @@ class BuilderTableUpdateLazurmediaMgokSchedule7 extends Migration
     {
         Schema::table('lazurmedia_mgok_schedule', function($table)
         {
-            $table->string('teacher', 100)->change();
+            $table->string('lesson_name', 100)->change();
         });
     }
     
@@ -17,7 +17,7 @@ class BuilderTableUpdateLazurmediaMgokSchedule7 extends Migration
     {
         Schema::table('lazurmedia_mgok_schedule', function($table)
         {
-            $table->string('teacher', 30)->change();
+            $table->string('lesson_name', 50)->change();
         });
     }
 }

@@ -17,40 +17,42 @@ function onStart() {
 }
 ?>
 ==
-<link rel="stylesheet" href="{{ 'assets/css/EJ.css'|theme }}">
 <link rel="stylesheet" href="{{ 'assets/css/swiper-bundle.min.css'|theme }}">
+<link rel="stylesheet" href="{{ 'assets/css/sweetAlert.css'|theme }}">
+<link rel="stylesheet" href="{{ 'assets/css/select.css'|theme }}">
+<link rel="stylesheet" href="{{ 'assets/css/EJ6.css'|theme }}">
 
 {% set role = ELjournal.role%}
 
 <div class="EJ-container">
-	<div class="description__div">
-		{% if role == 'Преподаватель' %}
-			<span class="group__span">Группа</span>
-		{% endif %}
-		<span class="sem__span">Семестр</span>
-		<span class="month__span">Месяц</span>
-	</div>
-	
-	<div class="select__div">
-		<!-- 1-ый селектор -->
-		{% if role == 'Преподаватель' %}
-			{% set groups = ELjournal.groups %}
-			{% partial "journal/groupsSelect" groups=groups %}
-		{% endif %}
-		
-		<!-- 2-ой селектор -->
-		{% set semesters = ELjournal.semesters %}
-		{% partial "journal/semestrSelect" %}
-		
-		<!-- 3-ий селектор -->
-		{% set months = ELjournal.months %}
-		{% partial "journal/monthsSelect" %}
-	
-	
-		{% set subjects = ELjournal.subjects %}
-		{% partial "journal/carusel"
-			subjects = subjects
-		%}
+
+	<div class="selects-cont">
+		<div>
+			{% if role == 'Преподаватель' or role =='Модератор' %}
+				<span class="group__span">Группа</span>
+			{% endif %}
+			{% if role == 'Преподаватель' or role =='Модератор' %}
+				{% set groups = ELjournal.groups %}
+				{% partial "journal/groupsSelect" groups=groups %}
+			{% endif %}
+		</div>
+		<div>
+			<span class="sem__span">Семестр</span>
+			{% set semesters = ELjournal.semesters %}
+			{% partial "journal/semestrSelect" %}
+		</div>
+		<div>
+			<span class="month__span">Месяц</span>
+			{% set months = ELjournal.months %}
+			{% partial "journal/monthsSelect" %}
+		</div>
+		<div>
+			<span class="month__span">Предмет</span>
+			{% set subjects = ELjournal.subjects %}
+			{% partial "journal/carusel"
+				subjects = subjects
+			%}
+		</div>
 	</div>
 
 	{% set classmates = ELjournal.classmates %}
@@ -64,10 +66,13 @@ function onStart() {
 			marks = ELjournal.marks
 			addictives = ELjournal.addictives
 			finals = ELjournal.result_marks
+			teacher = ELjournal.teacher
 		%}
 	</div>
 	<button class="save-btn hide" id="save-btn">Сохранить</button>
 </div>
 
-<script src="{{ 'assets/js/swiper-bundle.min.js'|theme }}"></script>
-<script src="{{ 'assets/js/journal.js'|theme }}"></script>
+
+<script src="{{ 'assets/js/libs/select.js'|theme }}"></script>
+<script src="{{ 'assets/js/libs/sweetAlert.js'|theme }}"></script>
+<script src="{{ 'assets/js/journal13.js'|theme }}"></script>

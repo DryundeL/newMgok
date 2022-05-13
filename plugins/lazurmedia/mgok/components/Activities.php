@@ -14,7 +14,8 @@ class Activities extends ComponentBase {
   public $activities;
 
   public function onRun() {
-    $this->activities = ActivitiesModal::all();
+    // var_dump(ActivitiesModal::all()->sortBy('name'));
+    $this->activities = ActivitiesModal::all()->sortBy('activity_name');
   }
 }
 ?>

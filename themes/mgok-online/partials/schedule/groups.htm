@@ -2,7 +2,7 @@
 <style>
 	.schedule-groups__selected {
 		overflow: hidden;
-		width: 50px;
+		width: fit-content;
 	}
 	
 	.schedule-groups__slider {
@@ -11,7 +11,7 @@
 	}
 	
 	.schedule-groups__slider span {
-		width: 40px;
+		/*width: 40px;*/
 		margin: 0 5px;
 	}
 </style>
@@ -48,6 +48,7 @@
 
 		if (nextNumberOfGroup >= 0 && nextNumberOfGroup < groups.length) {
 			urlParams.set('group', groups[nextNumberOfGroup]);
+			urlParams.delete('student');
 			window.location.search = urlParams.toString()
 		}
 	}	
@@ -69,6 +70,10 @@
 		}
 	})
 	//groups.indexOf(getSelectedGroup())
+	
+	if (groups.length === 1) {
+		document.querySelector('.next-group').style.visibility = 'hidden'
+	}
 	
 	if (groups.indexOf(getSelectedGroup()) == 0) {
 		document.querySelector('.previous-group').style.visibility = 'hidden'

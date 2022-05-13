@@ -1,12 +1,4 @@
 fields:
-    class:
-        label: Класс
-        span: auto
-        type: classes
-    subject:
-        label: Предмет
-        span: auto
-        type: subjects
     student:
         label: Ученик
         span: auto
@@ -22,5 +14,13 @@ fields:
         type: text
     number_lesson:
         label: 'Номер урока'
+        span: auto
+        type: text
+    subject:
+        label: Предмет
+        span: auto
+        type: text
+    class:
+        label: Класс
         span: auto
         type: text

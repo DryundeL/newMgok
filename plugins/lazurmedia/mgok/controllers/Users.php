@@ -1,6 +1,7 @@
 <?php namespace Lazurmedia\Mgok\Controllers;
 
 use Input;
+use Cookie;
 use Redirect;
 use BackendMenu;
 use Backend\Classes\Controller;
@@ -31,5 +32,10 @@ class Users extends Controller
     public function onExport() { 
         Export::export('users');
         return Redirect::to('downloadexports');
+    }
+
+    public function onSignIn() {
+        $data = post()['Users'];
+        Cookie::queue('mgok_auth', $data['login'], 43800);
     }
 }

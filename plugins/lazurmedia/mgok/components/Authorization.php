@@ -39,6 +39,7 @@ class Authorization extends \Cms\Classes\ComponentBase
     else {
       $teacher = Authorization::getName();
       $classes = Schedule::where('teacher', $teacher)->get()->unique('class');
+      //$classes = Authorization::getAllClasses();
       $this->groups = true;
       if ($classes->isEmpty())
         return $this->groups = false;

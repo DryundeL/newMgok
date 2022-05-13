@@ -1,11 +1,42 @@
 .inwork__div{
-	width:500px;
+	width:auto;
 	height: 100px;
 	margin: 40vh auto 0 auto;
 	font-size: 26px;
+	padding: 0 15px;
 }
 .inwork__span{
 	vertical-align:middle;
 	text-align: center;
 	border-bottom: 2px solid rgb(224,52,52);
+}
+.tech_img{
+	width: 100px;
+	text-align: center;
+	margin: 50px auto 0 auto;
+}
+.span_div{
+	display: flex;
+	flex-direction: column;
+}
+.img_div{
+	display: flex;
+}
+
+@media screen and (max-width:710px){
+	.inwork__span{
+		text-align: left;
+		padding-left: 10px;
+	}
+	.inwork__span{
+		border: none;
+		border-left: 2px solid rgb(224,52,52);
+	}
+}
+
+@media screen and (max-width:445px){
+	.inwork__span{
+		font-size: 20px;
+	}
+
 }

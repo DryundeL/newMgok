@@ -4,6 +4,8 @@ use Input;
 use BackendMenu;
 use Backend\Classes\Controller;
 use Lazurmedia\Mgok\Classes\Import;
+use Lazurmedia\Mgok\Classes\Export;
+use Redirect;
 
 class Schedule extends Controller
 {
@@ -24,5 +26,10 @@ class Schedule extends Controller
         Input::file('import')->move($path, '_import.xlsx');
         
         return Import::import('lessons');
+    }
+    
+    public function onExport() { 
+        Export::exportLessons('schedule');
+        return Redirect::to('downloadexports');
     }
 }

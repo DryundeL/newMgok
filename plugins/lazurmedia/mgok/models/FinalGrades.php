@@ -32,12 +32,13 @@ class FinalGrades extends Model
         return FinalGrades::where('class', $group)
             ->where('subject', $subject)
             ->where('month', $month)
-            ->get();
+            ->get()
+            ->sortBy('student');
     }
 
     public function createFinalMark($group, $subject, $final) {
-        $journal = $this->findFinalMark($final);
-        // var_dump(!$journal, $addictive['mark']);
+        $journal = $this->findFinalMark($group, $final);
+        
         if (!$journal) {
             $journal = new FinalGrades;
             $journal->class = $group;
@@ -52,9 +53,10 @@ class FinalGrades extends Model
         }
     }
 
-    private function findFinalMark($final) {
+    private function findFinalMark($group, $final) {
         return FinalGrades::where('month', $final['month'])
             ->where('student', $final['fio'])
+            ->where('class', $group)
             ->first();
     }
 }

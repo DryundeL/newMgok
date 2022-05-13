@@ -1,0 +1,11 @@
+==
+<div class="lessons-container">
+	<span class="day-num">28</span>
+	
+	{% for i in 1..6 %}
+	
+	{% partial 'schedule-board/lesson' pairNum=i %}
+	
+	{% endfor %}
+
+</div>

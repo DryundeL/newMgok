@@ -1,0 +1,42 @@
+==
+<div class="modal">
+	<div class="modal__overlay">
+		<form class="modal__container">
+			<div class="modal__time-container">
+				<div class="modal__time">
+					<label>Начало</label>
+					<input type="text" id="start-time" class="field">
+				</div>
+				<div class="modal__time">
+					<label>Конец</label>
+					<input type="text" id="end-time" class="field">
+				</div>
+			</div>
+			<div class="modal__row">
+				<label>Название предмета</label>
+				<select id="sub-name" class="field">
+					{% set activities = Activities.activities %}
+					{% for activity in activities %}
+					<option value="{{ activity.activity_name }}">{{ activity.activity_name }}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="modal__row">
+				<label>Кабинет</label>
+				<input type="text" id="cab-num" class="field">
+			</div>
+			<div>
+				<input type="checkbox" id="repeat-event">
+				<label class="modal__repeat">Повторять каждую неделю</label>
+			</div>
+			<div class="alerts">
+				<span class="alert__span" id="alert-empty">Заполните все данные</span>
+				<span class="alert__span" id="alert-wrong">Поля "Начало" или "Конец" заполнены некорректно</span>
+			</div>
+			<div class="modal__buttons">
+				<button class="modal__submit">Добавить</button>
+				<button class="modal__cancel">Отменить</button>
+			</div>
+		</form>
+	</div>
+</div>

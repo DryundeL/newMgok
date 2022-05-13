@@ -187,26 +187,41 @@
     - 'Updated table lazurmedia_mgok_schedule'
     - builder_table_update_lazurmedia_mgok_schedule_6.php
 1.0.64:
-    - 'Updated table lazurmedia_mgok_schedule'
-    - builder_table_update_lazurmedia_mgok_schedule_7.php
-1.0.65:
-    - 'Updated table lazurmedia_mgok_events'
-    - builder_table_update_lazurmedia_mgok_events_4.php
-1.0.66:
-    - 'Updated table lazurmedia_mgok_events'
-    - builder_table_update_lazurmedia_mgok_events_5.php
-1.0.67:
-    - 'Updated table lazurmedia_mgok_journal'
-    - builder_table_update_lazurmedia_mgok_journal_9.php
-1.0.68:
-    - 'Updated table lazurmedia_mgok_journal'
-    - builder_table_update_lazurmedia_mgok_journal_10.php
-1.0.69:
     - 'Updated table lazurmedia_mgok_addictional_lessons'
     - builder_table_update_lazurmedia_mgok_addictional_lessons_4.php
+1.0.65:
+    - 'Updated table lazurmedia_mgok_journal'
+    - builder_table_update_lazurmedia_mgok_journal_9.php
+1.0.66:
+    - 'Updated table lazurmedia_mgok_events'
+    - builder_table_update_lazurmedia_mgok_events_4.php
+1.0.67:
+    - 'Updated table lazurmedia_mgok_users'
+    - builder_table_update_lazurmedia_mgok_users_8.php
+1.0.68:
+    - 'Updated table lazurmedia_mgok_users'
+    - builder_table_update_lazurmedia_mgok_users_9.php
+1.0.69:
+    - 'Updated table lazurmedia_mgok_users'
+    - builder_table_update_lazurmedia_mgok_users_10.php
 1.0.70:
-    - 'Updated table lazurmedia_mgok_addictional_lessons'
-    - builder_table_update_lazurmedia_mgok_addictional_lessons_5.php
+    - 'Updated table lazurmedia_mgok_final_grades'
+    - builder_table_update_lazurmedia_mgok_final_grades_2.php
 1.0.71:
-    - 'Updated table lazurmedia_mgok_addictional_lessons'
-    - builder_table_update_lazurmedia_mgok_addictional_lessons_6.php
+    - 'Updated table lazurmedia_mgok_schedule'
+    - builder_table_update_lazurmedia_mgok_schedule_7.php
+1.0.72:
+    - 'Updated table lazurmedia_mgok_schedule'
+    - builder_table_update_lazurmedia_mgok_schedule_8.php
+1.0.73:
+    - 'Updated table lazurmedia_mgok_schedule'
+    - builder_table_update_lazurmedia_mgok_schedule_9.php
+1.0.74:
+    - 'Updated table lazurmedia_mgok_events'
+    - builder_table_update_lazurmedia_mgok_events_5.php
+1.0.75:
+    - 'Updated table lazurmedia_mgok_events'
+    - builder_table_update_lazurmedia_mgok_events_6.php
+1.0.76:
+    - 'Updated table lazurmedia_mgok_journal'
+    - builder_table_update_lazurmedia_mgok_journal_10.php

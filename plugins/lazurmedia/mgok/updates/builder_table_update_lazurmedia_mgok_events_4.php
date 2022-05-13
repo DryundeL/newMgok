@@ -9,7 +9,7 @@ class BuilderTableUpdateLazurmediaMgokEvents4 extends Migration
     {
         Schema::table('lazurmedia_mgok_events', function($table)
         {
-            $table->string('class', 15);
+            $table->string('class', 15)->nullable();
         });
     }
     

@@ -1,0 +1,90 @@
+==
+{% set week = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+{% set days_of_week_rus = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'] %}
+{% set short_days_of_week_rus = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'] %}
+
+{% for index, day_of_week in week if index < 5 %}
+
+	<div class="column-container">
+		<span class="day-of-week">{{short_days_of_week_rus[index]}}</span>
+		<div class="column-div">
+			<div 
+			class="day__container 
+			{% if day_of_week=='monday' %}
+				monday__cont
+			{% endif %}
+			">
+				
+				<div class="lessons-container">
+					<span class="day-num">{{functions.getDate(dates[index])}}</span>
+					
+		
+						{% set lessons = lessonsArr[day_of_week] %}
+						{% set numLesson = lessons[0].number_lesson %}
+						
+						
+						{% if lessons.lists(0) %}
+							{% for lesson in lessons %}
+
+								{% if lesson.number_lesson != 1 %}
+								
+								{% endif %}
+								{% if numLesson != lesson.number_lesson and lesson.number_lesson == lessons[lesson.number_lesson].number_lesson %}
+								
+									{% partial 'new-schedule/lesson' lesson=lesson %}
+									
+								{% elseif numLesson != lesson.number_lesson  %}
+								
+									{% partial 'new-schedule/lesson' type="plug" numLesson=numLesson %}
+									{% set numLesson = numLesson + 1 %}
+									{% if numLesson + 1 == lesson.number_lesson %}
+										{% partial 'new-schedule/lesson' type="plug" numLesson=numLesson %}
+										{% set numLesson = numLesson + 1 %}
+									{% endif %}
+									
+									
+									{% partial 'new-schedule/lesson' lesson=lesson %}
+									{% set numLesson = numLesson + 1 %}
+									
+								{% else %}
+								
+									{% partial 'new-schedule/lesson' lesson=lesson %}
+									{% set numLesson = numLesson + 1 %}
+									
+								{% endif %}
+							{% endfor %}
+						
+						{% else %}
+							<div class="">Расписание отсутствует...</div>
+						{% endif %}
+					</ul>
+					
+					{% set events = eventsArr[day_of_week] %}
+		
+						{% for event in events %}
+							{% partial "new-schedule/event" event=event day=dates[index] %}
+						{% endfor %}
+				
+				</div>
+				
+				<div class="events__container">
+					{% for event in events %}
+	
+						{% partial 'new-schedule/event' %}
+						
+					{% endfor %}
+
+				</div>
+				
+				{% if this.page.url != '/' %}
+					<div class="add-event-plus">+</div>
+					{% partial "new-schedule/modal" day=dates[index] %}
+				{% endif %}
+
+				
+			</div>
+		</div>
+	</div>
+	
+
+{% endfor %}

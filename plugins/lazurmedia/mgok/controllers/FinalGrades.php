@@ -2,6 +2,9 @@
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Lazurmedia\Mgok\Classes\Export;
+use Redirect;
+
 
 class FinalGrades extends Controller
 {
@@ -15,5 +18,10 @@ class FinalGrades extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('Lazurmedia.Mgok', 'main-menu-item', 'side-menu-item10');
+    }
+
+    public function onExport() { 
+        Export::exportFinalGrades('final_grades');
+        return Redirect::to('downloadexports');
     }
 }

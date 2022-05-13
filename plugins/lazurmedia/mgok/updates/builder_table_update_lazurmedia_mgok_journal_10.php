@@ -9,7 +9,7 @@ class BuilderTableUpdateLazurmediaMgokJournal10 extends Migration
     {
         Schema::table('lazurmedia_mgok_journal', function($table)
         {
-            $table->integer('number_lesson')->nullable()->unsigned();
+            $table->string('subject', 250)->change();
         });
     }
     
@@ -17,7 +17,7 @@ class BuilderTableUpdateLazurmediaMgokJournal10 extends Migration
     {
         Schema::table('lazurmedia_mgok_journal', function($table)
         {
-            $table->dropColumn('number_lesson');
+            $table->string('subject', 100)->change();
         });
     }
 }

@@ -17,8 +17,9 @@ fields:
         type: text
     class:
         label: Класс
+        size: large
         span: auto
-        type: text
+        type: textarea
     date_of_birth:
         label: 'Дата рождения'
         mode: date

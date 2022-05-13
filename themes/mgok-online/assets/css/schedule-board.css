@@ -1,0 +1,127 @@
+.navigation-block{
+	display: flex;
+	width: 1600px;
+	margin: 20px auto;
+}
+.search-block{
+	max-width: 485px;
+	width: 100%;
+	display: flex;
+	background-color: #fff;
+}
+.input-block{
+	display: flex;
+	vertical-align: middle;
+}
+.search-icon{
+	width: 20px;
+	height: 20px;
+	margin-top: 13px;
+	margin-right: 5px;
+	cursor: text;
+}
+.select-data,.input-data{
+	
+}
+.input-data{
+	max-width: 285px;
+	width: 100%;
+}
+.select-data{
+	max-width: 175px;
+	width: 100%;
+	height: 48px;
+	background-color: #fff;
+	border: 1px solid #E0E0E0;
+}
+.input-block{
+	max-width: 310px;
+	width: 100%;
+	height: 48px;
+	background-color: #fff;
+	border-top: 1px solid #E0E0E0;
+	border-right: 1px solid #E0E0E0;
+	border-bottom: 1px solid #E0E0E0;
+}
+.wrapper{
+	justify-content: flex-end;
+}
+.schedule-weeks__block{
+	margin-top: 10px;
+	justify-content: flex-end;
+}
+.schedule-block{
+	background-color: #fff;
+	padding: 20px 0;
+	max-height: 100vh;
+	height: 100%;
+}
+.table-div{
+	display: flex;
+	width: 1600px;
+	margin: 0 auto;
+}
+.column-div{
+	width: 20%;
+	display: flex;
+	flex-direction: column;
+}
+.day-of-week{
+	margin-bottom: 10px;
+}
+.day__container{
+	border-top: 1px solid #DBE9EE;
+	border-right: 1px solid #DBE9EE;
+	border-bottom: 1px solid #DBE9EE;
+}
+.monday__cont{
+	border-left: 1px solid #DBE9EE;
+}
+.lessons-container{
+	width: 100%;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+}
+.lesson-div{
+	display: flex;
+	flex-direction: column;
+	background-color: #F3F9FB;
+	margin-bottom: 10px;
+	height: 105px;
+}
+.lesson-head,.lesson-footer{
+	display: flex;
+	justify-content: space-between;
+}
+.pair-num,.lesson-time,.lesson-group{
+	color: #777777;
+}
+.lesson-cab{
+	color: #2183AA;
+}
+.pair-num,.lesson-time,.day-num,.lesson-group,.lesson-cab,.subject-name{
+	font-size: 14px;
+}
+.day-num{
+	display: block;
+	margin-bottom: 10px;
+	color: #5B5B5B;
+}
+.subject-name{
+	max-height: 50px;
+	overflow: hidden;
+}
+.lesson-div{
+	padding: 5px;
+}
+.lesson-head{
+	margin-bottom: 5px;
+}
+.lesson-footer{
+	padding-top: 5px;
+	margin-top: auto;
+}
+.pair-num,.lesson-time,.subject-name,.lesson-group,.lesson-cab{
+	font-family: "Calibri";
+}

@@ -18,7 +18,7 @@ function onStart() {
 <li>
 	<form data-request = "onDeleteEvent" class="schedule__event-item">
 		
-		{% if this.page.url != "/" and not ( Authorization.role == 'Ученик' or Authorization.role == 'Студент' and event.creater != Authorization.getLogin()) %}
+		{% if this.page.url != "/" and not ( (Authorization.role == 'Ученик' or Authorization.role == 'Студент') and event.creater != Authorization.getLogin()) %}
 			<button 
 				class="remove-event" 
 				id="remove-event"
@@ -33,7 +33,7 @@ function onStart() {
 			<span>{{event.number_event}}</span>
 			<p class="schedule__event-item_top__p">{{event.time_from | date('H:i')}} - {{event.time_to | date('H:i')}}</p>
 		</div>
-
+	
 		<div class="remove__div"></div>
 		<span class="schedule__subject">{{event.event_name}}</span>
 		<div class="schedule__info">
@@ -41,9 +41,14 @@ function onStart() {
 				<span class="creator__span">{{Schedule.getAbbreviatedNameByLogin(event.creater)}}</span>
 			</div>
 			<div class="schedule__info-place">
+				{% if event.day_of_week != NULL %}
+					<img src="https://img.icons8.com/ios-glyphs/30/000000/refresh--v1.png" class="repeat-event"/>
+				{% endif %}
 				<span class="place__span">{{event.event_place}}</span>
 			</div>
 		</div>
 		
 	</form>
 </li>
+
+{#{{ dump() }}#}

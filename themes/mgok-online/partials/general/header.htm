@@ -1,7 +1,8 @@
 ==
+<link rel="stylesheet" href="{{ 'assets/css/burger.css'|theme }}" type="text/css"/>
 <div class="header__wrapper wrapper">
 	<div class="header__logo">
-		<a class="header__link" href="https://mgok.mskobr.ru/" target="_blank">
+		<a class="header__link" href="https://mgok.space">
 			<img src="{{ 'assets/icons/MGOK.svg'|theme }}" alt="Logo">
 		</a>
 	</div>
@@ -12,10 +13,8 @@
 			<li class="header__nav-item {{ this.page.id == 'zagruzhennost-kabinetov' ? 'header__nav-item_active' }}"><a href="{{ '/zagruzhennost-kabinetov' }}">Загруженность кабинетов</a></li>
 <li class="header__nav-item {{ this.page.id == 'tehpodderzhka' ? 'header__nav-item_active' }}"><a href="{{ '/tehpodderzhka' }}">Техподдержка</a></li>
 <li class="header__nav-item {{ this.page.id == 'onlajn-priemnaya' ? 'header__nav-item_active' }}"><a href="{{ '/onlajn-priemnaya' }}">Онлайн-приемная</a></li>
-			{% if Authorization.role == 'Преподаватель' or Authorization.role == 'Студент' %}
-				{% if Authorization.groups == true %}
+			{% if Authorization.role == 'Преподаватель' and Authorization.groups == true or Authorization.role == 'Студент' or Authorization.role == 'Модератор' %}
 					<li class="header__nav-item {{ this.page.id == 'elektronnyj-zhurnal' ? 'header__nav-item_active' }}"><a href="{{ '/elektronnyj-zhurnal' }}">Электронный журнал</a></li>
-				{% endif %}
 			{% endif %}
 		</ul>
 	</nav>
@@ -24,7 +23,7 @@
 		<div class="header__dropdown user-dropdown">
 			<button class="user-dropdown__btn">{{ Authorization.getFullName() }}</button>
 			<ul class="user-dropdown__list">
-				{% if Authorization.role == 'Преподаватель' or Authorization.role == 'Учитель'%}
+				{% if Authorization.role == 'Преподаватель' or Authorization.role == 'Учитель' or Authorization.role == 'Модератор'%}
 					{% if Authorization.class %}
 						<li><a  class="user-dropdown__item" href="{{ '/raspisanie-klassa' }}">Класс</a></li>
 						<li><a  class="user-dropdown__item" href="{{ '/individualnoe-raspisanie' }}">Индивидуальное расписание</a></li>
@@ -46,4 +45,54 @@
 		{% endif %}
 		
 	</div>
+
+	<button class="nav-toggle">
+	  <span class="bar-top"></span>
+	  <span class="bar-mid"></span>
+	  <span class="bar-bot"></span>
+	</button>
+	
+	<div class="burger-menu">
+		<div class="menu-cont">
+			<div class="">
+				<div class="user-name__div">
+					<img class="menu__arrow" src=" {{ 'assets/icons/down-arrow.png'|theme }} ">
+					<span class="user-name__span" style="font-weight: 700">{{ Authorization.getFullName() }}</span>	
+				</div>
+				<ul class="menu-class">
+					{% if Authorization.role == 'Преподаватель' or Authorization.role == 'Учитель' or Authorization.role == 'Модератор'%}
+						{% if Authorization.class %}
+							<li><a class="" href="{{ '/raspisanie-klassa' }}">Класс</a></li>
+							<li><a class="" href="{{ '/individualnoe-raspisanie' }}">Индивидуальное расписание</a></li>
+					
+					{% else %}
+						<li class="">У вас нет классов/групп</li>
+					{% endif %}
+					
+					{% elseif Authorization.role == 'Ученик' or Authorization.role == 'Студент' %}
+						<li class=""><a href="{{ '/redaktirovanie-raspisaniya' }}">Редактировать</a></li>
+					{% endif %}
+				</ul>
+			</div>
+			<span class="menu-line"></span>
+			<ul>
+			<li class="burger-menu__item"><a href="{{ '/' }}">Расписание</a></li>
+			<li class="burger-menu__item"><a href="{{ '/zagruzhennost-kabinetov' }}">Загруженность кабинетов</a></li>
+			<li class="burger-menu__item"><a href="{{ '/tehpodderzhka' }}">Техподдержка</a></li>
+			<li class="burger-menu__item"><a href="{{ '/onlajn-priemnaya' }}">Онлайн-приемная</a></li>
+			{% if Authorization.role == 'Преподаватель' and Authorization.groups == true or Authorization.role == 'Студент' or Authorization.role == 'Модератор' %}
+					<li><a href="{{ '/elektronnyj-zhurnal' }}">Электронный журнал</a></li>
+			{% endif %}
+			</ul>
+			<span class="menu-line"></span>
+			{% if this.page.url == '/individualnoe-raspisanie' or this.page.url == '/raspisanie-klassa' or this.page.url == '/redaktirovanie-raspisaniya' %}
+				<a class="menu-exit" href="/">Назад</a>
+			{% else %}
+				<a class="menu-exit" data-request="onLogout">Выход</a>
+			{% endif %}
+		</div>
+	</div>
+	<script src=" {{ 'assets/js/burger.js'|theme }} "></script>
+	<script src=" {{ 'assets/js/burger-anim.js'|theme }} "></script>
+	
 </div>

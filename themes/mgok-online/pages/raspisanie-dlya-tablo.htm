@@ -1,0 +1,45 @@
+title = "Расписание для табло"
+url = "/raspisanie-dlya-tablo"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+==
+<link href="{{ 'assets/css/normalize.css'|theme }}" rel="stylesheet">
+<link href="{{ 'assets/css/general.css'|theme }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ 'assets/css/schedule-board.css'|theme }}">
+
+<div class="navigation-block">
+	<div class="search-block">
+		<select class="select-data">
+			<option>Группа</option>
+			<option>Студент</option>
+			<option>Преподаватель</option>
+		</select>
+		<div class="input-block">
+			<input type="text" class="input-data">
+			<img src=" {{ 'assets/icons/search.png'|theme }} " class="search-icon">
+		</div>
+	</div>
+	<div class="wrapper">
+		<div class="schedule-weeks__block" data-week-number="{{number}}">
+			<img src="{{ 'assets/icons/arrow-left.svg'|theme }}" class="change-week previous-week">
+			<span>28 Февраля - 5 Марта</span>
+			<img src="{{ 'assets/icons/arrow-right.svg'|theme }}" class="change-week next-week">
+		</div>
+	</div>
+</div>
+<div class="schedule-block">
+	<div class="table-div">
+
+		{% partial 'schedule-board/day-column' day='ПН' %}
+		
+		{% partial 'schedule-board/day-column' day='ВТ' %}
+		
+		{% partial 'schedule-board/day-column' day='СР' %}
+		
+		{% partial 'schedule-board/day-column' day='ЧТ' %}
+		
+		{% partial 'schedule-board/day-column' day='ПТ' %}
+		
+	</div>
+</div>

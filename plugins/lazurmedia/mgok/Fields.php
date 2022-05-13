@@ -13,7 +13,8 @@ class Fields
       'Ученик',
       'Директорат',
       'Студент',
-      'Учитель'
+      'Учитель',
+      'Модератор'
     ];
   }
 
@@ -42,7 +43,7 @@ class Fields
   }
 
   public static function getTeachers() {
-    return Users::where('role', 'Преподаватель')->get();
+    return Users::where('role', 'Преподаватель')->orWhere('role', 'Учитель')->get();
   }
 
   public static function getStudents() {

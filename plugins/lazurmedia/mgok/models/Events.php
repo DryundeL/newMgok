@@ -3,6 +3,7 @@
 use Model;
 use Validator;
 use LazurMedia\Mgok\Fields;
+use LazurMedia\Mgok\Classes\Dates;
 use Lazurmedia\Mgok\Components\Authorization;
 use Lazurmedia\Mgok\Models\Users as UsersModel;
 /**
@@ -30,7 +31,14 @@ class Events extends Model
             ->get();
     }
 
+    public function getEventByDay($student_login, $day) {
+        return Events::where('login', $student_login)
+            ->where('day_of_week', $day)
+            ->get();
+    }
+
     public function getClassEvents($teacher_login, $date, $class) {
+        // var_dump(Events::where('creater', $teacher_login)->get());
         return Events::where('creater', $teacher_login)
             ->where('date', $date)
             ->where('event_class', 1)
@@ -39,6 +47,15 @@ class Events extends Model
             ->unique('created_at');
     }
 
+    public function getClassEventsByDay($teacher_login, $day, $class) {
+        return Events::where('creater', $teacher_login)
+            ->where('day_of_week', $day)
+            ->where('event_class', 1)
+            ->where('class', $class)
+            ->get()
+            ->unique('created_at');
+    }
+    
     public static function addPersonalEvent($data)
     {
         $activities = Fields::getActivities()->map(function ($item, $key) { return $item->activity_name;})->toArray();
@@ -64,6 +81,11 @@ class Events extends Model
             $event->event_place = $data['event-input-place'];
             $event->date = $data['date'];
             $event->creater = $data['creater'] ?? Authorization::getLogin();
+
+            if (isset($data['event-repeat-day'])) {
+                $event->day_of_week = (new Dates)->days_of_week_rus[date('w', strtotime($data['date']))];
+            }
+
             $event->save();
         }
     }
@@ -96,6 +118,11 @@ class Events extends Model
                 $event->date = $data['date'];
                 $event->class = $class;
                 $event->event_class = true;
+
+                if (isset($data['event-repeat-day'])) {
+                    $event->day_of_week = (new Dates)->days_of_week_rus[date('w', strtotime($data['date']))];
+                }    
+
                 $event->save();
             }
 

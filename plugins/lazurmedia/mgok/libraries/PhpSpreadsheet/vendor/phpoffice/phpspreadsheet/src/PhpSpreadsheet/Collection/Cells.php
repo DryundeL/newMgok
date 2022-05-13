@@ -151,6 +151,7 @@ class Cells
      */
     public function getSortedCoordinates()
     {
+        ini_set('memory_limit', '128M');
         $sortKeys = [];
         foreach ($this->getCoordinates() as $coord) {
             $column = '';

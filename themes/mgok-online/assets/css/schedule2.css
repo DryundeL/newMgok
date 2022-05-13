@@ -1,0 +1,147 @@
+.schedule-search {
+	width: 100%;
+	background-color: #fff;
+}
+.schedule-search__wrapper {
+	display: flex;
+	align-items: center;
+	gap: 70px;
+	
+	padding: 60px 20px 0 20px;
+}
+.schedule-search__bordered-block {
+	display: flex;
+	align-items: center;
+	
+	border: 3px solid var(--muted-cyan);
+	border-radius: 5px;
+}
+.schedule-search__container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	
+	position: relative;
+}
+.schedule-search__hints {
+	display: none;
+	flex-direction: column;
+	
+	position: absolute;
+	top: 52px;
+	
+	width: 100%;
+	max-height: 180px;
+	
+	overflow: hidden;
+	
+	background-color: #fff;
+	border: 1px solid #fcfcfc;
+	-webkit-box-shadow: 0px 12px 10px -5px rgba(34, 60, 80, 0.19);
+	-moz-box-shadow: 0px 12px 10px -5px rgba(34, 60, 80, 0.19);
+	box-shadow: 0px 12px 10px -5px rgba(34, 60, 80, 0.19);
+}
+.schedule-search__hints_active {
+	display: flex !important;
+}
+.schedule-search__hints li {
+	padding: 20px;
+	
+	border-bottom: 1px solid var(--muted-cyan);
+	cursor: pointer;
+	
+	font-family: 'Intro', sans-serif;
+}
+.schedule-search__hints li:hover {
+	background-color: #f0f0f0;
+}
+.schedule-search__bordered-block select {
+	width: 200px;
+	
+	padding: 15px;
+	
+	background-color: inherit;
+	border-right: 2px solid var(--muted-cyan);
+	
+	letter-spacing: 0.1em;
+}
+.schedule-search__bordered-block input {
+	width: 280px;
+	
+	padding: 15px;
+
+	border-left: 2px solid var(--muted-cyan);
+	background-color: inherit;
+}
+.schedule-search__btn {
+	width: 135px;
+	height: 45px;
+	
+	padding: 10px 40px;
+	margin-bottom: 3px;
+	
+	box-shadow: 1px 1px 5px rgba(129, 129, 129, 0.3);
+	border-radius: 4px;
+	background: linear-gradient(270deg, #409BC2 0%, #2661A6 100%);
+	color: #FFFFFF;
+	cursor: pointer;
+	
+	font-family: "Intro";
+	letter-spacing: 0.06em;
+	font-size: 14px;
+}
+.event-target__select{
+	font-size: 14px;
+}
+.event-target__input{
+	font-size: 14px;
+	width: 257px;
+}
+
+.select {
+	position: absolute;
+	top: 100px;
+	left: 400px;
+}
+.repeat-event {
+	width: 20px;
+	height: 20px;
+}
+.event-repeat-input {
+  width: 18px;
+  height: 18px;
+  position: relative;
+  top: 4px;
+  left: 8px;
+}
+
+@media screen and (max-width: 730px) {
+	.schedule-search__wrapper{
+		display: block;
+	}
+	.schedule-search__btn{
+		width: 100%;
+		margin-top: 10px;
+	}
+}
+
+@media screen and (min-width: 731px) {
+	.schedule-search__wrapper{
+		display: flex;
+		gap: 70px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

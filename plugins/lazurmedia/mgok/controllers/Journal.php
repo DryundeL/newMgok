@@ -1,9 +1,9 @@
 <?php namespace Lazurmedia\Mgok\Controllers;
 
 use Backend\Classes\Controller;
+use BackendMenu;
 use Lazurmedia\Mgok\Classes\Export;
 use Lazurmedia\Mgok\Classes\Import;
-use BackendMenu;
 use Redirect;
 use Input;
 

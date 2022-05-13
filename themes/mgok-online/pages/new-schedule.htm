@@ -1,0 +1,44 @@
+title = "Новое расписание"
+url = "/new-schedule"
+layout = "main"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+==
+<link rel="stylesheet" href="{{ 'assets/css/schedule2.css'|theme }}">
+<link rel="stylesheet" href="{{ 'assets/css/screen-schedule.css'|theme }}">
+
+{% partial 'schedule/schedule-search' %}
+
+<section class="schedule-weeks">
+	{% partial "schedule/weeks" 
+		monday=Schedule.dates[0]
+		sunday=Schedule.dates[6]
+		number=Schedule.number_of_week
+	%}
+	
+</section>
+
+<div class="schedule-block">
+	<div class="table-div">
+
+		{% partial 'new-schedule/day-column' 
+		dates=Schedule.dates
+		lessonsArr=Schedule.lessons
+		eventsArr=Schedule.events
+		role = Schedule.role
+		%}
+		
+	</div>
+</div>
+
+<section class="schedule" id="schedule">
+	{% partial "schedule/schedule-edit" 
+		dates=Schedule.dates
+		lessonsArr=Schedule.lessons
+		eventsArr=Schedule.events
+		role = Schedule.role
+	%}
+</section>
+
+<script src="{{ 'assets/js/new-schedule.js'|theme }}"></script>

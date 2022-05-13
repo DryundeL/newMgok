@@ -26,6 +26,7 @@ class Schedule {
       // Устанавилваем уроки для этого дня недели
       $parity = $this->getParity($date);
       $day_of_week_rus = (new Dates)->getRusDayOfWeek($i);
+     
       $lessons[$day_of_week_eng] = (new LessonsModel)->getClassLessons($student->class, $day_of_week_rus, $parity);
       
       // Получить классовые и персональные события этого дня
@@ -37,7 +38,11 @@ class Schedule {
       // $events[$day_of_week_eng] = $merge;
 
       // Test Получить события дня
-      $events[$day_of_week_eng] = (new EventsModel)->getEvents($student->login, $date);
+      $events_of_date = (new EventsModel)->getEvents($student->login, $date);
+      $day_of_week = (new Dates)->days_of_week_rus[date('w', strtotime($date))];
+      $events_of_day = (new EventsModel)->getEventByDay($student->login, $day_of_week);
+
+      $events[$day_of_week_eng] = $events_of_date->merge($events_of_day)->sortBy('time_from');
     }
 
     return [
@@ -72,10 +77,13 @@ class Schedule {
       $classes = explode(',', $teacher->class);
       $classesEvents = collect();
       foreach ($classes as $class) {
-        $classEvents = (new EventsModel)->getClassEvents($teacher->login, $date, $class);
-        $classesEvents = $classesEvents->merge($classEvents);
+        $class_events_by_date = (new EventsModel)->getClassEvents($teacher->login, $date, $class);
+        $day_of_week = (new Dates)->days_of_week_rus[date('w', strtotime($date))];
+        $events_by_day = (new EventsModel)->getClassEventsByDay($teacher->login, $day_of_week, $class);
+
+        $merged_events = $class_events_by_date->merge($events_by_day)->sortBy('time_from');
+        $classesEvents = $classesEvents->merge($merged_events);
       }
-      // var_dump($merged);
       $class_events[$day_of_week_eng] = $classesEvents;
     }
 
@@ -107,15 +115,20 @@ class Schedule {
       
       // Получить классовые события этого дня
       $teacher = (new UsersModel)->getTeacher($class);
+      // var_dump($class);
       if ($teacher == null)
       {
         $events[$day_of_week_eng] = null;
       }
       else
       {
-        $class_events = (new EventsModel)->getClassEvents($teacher->login, $date, $class);
+        $class_events_by_date = (new EventsModel)->getClassEvents($teacher->login, $date, $class);
+        $day_of_week = (new Dates)->days_of_week_rus[date('w', strtotime($date))];
+        $events_by_day = (new EventsModel)->getClassEventsByDay($teacher->login, $day_of_week, $class);
+
+        $merged_events = $class_events_by_date->merge($events_by_day)->sortBy('time_from');
         // Устанавилваем события для этого дня недели
-        $events[$day_of_week_eng] = $class_events;
+        $events[$day_of_week_eng] = $merged_events;
       }
     }
 
